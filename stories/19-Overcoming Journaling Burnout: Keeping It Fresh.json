@@ -1,0 +1,71 @@
+{
+  "topic": "Overcoming Journaling Burnout: Keeping It Fresh",
+  "dialog": [
+    {
+      "text": "How do you keep journaling from feeling like a chore when you’re burnt out?",
+      "instructions": "tone: curious and warm; pace: steady; emphasize question.",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "First, acknowledge the burnout without judging yourself; journaling is a tool, not a task you must finish.",
+      "instructions": "tone: reassuring; pace: calm; emphasize self-compassion.",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "But staring at a blank page makes it feel worse. Any quick fixes?",
+      "instructions": "tone: anxious-but-hopeful; pace: quick; keep it conversational.",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Try micro-journaling: three minutes, one prompt, no need for perfect prose.",
+      "instructions": "tone: practical; pace: upbeat; emphasize action.",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "What kind of prompts work?",
+      "instructions": "tone: curious; pace: inquisitive;",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Rotate prompts: gratitude, a small setback, a tiny scene, or 'if today were a color, what shade would it be?'",
+      "instructions": "tone: playful; pace: light; encourage creativity.",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "And formats?",
+      "instructions": "tone: exploratory; pace: concise.",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Mix it up: voice notes, doodles, photos, or one-sentence entries; the goal is consistency, not length.",
+      "instructions": "tone: inventive; pace: energizing; highlight media variety.",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "Okay, I'll start with a three-minute prompt and a doodle.",
+      "instructions": "tone: determined; pace: casual.",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Consistency over intensity; keep the ritual flexible.",
+      "instructions": "tone: wise; pace: clear; summarize.",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "If you're listening now, try one fresh 3-minute prompt tonight and share what works for you in the comments.",
+      "instructions": "tone: motivating; pace: inviting; include explicit call to action.",
+      "side": "left",
+      "voice": "ash"
+    }
+  ]
+}

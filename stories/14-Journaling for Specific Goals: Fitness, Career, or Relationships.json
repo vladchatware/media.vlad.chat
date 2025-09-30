@@ -1,0 +1,47 @@
+{
+  "topic": "Journaling for Specific Goals: Fitness, Career, or Relationships",
+  "dialog": [
+    {
+      "text": "If I want to hit a fitness goal, a career goal, or improve a relationship, how should I use journaling to actually make it happen?",
+      "instructions": "calm, curious, warm; moderate pace.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start with one goal and make every entry three tiny prompts: what I did today toward it, what blocked me, and what I’ll do tomorrow.",
+      "instructions": "clear, confident, practical.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Can you give quick examples for each area?",
+      "instructions": "curious, engaged, a bit energetic.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Fitness: minutes trained, water, sleep. Career: one task completed, a learning note, a networking touchpoint. Relationship: one kind action, one listening moment.",
+      "instructions": "concise, concrete, actionable.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "What if I miss days?",
+      "instructions": "honest, slightly worried, seeking reassurance.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Missed days aren’t a failure; do a five-minute catch-up, celebrate a micro-win, and pick a tiny next step for tomorrow.",
+      "instructions": "gentle, encouraging, practical.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Try a 7-day journaling challenge focusing on one goal area, and share your results or reflections in the comments.",
+      "instructions": "direct, inviting, motivational.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

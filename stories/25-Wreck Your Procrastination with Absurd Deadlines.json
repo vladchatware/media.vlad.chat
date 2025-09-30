@@ -1,0 +1,77 @@
+{
+  "topic": "Wreck Your Procrastination with Absurd Deadlines",
+  "dialog": [
+    {
+      "text": "I keep putting things off. How do I actually stop procrastinating—something radical, not another planner?",
+      "instructions": "Curious, slightly anxious; rising intonation at end; quick pacing; voice like someone confessing to a friend.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Give yourself an absurd deadline—something that sounds impossible. It’s less about the time and more about forcing your brain to start.",
+      "instructions": "Calm, playful; confident tone; moderate pace; slight mischievous smile in the voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Absurd? Like ten minutes to write a report?",
+      "instructions": "Incredulous, amused; short bursts; higher pitch on 'ten minutes'.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Say the report will be done in ten minutes. Your perfectionist brain freezes when there's infinite time—an absurd deadline breaks that loop.",
+      "instructions": "Explanatory, brisk; warm authority; emphasize 'breaks that loop.'",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Won’t the quality suck if I rush?",
+      "instructions": "Worried but curious; soft tone; slight breath before 'suck'.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Maybe at first. But shipping a messy version creates momentum. I once knew a student who set a 20-minute slide-deadline with a ridiculous penalty—she had a draft and then polished it. Progress, then polish.",
+      "instructions": "Storytelling, warm; inject a playful wink through the voice; steady pacing.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So it’s about momentum more than instant perfection?",
+      "instructions": "Eager, relieved; slightly faster tempo; upward inflection at the end.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Try this three-step trick: set an absurd deadline (10–30% of usual time), break the task into tiny sprints, then give a tiny reward or a silly penalty if you miss it.",
+      "instructions": "Directive, punchy; count out steps clearly; upbeat tone.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "What if I fail the deadline?",
+      "instructions": "Nervous, hopeful; short and honest delivery.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Fail fast, learn faster. If you miss it, shorten the next sprint or change the consequence. The lesson isn’t flawless work—it’s discovering the friction that kept you stuck.",
+      "instructions": "Reassuring, energetic; encouraging cadence; emphasize 'discovering the friction.'",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Alright—set an absurd deadline, sprint, adjust, repeat. I can do that today.",
+      "instructions": "Determined, bright; steady pace; sense of small victory.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Make your deadlines annoyingly small until action becomes a habit. Wreck procrastination with absurd constraints—ship something, then refine. Try one absurd deadline today and share what happened in the comments; reflect on how the pressure changed your pace.",
+      "instructions": "Compelling, upbeat; warm call to action; friendly invitation to engage; slight urgency in closing.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

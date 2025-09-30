@@ -1,0 +1,95 @@
+{
+  "topic": "A letter to the Shadow",
+  "dialog": [
+    {
+      "text": "Shadow... are you part of me, or something I must fight?",
+      "instructions": "voice: youthful, hesitant; emotional range: anxious curiosity; intonation: rising question; speed: slow; tone: soft",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "I am the part you hid behind the closet door. Not separate—something you turned away from to survive.",
+      "instructions": "voice: warm, steady; emotional range: calm compassion; intonation: even, grounding; speed: measured; tone: reassuring",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "But you make me ashamed. You push people away, make me snap. How do I stop fearing you?",
+      "instructions": "voice: trembling, vulnerable; emotional range: raw; intonation: urgent; speed: slightly quick; tone: pleading",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Fear grew because you only ever saw me in the dark. I held the pain so you could keep going. If you listen, I will show you what needs care—not punishment.",
+      "instructions": "voice: deep, gentle; emotional range: compassionate; intonation: steady; speed: slow; tone: intimate",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I meet you without getting swallowed by the hurt?",
+      "instructions": "voice: small, hopeful; emotional range: wary optimism; intonation: soft; speed: measured; tone: curious",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start like this: write me a letter. Say everything you hide. No edits. Then sit quietly and feel what rises. Tenderness first—no blame.",
+      "instructions": "voice: instructive, tender; emotional range: encouraging; intonation: calm directive; speed: slow; tone: kind",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Dear Shadow... I've blamed you for my anger. I called you ugly so I wouldn't see my own hurt. I'm sorry. I want to know what you were carrying.",
+      "instructions": "voice: sincere, breaking; emotional range: vulnerable; intonation: reflective; speed: slow; tone: contrite",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Thank you. That apology opens a doorway. Inside you will find memory, unmet needs, frightened parts. Name them. Hold them like a child—don't punish them.",
+      "instructions": "voice: soft, reassuring; emotional range: compassionate; intonation: soothing; speed: calm; tone: guiding",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It hurts to look—old nights, sharp words, the blankets that never kept me warm. Saying it aloud already feels lighter.",
+      "instructions": "voice: relieved, sparse smile audible; emotional range: cathartic; intonation: quieter; speed: gentle; tone: honest",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Healing isn't erasing what happened. It's bringing the scattered parts home so you choose from wholeness instead of reacting to old pain.",
+      "instructions": "voice: clear, steady; emotional range: wise; intonation: affirmative; speed: measured; tone: inspirational",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So the hero's journey is inside me—returning to myself?",
+      "instructions": "voice: wonder-filled, soft; emotional range: amazed; intonation: rising wonder; speed: slow; tone: hopeful",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Tear the veils. The greatest adventure is the return: to love, freedom and joy that were waiting inside all along.",
+      "instructions": "voice: resonant, slightly reverent; emotional range: uplifting; intonation: spacious; speed: deliberate; tone: encouraging",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Will you walk with me?",
+      "instructions": "voice: hopeful whisper; emotional range: tender; intonation: intimate; speed: very slow; tone: trusting",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "I will be mirror and map. When you soften, I soften. We stop being enemy and become ally—whole and awake together.",
+      "instructions": "voice: warm, concluding; emotional range: assuring; intonation: calm finale; speed: steady; tone: comforting",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Write one short letter to your shadow—one truth, one apology, one promise. Sit with what rises and, if you feel called, share how it felt in the comments. Start your inner journey today.",
+      "instructions": "voice: invitational, upbeat; emotional range: encouraging; intonation: clear call to action; speed: purposeful; tone: warm",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

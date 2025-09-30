@@ -1,0 +1,53 @@
+{
+  "topic": "Tracking mental state with journaling",
+  "dialog": [
+    {
+      "text": "I used to chase calm, until I started journaling my mood every morning.",
+      "instructions": "calm, intimate, reflective",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "What did you actually write down?",
+      "instructions": "curious, warm",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "A simple template—mood 1-10, energy 1-10, sleep quality, and one line about today.",
+      "instructions": "practical, clear",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "And you watched for patterns?",
+      "instructions": "engaging, supportive",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. I noticed low sleep often came with low mood, while noting small wins helped lift the next day.",
+      "instructions": "storytelling, honest",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "Journaling becomes a map, not a verdict.",
+      "instructions": "soothing, confident",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Give it a week. Write daily, review weekly, and adjust what you track.",
+      "instructions": "motivating, concise",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "If you try it, remember: journaling is a map, not a verdict. Share your first insight in the comments.",
+      "instructions": "call-to-action, reflective",
+      "side": "right",
+      "voice": "onyx"
+    }
+  ]
+}

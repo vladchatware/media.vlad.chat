@@ -1,0 +1,119 @@
+{
+  "topic": "Chasing Shadows",
+  "dialog": [
+    {
+      "text": "Why do I keep chasing shadows, even when they hurt me?",
+      "instructions": "Childlike, anxious; quick speech; cracked voice; vulnerability.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because the shadows are your messages, not enemies.",
+      "instructions": "Warm, calm; slow cadence; steady low tone; comforting presence.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Messages? They feel like blame, like old scars that won't stop aching.",
+      "instructions": "Quiet, wounded; hesitant; small inhalations between phrases.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Each ache is pointing you toward a wound that wants to be known, not punished.",
+      "instructions": "Soft, empathetic; gentle rise and fall; reassuring.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "But looking at them scares me — what if I break apart?",
+      "instructions": "Whispered, fearful; barely audible question; fragile.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Breaking can mean becoming. The inner work is both gentle and fierce: look, name, feel, forgive, choose.",
+      "instructions": "Measured rhythm; slightly rhythmic emphasis on the steps; calm authority.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I even start? I don't know where the pain hides.",
+      "instructions": "Curious, hopeful undertone; softer now.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start with one breath. Invite the shadow to sit beside you. Ask it its name. Listen without fixing it.",
+      "instructions": "Instructional; slow; encouraging; warm smile in the voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It says, 'I'm lonely'... 'I wasn't enough.'",
+      "instructions": "Tearful, small; each phrase a confession; pause between fragments.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Say to it: 'I see you. You were carrying what I couldn't carry then.' Let your body answer — don't rush the feeling.",
+      "instructions": "Reassuring, grounding; gentle emphasis on somatic sensing; slow.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "When I do that the tightness loosens — like a light behind my ribs, barely there at first.",
+      "instructions": "Surprised, quieter; a hint of wonder; calming breath sounds.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That's the small remembering. Your shadow's old tactics protected a younger you. Meet them with tenderness and their protection becomes guidance.",
+      "instructions": "Warm, wise; slight uplift toward hope; steady pace.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So the shadow can become an ally, not an enemy?",
+      "instructions": "Hopeful, rising confidence; clearer articulation.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. The darkest parts hold keys to your peace. Transform resistance into curiosity; suffering can teach you how to be free.",
+      "instructions": "Encouraging, emphatic on 'keys' and 'free'; calm optimism.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I think I can choose my attitude, even when the past pulls hard.",
+      "instructions": "Determined, softer strength; breath steadier.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "You can. Freedom doesn't wait for perfect conditions — it grows where you turn your attention and heal what hides there.",
+      "instructions": "Resolute, inspiring; grounded cadence; warm finish.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I feel calmer. Not fixed, but brave enough to keep going inward.",
+      "instructions": "Relieved, steady; small smile audible in the voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Remember: the hero's journey is inside you. Tear off the veils, tend your wounds, and let the shadow teach you your true Self.",
+      "instructions": "Cinematic, resonant; deep, slow delivery; heartful.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "If this touched you, take a breath tonight, sit with one shadow, and share what it says in the comments — let's learn together.",
+      "instructions": "Inviting, gentle; clear call to action; warm closing tone.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

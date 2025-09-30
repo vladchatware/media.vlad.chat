@@ -1,0 +1,53 @@
+{
+  "topic": "The Science Behind Journaling: Why It Works",
+  "dialog": [
+    {
+      "text": "What’s the science behind journaling—why does putting thoughts on paper actually work for the brain?",
+      "instructions": "curious, warm, steady; 1-2 syllables; medium tempo; engaging; no shouting.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Think of it as a workout for your mind: expressive writing lowers stress hormones, clarifies messy thoughts, and reshapes how you respond to tough days.",
+      "instructions": "calm, confident; clear; moderate pace; slightly uplifting.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "An everyday person notices a change? Like, does it really stick beyond the page?",
+      "instructions": "hopeful, skeptical yet open.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. You practice seeing events from a calmer angle, and your brain strengthens attention and emotion control through repetition.",
+      "instructions": "concise, reassuring.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "A quick story: a quiet coworker started five minutes daily and slowly found the words to ask for help instead of bottling things up.",
+      "instructions": "narrative, concise; gentle cadence.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That’s the point: small daily acts trigger big changes because the brain learns through repetition. It’s habit formation meeting science.",
+      "instructions": "encouraging, crisp.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Start simple: five minutes, one question, one page. You train your future self to think clearly under pressure.",
+      "instructions": "practical, direct.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "If this resonates, try five minutes today and drop a note in the comments about what you felt or learned.",
+      "instructions": "warm, inviting; call to action.",
+      "side": "left",
+      "voice": "onyx"
+    }
+  ]
+}

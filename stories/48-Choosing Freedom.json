@@ -1,0 +1,89 @@
+{
+  "topic": "Choosing Freedom",
+  "dialog": [
+    {
+      "text": "Why do I keep carrying the same hurt, no matter how much I change my life?",
+      "instructions": "Accent: neutral; Emotional range: curious, wounded; Intonation: rising; Speed: gentle; Tone: childlike honesty; Whispering: none",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because you carry a shadow you haven't learned to meet. You replace the scenery, but not the story inside you.",
+      "instructions": "Accent: calm neutral; Emotional range: compassionate, steady; Intonation: low and grounding; Speed: measured; Tone: wise and warm; Whispering: soft at the end",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I start meeting it? It feels scary to look.",
+      "instructions": "Accent: neutral; Emotional range: fearful, tentative; Intonation: quick at the question; Speed: slightly faster when nervous; Tone: vulnerable; Whispering: brief",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Begin with one small act: notice the feeling, name it, and breathe. Attention without judgment is the first doorway.",
+      "instructions": "Accent: calm; Emotional range: encouraging; Intonation: even, inviting; Speed: slow; Tone: reassuring; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So it's my work alone—this healing?",
+      "instructions": "Accent: uncertain; Emotional range: doubtful; Intonation: falling; Speed: slow; Tone: searching; Whispering: light",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "It is your sacred task, yes, but you are not abandoned. Patterns reveal themselves, teachers appear, and your courage grows with each true look.",
+      "instructions": "Accent: warm; Emotional range: supportive; Intonation: rising with hope; Speed: steady; Tone: empowering; Whispering: none",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I always try to fix things outside—money, relationships, distraction—but the emptiness returns. Does that mean I'm failing?",
+      "instructions": "Accent: weary; Emotional range: honest, aching; Intonation: questioning; Speed: even; Tone: self-reflective; Whispering: none",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Not failing—learning. Bandages soothe, but they don't reweave the pattern beneath. Freedom comes when you change the way you respond to your inner wounds.",
+      "instructions": "Accent: calm; Emotional range: firm compassion; Intonation: clarifying; Speed: measured; Tone: grounding; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "What does choosing freedom actually look like in a day?",
+      "instructions": "Accent: hopeful; Emotional range: curious; Intonation: upward; Speed: lively; Tone: earnest; Whispering: none",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "It looks like small refusals to react: a breath before a reply, compassion instead of blame, curiosity instead of shame. Over time those tiny choices reshape your world.",
+      "instructions": "Accent: steady; Emotional range: bright, practical; Intonation: encouraging; Speed: calm; Tone: instructive; Whispering: none",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "If I do this—consistently—will I remember who I really am?",
+      "instructions": "Accent: soft; Emotional range: hopeful, vulnerable; Intonation: longing; Speed: slow; Tone: earnest; Whispering: slight",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. The greatest adventure is inward. Tear off the veils, and you'll find the Self that's always been loving, free, and whole. The hero's journey lives inside you.",
+      "instructions": "Accent: reverent; Emotional range: uplifted, certain; Intonation: soaring then gentle; Speed: measured; Tone: luminous; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Okay. Today I'll try one small thing—notice before reacting—and see what happens.",
+      "instructions": "Accent: determined; Emotional range: hopeful; Intonation: steady; Speed: moderate; Tone: resolve; Whispering: none",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start now. Choose one moment today to step out of reaction and into presence. If you try it, come back and share what you noticed—your story might be the map someone else needs.",
+      "instructions": "Accent: warm invitational; Emotional range: encouraging; Intonation: rising then soft; Speed: slightly brisk for call-to-action; Tone: compassionate; Whispering: gentle at the end",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

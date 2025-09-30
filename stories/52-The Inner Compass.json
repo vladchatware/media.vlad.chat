@@ -1,0 +1,71 @@
+{
+  "topic": "The Inner Compass",
+  "dialog": [
+    {
+      "text": "How do I know if I'm following my inner compass or someone else's voice?",
+      "instructions": "young boy; curious, slightly trembling; breathy tone; moderate speed; hopeful",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Listen first — I'm speaking now because I used to be loud inside you. I am your shadow: the hurried part that protected you by warning and blaming.",
+      "instructions": "calm, low; warm and steady; wise, slow; soft emphasis on 'I am your shadow'",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "You were loud? I thought shadows were just... dark. They feel like weights that pull me back.",
+      "instructions": "vulnerable; hesitant then honest; small inhale between phrases; soft pacing",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. When I was a boy I pointed to every scar and said, 'Don't cross — you'll get hurt.' I kept you safe, but I also drew the map of every stopped step.",
+      "instructions": "reflective; confessional; gentle rasp; measured tempo; slight nostalgia",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So how do I stop being ruled by that map? How do I befriend you without losing my way?",
+      "instructions": "urgent curiosity; leaning forward in voice; quicker cadence",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Three small acts. Pause — stop the automatic rush. Name the feeling — fear, shame, anger. Thank me for trying to protect you. Then choose: does this urge point toward love, or toward an old fear?",
+      "instructions": "deliberate, rhythmic; guiding breath between steps; encouraging tone; slow enough to follow",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "And if the urge keeps screaming, dragging me to the shore where I always stay safe?",
+      "instructions": "weary; a tiny hope in the end; softer speed",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Invite it close. Hold its hand and say, 'I see you. You kept me alive. I will not abandon you, but you won't drive today.' Integration turns your shadow into the needle of your compass — honest, not tyrant.",
+      "instructions": "warm and steady; reassuring crescendo; clear decisive final line; compassionate authority",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "When I do that — listen, thank, choose — will I finally feel free?",
+      "instructions": "hopeful whisper; expectant; slow",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Freedom isn't an arrival; it's the daily answer. Each time you choose purpose over habit, the compass points truer. The more you meet your shadow with kindness, the less it will shout — and the more you'll follow your own North.",
+      "instructions": "serene, conclusive; slow, softening to a whisper at the end",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Try this now: pause for one breath, name whatever rises, thank the part that showed up, then make one small choice that aligns with who you want to be. Share a moment in the comments when you followed your inner compass — or ask a question. Your story could be someone's map.",
+      "instructions": "inviting and upbeat; warm call to action; slightly quicker tempo to close; friendly",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

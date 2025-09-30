@@ -1,0 +1,101 @@
+{
+  "topic": "The Courage to Ask",
+  "dialog": [
+    {
+      "text": "Shadow… can I ask you something? I'm scared of what I'll find if I look.",
+      "instructions": "Hesitant, breathy whisper; boyish, slow; vulnerability at the start.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Ask. Courage often begins as a quiet question in the dark.",
+      "instructions": "Calm, steady, warm; low tone with patient pause between phrases.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Why do you show up as anger, shame, the parts I hide?",
+      "instructions": "Trembling, soft, rising emotion; unsure but honest.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because once you needed to hide to survive. I kept what you couldn't hold then — not to punish you, but to protect a fragile you.",
+      "instructions": "Gentle, compassionate; slight sadness like a parent remembering hard times.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So all this time I've been fighting the thing that was trying to keep me safe?",
+      "instructions": "Small, confused, a childlike ache in the voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. When we push parts away we make them louder. The shadow speaks in extremes because it wants to be heard.",
+      "instructions": "Clear, explanatory, soft encouragement; steady cadence.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "What if I look and don't like what I see?",
+      "instructions": "Quick inhale, fear edged with curiosity; quieter.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Then look kindly. Name the memory, the fear, the promise you made. Naming drains the mystery that feeds shame.",
+      "instructions": "Warm, encouraging; gentle instruction with intentional pauses.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I remember hiding a mistake from Mom and promising I'd be perfect. I learned to be small to avoid being seen.",
+      "instructions": "Small voice, fragile, almost childlike confession.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "There — the story. That promise once helped you cope. It no longer needs to run your life. When you bring light and compassion, the armor loosens.",
+      "instructions": "Reassuring, luminous; voice like a steady lighthouse beam.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I do that without disappearing? I'm scared I'll lose who I am.",
+      "instructions": "Fearful but seeking; quicker tempo, earnest.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Integration doesn't erase you. It enlarges you. You keep everything that serves and transform what was only a defense into wisdom.",
+      "instructions": "Assuring, firm yet tender; inspirational warmth.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So the courage is… to ask? To keep asking even when I'm afraid?",
+      "instructions": "Slow realization, a hopeful tremor in the voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Ask. Listen. Breathe. Thank the parts that guarded you and invite them home. The hero's journey is inside you — a return, not a conquest.",
+      "instructions": "Soft crescendo to uplift; calm, resonant, almost whispering revelation.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I think I can start with one brave question tonight. Maybe that's enough to begin coming home.",
+      "instructions": "Quiet relief and gentle resolve; a small smile heard in the voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Begin there. And if this moved you, pause now: ask yourself one brave question, sit with the answer, and share what you find in the comments — your courage could light the way for someone else.",
+      "instructions": "Inviting, warm call to action; encouraging, steady closing tone.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "topic": "The Weight of Words",
+  "dialog": [
+    {
+      "text": "Why do words feel like stones in my chest?",
+      "instructions": "Accent: neutral. Emotional range: vulnerable, confused. Intonation: rising question. Speed: slow, breathy. Tone: childlike, searching.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because you've been carrying them as proof of who you are.",
+      "instructions": "Accent: neutral. Emotional range: calm, wise. Intonation: gentle, declarative. Speed: measured. Tone: soothing, steady.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Proof? I thought they were truth — the name-calling, the 'not enough.'",
+      "instructions": "Accent: neutral. Emotional range: hurt, puzzled. Intonation: rising then trailing. Speed: moderate. Tone: honest, small.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Names are shadows of someone else's fear. You learned to bind them to yourself to survive.",
+      "instructions": "Accent: soft. Emotional range: empathetic, explanatory. Intonation: calm, steady. Speed: slow. Tone: warm, slightly gravelly.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I unbind them? They keep echoing—'stupid', 'worthless'—I believe them.",
+      "instructions": "Accent: neutral. Emotional range: urgent, trembling. Intonation: fragmented, pleading. Speed: quickened. Tone: vulnerable.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Listen to the echo without fighting it. Ask: 'Who is speaking? What is it protecting?' Then thank it.",
+      "instructions": "Accent: calm. Emotional range: instructive, tender. Intonation: guiding, soft. Speed: deliberate. Tone: comforting, wise.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Thank it? For hurting me?",
+      "instructions": "Accent: small whisper. Emotional range: surprised, wary. Intonation: upward surprise. Speed: slow. Tone: incredulous, childlike.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Wounds speak as wards. Gratitude loosens the grip. You don't approve the pain — you acknowledge its intention to protect.",
+      "instructions": "Accent: soft. Emotional range: compassionate, clarifying. Intonation: soothing cadence. Speed: slow. Tone: warm, reassuring.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So the words lose their weight if I understand the fear behind them?",
+      "instructions": "Accent: hopeful. Emotional range: cautious optimism. Intonation: curious, rising. Speed: moderate. Tone: tentative relief.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. The meaning was chosen long ago; you can choose a new one. Replace 'I'm broken' with 'I'm learning' until the muscles change.",
+      "instructions": "Accent: reassuring. Emotional range: encouraging, steady. Intonation: confident, calm. Speed: measured. Tone: empowering.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It feels lighter already. Like the stones are sand.",
+      "instructions": "Accent: soft laugh. Emotional range: relief, soft joy. Intonation: gentle, exhaling. Speed: slow. Tone: brighter, relieved.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Carry only what you chose. Inner work is the slow art of lightening. Speak to your shadow with curiosity, and she will teach you to be whole.",
+      "instructions": "Accent: warm, resonant. Emotional range: luminous, calm. Intonation: concluding, wise. Speed: slow. Tone: radiant, peaceful.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I'll start—one breath, one question, one thank you.",
+      "instructions": "Accent: steady. Emotional range: determined, gentle. Intonation: soft resolve. Speed: calm. Tone: hopeful, grounded.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start now. Notice one word you've carried today, name the fear behind it, and offer thanks. Share what you discover in the comments—your insight may unburden someone else.",
+      "instructions": "Accent: inviting. Emotional range: warm, encouraging. Intonation: friendly call-to-action. Speed: natural. Tone: inclusive, compassionate.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

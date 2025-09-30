@@ -1,0 +1,53 @@
+{
+  "topic": "Journaling for Writers: Unlocking Creativity",
+  "dialog": [
+    {
+      "text": "I've got a blank page staring back at me. How do writers unlock creativity when journaling feels empty?",
+      "instructions": "soft, curious, inviting; pace slightly slow; emotional range: inquisitive",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Treat journaling like a warm-up: 5 minutes, 3 prompts, and no pressure to be perfect—just show up.",
+      "instructions": "warm, confident, encouraging; mid-tempo; motivating tone",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Three prompts? What do I write about first?",
+      "instructions": "inquisitive; rising curiosity; slightly breathy",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Notice what you actually saw today, ask what surprised you, and imagine the moment speaking in a sound.",
+      "instructions": "clear, thoughtful; moderate tempo; emphasize prompts",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "If I miss a day, is that the end of my creativity?",
+      "instructions": "anxious, earnest; steady pace; seeking reassurance",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Missed days aren’t endings; they’re invitations to begin again. Write one honest sentence to reset.",
+      "instructions": "reassuring, practical; concise; emphasis on resetting",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I tried it, and ideas started to breathe.",
+      "instructions": "soft gratitude; upbeat; sense of discovery",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Your page is your practice space. Start small, and your voice will find its rhythm. Try a 5-minute journaling ritual today and share what you uncovered in the comments.",
+      "instructions": "calm, empowering; conclusive; CTA included",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

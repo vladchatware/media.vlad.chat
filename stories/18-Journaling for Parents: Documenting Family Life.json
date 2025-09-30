@@ -1,0 +1,47 @@
+{
+  "topic": "Journaling for Parents: Documenting Family Life",
+  "dialog": [
+    {
+      "text": "Why bother journaling our family life when we already have photos and busy days?",
+      "instructions": "Warm, curious, intimate; steady pace; sincere tone.",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Journaling isn't about perfect memory; it's about training your eyes to notice what truly matters.",
+      "instructions": "Calm, confident, reassuring; moderate tempo.",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "But won't the small moments fade as life speeds up?",
+      "instructions": "Soft, reflective; slightly questioning inflection.",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "When I started with one line a day, those tiny moments stitched into the story of us.",
+      "instructions": "Gentle, hopeful; steady rhythm.",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "Okay, what should I write today?",
+      "instructions": "Curious, ready to start; light-hearted tone.",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Just one line: what you noticed, what surprised you, and what you want to remember—no pressure to be perfect.",
+      "instructions": "Encouraging, clear; warm reassurance.",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "Try journaling that single line today, and share a moment in the comments so others can reflect on what's worth remembering.",
+      "instructions": "Motivating, inviting, uplifting; slightly brighter tone.",
+      "side": "left",
+      "voice": "ash"
+    }
+  ]
+}

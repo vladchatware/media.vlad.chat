@@ -1,0 +1,65 @@
+{
+  "topic": "Crush Negative Self-Talk with Evidence Hunting",
+  "dialog": [
+    {
+      "text": "I keep telling myself, 'I'm just not good enough'—how do I shut that voice up?",
+      "instructions": "Anxious, breathy, slightly rushed; rising intonation at the end; vulnerable but seeking help.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start by treating that voice like a claim you can test. What exactly does it say if you say it out loud?",
+      "instructions": "Calm, gentle, measured pace; warm tone, reassuring; slow enough to be grounding.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It says, 'I always mess up presentations.' Is that something I can test?",
+      "instructions": "Hesitant, quiet, slightly skeptical; rising question tone; searching for permission to be logical.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Absolutely. Ask: what's the evidence for 'always'? And what's the evidence against it?",
+      "instructions": "Encouraging, clear, slightly upbeat; steady rhythm that invites action.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Well… I stumbled once. But I also had a talk last month where people praised me and the Q&A went fine.",
+      "instructions": "Slow, reflective; relief mixing with surprise; softer cadence as confidence returns.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "'Always' is a red flag. Your single stumble is evidence for the worry; the praise and strong Q&A are counterevidence. Which side carries more weight?",
+      "instructions": "Firm but kind, guiding; slightly faster to nudge toward a conclusion.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So instead of 'I always mess up,' try: 'Sometimes I struggle with presentations, but I also give good ones and can prepare better next time.'",
+      "instructions": "Reassuring, steady, empowering; speak the balanced sentence slowly so the listener can absorb it.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "That already feels calmer. What do I do when the old voice screams again?",
+      "instructions": "Curious, hopeful, quieter; a hint of eagerness to learn a practical trick.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Make a tiny habit: before a big moment, list 3 wins, 1 lesson, and one concrete next step. Read it aloud. It trains your brain to favor evidence over fear.",
+      "instructions": "Practical, brisk, motivational; upbeat tone that makes the method feel doable.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Try evidence hunting this week—share one counterexample to your toughest self-claim in the comments or journal it tonight. What did you find?",
+      "instructions": "Inviting, warm, slightly bright; call-to-action energy, friendly and encouraging.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

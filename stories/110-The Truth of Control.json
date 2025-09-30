@@ -1,0 +1,83 @@
+{
+  "topic": "The Truth of Control",
+  "dialog": [
+    {
+      "text": "Why do I feel like I have to control everything to feel safe?",
+      "instructions": "Neutral accent, anxious vulnerability, quick pace, rising intonation, soft voice",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because somewhere along the way you learned control is safety — your shadow learned to hold the wheel so you wouldn't fall. It's a protection, not the truth of who you are.",
+      "instructions": "Calm, patient, low tone, steady pacing, compassionate",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "But when I try to let go I panic. What if things fall apart and I'm left worse than before?",
+      "instructions": "Young, afraid, breathy, faster pace, pleading intonation",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That panic is the echo of an old wound — rejection, abandonment, a time you felt small. Control promises you won't feel that again, so it tightens its grip.",
+      "instructions": "Warm, gentle, explanatory, measured pace, reassuring tone",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I stop the grip when it feels like survival?",
+      "instructions": "Quiet, vulnerable, slow, whisper of fear",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start by turning toward the grip with curiosity, not force. Talk to the part of you that wants to control — ask it what it's protecting you from and listen without shame.",
+      "instructions": "Soft, guiding, slow, steady cadence, encouraging tone",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I asked. It showed me a memory of being left alone after I trusted someone. I felt small and furious at the same time.",
+      "instructions": "Reflective, shaky at first then honest, moderate pace",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "There — that memory is the root. The inner work isn't about erasing the shadow; it's about healing the wound that taught it to grab the wheel. When the wound feels seen, the shadow relaxes.",
+      "instructions": "Compassionate, clear, slightly warm smile in voice, calm pacing",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So control is really a reaction to not feeling safe — not a true power?",
+      "instructions": "Curious, hopeful, rising confidence, steady pace",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. You can't steer other people or life. Real power is the choice you make in each moment: your breath, your response, your openness. That choice returns you to freedom.",
+      "instructions": "Affirming, luminous, confident, measured pace, inspiring tone",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "And when I choose differently, what happens to the shadow inside me?",
+      "instructions": "Hesitant hope, softer, slower",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "It becomes an ally. Seen and soothed, it swaps frantic control for quiet guidance — reminding you to protect with wisdom, not fear. Healing replaces the need to force outcomes.",
+      "instructions": "Tender, steady, reassuring, warm finish",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Try this today: notice one urge to control, ask your shadow what it's afraid of, listen kindly, and then choose one small, different response. Share what you discover in the comments — your honesty could free someone else.",
+      "instructions": "Inviting, encouraging, gentle urgency, calm closing cadence",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

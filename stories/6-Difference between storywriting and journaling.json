@@ -1,0 +1,41 @@
+{
+  "topic": "Difference between storywriting and journaling",
+  "dialog": [
+    {
+      "text": "Student: What’s the difference between writing stories and keeping a journal?",
+      "instructions": "curious, warm, quick pace",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "Teacher: Storywriting builds worlds—characters, plots, and settings you can step into. Journaling records your thoughts, feelings, and daily moments as they happen.",
+      "instructions": "calm, clear",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Student: So one is invented and the other is about me?",
+      "instructions": "curious, a little surprised",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "Teacher: Not opposites. Journaling can seed a story, and a story can reveal truths about your life. They’re different lenses for the same truth.",
+      "instructions": "supportive, concise",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Teacher: The lesson is simple: tell truth in different languages. Journaling records the weather of your mind; storywriting gives that weather a journey others can follow.",
+      "instructions": "poised, insightful",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Teacher: Now your turn—try a quick exercise: a 3-minute journal entry about one moment today, or a one-line scene inspired by it. Tell us in the comments which path you’ll lean into and why.",
+      "instructions": "inviting, concise",
+      "side": "right",
+      "voice": "onyx"
+    }
+  ]
+}

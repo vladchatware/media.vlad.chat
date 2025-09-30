@@ -1,0 +1,101 @@
+{
+  "topic": "Shadows and Light",
+  "dialog": [
+    {
+      "text": "Why does my shadow feel like an enemy inside me?",
+      "instructions": "Young, curious, tentative; soft tone, slight breathiness, slow pacing; vulnerable but hopeful.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because you've been taught to hide what hurts. Calling it enemy keeps you safe from feeling—but not from being shaped by it.",
+      "instructions": "Low, steady, calm; warm but slightly rasping; deliberate pacing, compassionate intensity.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "But it's full of anger and shame. How do I face it without getting swallowed?",
+      "instructions": "Anxious, quickened; voice cracks a little; searching, earnest tone.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Not by fighting, but by listening. Let it speak its story. Under the howl is a wound asking to be seen.",
+      "instructions": "Soft whisper that opens into clarity; patient, guiding; slow cadence, gentle insistence.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I thought silence gave it power. So attention helps instead?",
+      "instructions": "Puzzled, small laugh of disbelief; tentative curiosity; light, questioning tone.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Silence hides what you refuse. Attention transforms. Name the fear, feel the grief, and the shadow will change shape.",
+      "instructions": "Warm, steady, encouraging; slightly uplifting; measured pace with gentle emphasis on key words.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So inner work is like learning to befriend a storm inside me?",
+      "instructions": "Hopeful, slightly metaphorical; breathing steadier; light wonder in voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. When you stop running, the storm becomes your teacher. Your shadow mirrors what you won't hold—and will teach you how to hold it.",
+      "instructions": "Firm but kind; resonant; calm rising to soft conviction; clear, calm pacing.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "What if I discover things I can't forgive?",
+      "instructions": "Small, almost a whisper; fearful, fragile; searching for reassurance.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Forgiveness isn't erasure. It's the courage to stay curious. Hold those parts without judgment and they'll lose the charge that keeps you small.",
+      "instructions": "Compassionate, reassuring; warm, steady; slow cadence with comforting undertone.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Once I cried and felt lighter—like something loosened. Is that real progress?",
+      "instructions": "Soft warmth, shy smile audible; hopeful, a little astonished.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Absolutely. That lightness is your true Self remembering it's whole. The hero's journey is inside you—tear off the veils and come home.",
+      "instructions": "Uplifting, slightly prophetic; clear, ringing tone; steady pace with bright finish; invoke gentle awe.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I keep practicing without getting overwhelmed?",
+      "instructions": "Practical, seeking; steady breath; wanting a simple path.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start with one small question to your shadow each day. Breathe, listen, answer without blame. Celebrate tiny returns—practice turns strangers into friends.",
+      "instructions": "Actionable, warm, encouraging; clear rhythm, calm urgency; bright, supportive tone.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Tonight I'll sit with it. I'll ask and listen. I'm ready to be my own hero. ",
+      "instructions": "Quietly determined, soft but steady; gentle courage in voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "I'll meet you there. Show up, feel, let go. Remember: there is nowhere else to go—your freedom waits within. Reflect: what hidden part will you welcome today? Share it below and let's make a circle of light together.",
+      "instructions": "Inviting, radiant, closing call to action; warm, inclusive tone; steady pace with an encouraging smile in the voice.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

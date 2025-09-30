@@ -1,0 +1,77 @@
+{
+  "topic": "The Lens of Rejection — Healing the Shadow",
+  "dialog": [
+    {
+      "text": "When my teacher criticized me today, I felt small — like I disappeared. Why does a single comment make me sink so low?",
+      "instructions": "Accent: Neutral; Emotional range: Vulnerable, confused; Intonation: Rising at the end; Impressions: Boyish, uncertain; Speed: Moderate; Tone: Thin, searching; Whispering: no",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because the words found a wound inside you called rejection. When that wound is alive, criticism reads like proof — not feedback.",
+      "instructions": "Accent: Neutral; Emotional range: Calm, compassionate; Intonation: Even and grounding; Impressions: Ancient-but-present, shadow-teacher; Speed: Slow; Tone: Warm, steady; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So it's not really about them? It still feels true in my bones.",
+      "instructions": "Accent: Neutral; Emotional range: Doubtful, hurt; Intonation: Soft, questioning; Impressions: Youthful, raw; Speed: Moderate; Tone: Fragile; Whispering: no",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "It feels true because your nervous system learned to make it true. Childhood echoes turn criticism into identity. The feeling is honest — and also teachable.",
+      "instructions": "Accent: Neutral; Emotional range: Gentle, wise; Intonation: Calm, explanatory; Impressions: Patient mentor; Speed: Moderate; Tone: Reassuring; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I stop it from owning me? I don't want to carry this every time someone points out a mistake.",
+      "instructions": "Accent: Neutral; Emotional range: Pleading, sincere; Intonation: Quickening slightly; Impressions: Determined child; Speed: Moderate-fast; Tone: Hopeful; Whispering: no",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start small. Breathe three slow breaths. Name the sensation: 'I feel rejected.' Say one kind truth to yourself: 'I am learning. I am enough.' Practice this like a muscle.",
+      "instructions": "Accent: Neutral; Emotional range: Instructional, calming; Intonation: Stepwise, guiding; Impressions: Shadow as coach; Speed: Slow; Tone: Gentle authority; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I tried that now — saying it out loud — and the ache loosened, like the shadow stepped back a little.",
+      "instructions": "Accent: Neutral; Emotional range: Surprised, relieved; Intonation: Lightly uplifted; Impressions: Opening, hopeful; Speed: Moderate; Tone: Soft joy; Whispering: no",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Good. Remember: the shadow isn't your enemy. It protected you by holding the wound. Thank it for its service, then invite it to join you in healing. Integration, not exile.",
+      "instructions": "Accent: Neutral; Emotional range: Warm, consoling; Intonation: Soothing, steady; Impressions: Wise, intimate; Speed: Moderate; Tone: Embracing; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So when criticism comes, I can choose curiosity instead of proof — ask, 'What can I learn?' rather than 'What is wrong with me?'",
+      "instructions": "Accent: Neutral; Emotional range: Curious, hopeful; Intonation: Rising with possibility; Impressions: Growing confidence; Speed: Moderate; Tone: Brightening; Whispering: no",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Each small choice shifts your frequency away from insecurity toward healing. The hero's journey here is inward: to meet the wound, breathe, and rewrite the meaning.",
+      "instructions": "Accent: Neutral; Emotional range: Encouraging, clear; Intonation: Expansive then grounded; Impressions: Guiding elder, steady shadow; Speed: Moderate; Tone: Empowering; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I will practice — breathe, name it, offer kindness. I'll stop fighting the shadow and start listening to it instead.",
+      "instructions": "Accent: Neutral; Emotional range: Resolute, calmer; Intonation: Even, confident; Impressions: Young courage forming; Speed: Moderate; Tone: Quiet strength; Whispering: no",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "If this touched you, pause now: take three slow breaths, name one wound you'll meet today, and share it below. Your small courage helps others see and heal their own shadows.",
+      "instructions": "Accent: Neutral; Emotional range: Inviting, compassionate; Intonation: Warm call to action; Impressions: Encouraging mentor; Speed: Slow; Tone: Open, motivating; Whispering: no",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

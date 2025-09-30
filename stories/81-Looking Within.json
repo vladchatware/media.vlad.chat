@@ -1,0 +1,95 @@
+{
+  "topic": "Looking Within",
+  "dialog": [
+    {
+      "text": "Why does my shadow follow me and scare me sometimes?",
+      "instructions": "young, curious, slightly breathy; tentative pace; rising intonation at the end; vulnerable.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because somewhere along the way you treated it like an intruder instead of a part of your family.",
+      "instructions": "warm, low, wise; calm cadence; steady pace; gentle emphasis on \"part.\"",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Invite it in? I've tried pushing it away for years—how do you invite something that feels dangerous?",
+      "instructions": "wistful, quickened heartbeat under voice; questioning tone; soft urgency.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start small: look, without fixing. Notice the shape of the feeling. Say its name. Breathe with it.",
+      "instructions": "soft, instructive; measured; encouraging pauses between steps; compassionate tone.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "When I look, I always find shame and a loud, angry voice—it's embarrassing to admit.",
+      "instructions": "ashamed, low; words tumble slightly; honest, raw.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Those voices are frightened. Shame learned to hide; anger learned to protect. They deserve a seat at the fire, not exile.",
+      "instructions": "clear, nurturing; warm imagery; slower pace; reassuring intonation.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So I should sit with them, not fight them? That feels risky—won't they take over?",
+      "instructions": "anxious but hopeful; quick inhale; soft rising then steady.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "You stay with feeling until the story softens. Holding is not surrender to the voice; it's saying, 'I see you. I won't abandon you.'",
+      "instructions": "steady, firm, compassionate; moderate pace; emphasis on 'I see you.'",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I tried that once. I let myself cry for an hour—afterward it felt like a heavy coat was lighter.",
+      "instructions": "surprised, relieved; gentle smile in the voice; slower, grateful tone.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. The shadow is weight you carried alone. Naming it, feeling it, forgiving it — that is inner work. The weight lifts when invited home.",
+      "instructions": "softly triumphant; calm authority; warm crescendo at 'home.'",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Does this mean I stop chasing things outside to feel okay?",
+      "instructions": "curious, reflective; quieter, thoughtful pacing.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Chasing the horizon never fills the inner hollow. Real freedom begins when you stop expecting other people or things to complete you and instead tend your own garden.",
+      "instructions": "gentle conviction; clear imagery; steady, comforting rhythm.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I like the idea of tending my garden. It sounds doable—and honest.",
+      "instructions": "hopeful, lighter; a small laugh; warmer cadence.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Remember: the hero's journey is inside you. Healing your relationship with your shadow turns fear into fuel, isolation into companionship, and longing into presence.",
+      "instructions": "resonant, poetic; inspired but accessible; slow, deliberate intonation.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "If this landed with you, pause for a breath now—notice one shadow you avoid. Leave a comment below about what you felt or saw. Let's start tending our gardens together.",
+      "instructions": "inviting, clear call to action; warm, encouraging; slight uplift in tone at the end.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

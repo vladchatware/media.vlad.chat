@@ -1,0 +1,47 @@
+{
+  "topic": "What is the difference between storywriting and journaling?",
+  "dialog": [
+    {
+      "text": "What is the difference between storywriting and journaling?",
+      "instructions": "curious, inquisitive; natural pace; subtle pause after question",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Storywriting builds a path others can walk: characters, a world, a plot, and a destination.",
+      "instructions": "clear, explanatory; inviting tone; confident cadence",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "So journaling is more about my own daily truth, not a crafted plot?",
+      "instructions": "thoughtful, reflective; shorter cadence",
+      "side": "right",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Journaling records moments and feelings as they happen; storywriting shapes those moments into meaning through structure.",
+      "instructions": "balanced, careful; emphasize 'moments' versus 'structure'",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "They overlap—journal entries can become scenes, and stories can reveal honest truths when written with care.",
+      "instructions": "soft, insightful; acknowledge overlap",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "The difference is purpose: journaling is your inner map, and storywriting is your outer door—use both to understand and share.",
+      "instructions": "poetic but concise; warm, confident",
+      "side": "left",
+      "voice": "ash"
+    },
+    {
+      "text": "If this lands, try blending them today: jot a quick journal entry, then rewrite it as a tiny scene, and tell us what you discovered in the comments.",
+      "instructions": "call to action; clear, inviting; concise",
+      "side": "left",
+      "voice": "ash"
+    }
+  ]
+}

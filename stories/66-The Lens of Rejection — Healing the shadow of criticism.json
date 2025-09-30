@@ -1,0 +1,77 @@
+{
+  "topic": "The Lens of Rejection — Healing the shadow of criticism",
+  "dialog": [
+    {
+      "text": "Why does my teacher's criticism make me feel like I'm nothing? I can't stop replaying it.",
+      "instructions": "Accent: youthful; Emotional range: anxious and small; Intonation: rising at the end; Speed: slightly rushed; Tone: vulnerable",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Listen to the ache, not the headline. That sinking is the wound of rejection—an old alarm that mistakes critique for danger.",
+      "instructions": "Accent: calm and grounding; Emotional range: compassionate; Intonation: steady and low; Speed: measured; Tone: wise, gentle",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So it's not the truth about me? It just feels like proof that I'm not good enough.",
+      "instructions": "Accent: uncertain then curious; Emotional range: insecure -> inquisitive; Intonation: softening; Speed: moderate",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "It's a story your wound learned to tell. Criticism can sting, but sting ≠ identity. The inner work is learning to separate the event from who you are.",
+      "instructions": "Accent: patient; Emotional range: clarifying; Intonation: deliberate; Speed: calm; Tone: reassuring",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I do that? I freeze and my chest tightens every time.",
+      "instructions": "Accent: small and earnest; Emotional range: anxious; Intonation: questioning; Speed: slower to emphasize discomfort",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start simple: breathe into the tightness and name it—'insecurity', 'old hurt'. Ask, softly, which younger part felt this first. Let the memory come without judgment.",
+      "instructions": "Accent: soft, whispering; Emotional range: encouraging; Intonation: guiding; Speed: slow; Tone: tender",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I remember being told I messed up in class when I was seven. I felt seen as careless, and I hid after that. I didn't know that little me was still running the show.",
+      "instructions": "Accent: reflective; Emotional range: surprised -> tender; Intonation: falling into relief; Speed: even",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "There—you found the origin. Your shadow protected you then by shrinking you to avoid punishment. Now you can thank that part, invite it to sit with you, and teach it a new response: curiosity instead of collapse.",
+      "instructions": "Accent: warm and steady; Emotional range: compassionate and firm; Intonation: uplifting; Speed: steady; Tone: empowering",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I can picture saying, 'I hear you, little me. I won't throw you away.' It already feels less heavy.",
+      "instructions": "Accent: softer, relieved; Emotional range: hopeful; Intonation: gentle rise at the end; Speed: calm",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That's the healing—seeing the shadow as part of you, not an enemy. Critique becomes information; worth remains intact. Practice: when criticism lands, pause, breathe, name the feeling, and remind yourself: I am separate from this moment.",
+      "instructions": "Accent: confident and luminous; Emotional range: encouraging; Intonation: rhythmic and clear; Speed: measured",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I'll try that—pause, breathe, name it, and choose curiosity. Thank you for staying with me, even when the old alarm sounded.",
+      "instructions": "Accent: grateful and steadying; Emotional range: relieved; Intonation: warm; Speed: calm",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "If this landed for you, pause now and write one memory where criticism froze you—and one small step you'll take to care for that younger part. Share it below so we can learn from each other's inner work.",
+      "instructions": "Accent: inviting; Emotional range: compassionate and motivating; Intonation: encouraging; Speed: brisk for a call to action; Tone: communal",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

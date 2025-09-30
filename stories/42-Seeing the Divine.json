@@ -1,0 +1,101 @@
+{
+  "topic": "Seeing the Divine",
+  "dialog": [
+    {
+      "text": "How do I see the Divine when all I feel is shame and fear?",
+      "instructions": "Youthful vulnerability, soft voice, slightly breathy, slow pace, honest tone",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Begin by looking where you usually turn away. The shadow you fear is a doorway — not a trap.",
+      "instructions": "Calm, warm, steady, compassionate intonation, slower pace, reassuring",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "But what if facing it breaks me more?",
+      "instructions": "Tremulous, quick inhale between words, doubtful tone, moderate speed",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Honesty doesn't break you — it grounds you. Each truth you meet stitches what was torn. You're not less for being human; you were always worthy of love.",
+      "instructions": "Firm kindness, steady cadence, gentle emphasis on 'worthy', measured speed",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So I should welcome the parts I hide? Even the ugly ones?",
+      "instructions": "Curious, hesitant, softening, slower pace",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Name them without drama. Feel them without running. Compassion is the practice that dissolves shame — it lets the light in without force.",
+      "instructions": "Instructional, soothing, clear intonation, calm tempo",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I trust the Divine is real, not just a story to comfort me?",
+      "instructions": "Searching, quiet, slightly skeptical, slower pace",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Trust is earned inwardly. The Divine shows up as presence — the quiet that steadies you when you sit with pain, the gentle courage to stay. It's less a miracle and more the habit of returning to yourself.",
+      "instructions": "Resonant, inspiring, warm tone, slow deliberate pauses",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "What changes when I do this inner work?",
+      "instructions": "Hopeful, light rising, curious, moderate speed",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "You stop chasing peace outside. You learn to be the harbor for your storms. Small acts — naming a feeling, breathing through it, choosing compassion — rewrite your life into something kinder and freer.",
+      "instructions": "Encouraging, steady, brightening tone, rhythmic pacing",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Where do I actually begin?",
+      "instructions": "Determined, quieter, ready, slightly faster",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start with one minute: sit, name one feeling without judgment, breathe into it, offer yourself one kind sentence. Do it daily. The veils lift one breath at a time.",
+      "instructions": "Calm, directive, gentle urgency, clear tempo",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I can do that. I want to see myself — whole, even my shadows.",
+      "instructions": "Relieved, hopeful, softer smile in voice, steady pace",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Seeing the Divine is simple and brave: it is seeing yourself — wounded, luminous, and true. The shadow, once healed, becomes your guide back to freedom.",
+      "instructions": "Reverent, slow, finality in tone, warm resonance",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I'm starting now. I'll come back and share what I find.",
+      "instructions": "Resolute, gentle excitement, quickened pace",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Take that first minute today. Reflect: what one feeling will you name? Share a single line in the comments — your start might be someone else's map.",
+      "instructions": "Inviting, warm, encouraging cadence, closing smile in voice",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

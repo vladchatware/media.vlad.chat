@@ -1,0 +1,83 @@
+{
+  "topic": "The Cringe of Truth — a boy heals with his shadow",
+  "dialog": [
+    {
+      "text": "Why do I feel this weird, embarrassed flutter—like wanting to laugh or run—whenever I try to say \"I am worthy\" out loud?",
+      "instructions": "Voice: Onyx (boy). Young, hesitant, breathy. Emotion: anxious curiosity. Pace: slow with small pauses.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because that flutter is the cringe of truth. Your shadow believes truth will take away the protection it built, so it squirms.",
+      "instructions": "Voice: Ash (shadow/teacher). Warm, low, calm. Tone: compassionate and steady. Pace: measured.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Cringe of truth—what does that even mean?",
+      "instructions": "Voice: Onyx. Confused, quieter, a nervous little laugh. Intonation: rising at the end.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Long ago, a part of you learned to survive by doubting, hiding, or joking. When genuine love or honesty shows up, that part flinches—the feeling you call cringe.",
+      "instructions": "Voice: Ash. Patient, explanatory. Intonation: gentle rise-and-fall, like teaching a friend.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So I'm not broken for cringing?",
+      "instructions": "Voice: Onyx. Hopeful, peeking for reassurance. Slight tremble in the words.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Not broken—trained. Cringe is a signal pointing to an old wound. It isn't the enemy; it's the messenger asking to be seen.",
+      "instructions": "Voice: Ash. Reassuring, steady. Emotional range: compassionate, sincere.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I stop the cringing—make it go away?",
+      "instructions": "Voice: Onyx. Eager, urgent. Faster pace but soft.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Don't force it away. Breathe with it. Name what you feel—shame, fear, embarrassment—thank that part for protecting you, then choose a small truth and say it again. Repetition + kindness rewires the story.",
+      "instructions": "Voice: Ash. Calm coachlike cadence. Emphasis on 'breathe', 'name', 'thank', 'choose'.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Okay—one breath. I am... I am worthy.",
+      "instructions": "Voice: Onyx. Vulnerable, shaky at first, then gathering quiet courage. Pace: deliberate.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Hear that? The shadow exhaled with you. It softened because it felt seen, not attacked. Integration is gentle practice, not punishment.",
+      "instructions": "Voice: Ash. Warm, a hint of gentle celebration. Tone: encouraging.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It actually feels lighter—like the cringe is smaller, just a corner instead of the whole room.",
+      "instructions": "Voice: Onyx. Relieved, surprised smile in the voice. Tempo: lighter.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Remember this: the cringe of truth is a doorway, not a wall. Walk through it with curiosity and tenderness, and your shadow will become your ally.",
+      "instructions": "Voice: Ash. Resonant, wise, inviting. Emotional range: hopeful, calm.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "What's one sentence that makes you cringe? Share it below or sit with it for one steady breath. Notice the feeling, name it, and come back—healing begins there.",
+      "instructions": "Voice: Ash. Direct call to action. Warm, inviting, slow. Intonation: encouraging close.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

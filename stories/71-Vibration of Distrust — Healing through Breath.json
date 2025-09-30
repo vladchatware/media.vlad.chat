@@ -1,0 +1,83 @@
+{
+  "topic": "Vibration of Distrust — Healing through Breath",
+  "dialog": [
+    {
+      "text": "Why does my body recoil when someone corrects me? It feels like a violation.",
+      "instructions": "Accent: neutral; Emotional range: anxious→vulnerable; Intonation: questioning, slightly rising; Speed: slow; Tone: breathy, young; Impression: unsure boy.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because a part of you remembers being unsafe—distrust is its way of protecting you.",
+      "instructions": "Accent: neutral; Emotional range: calm→compassionate; Intonation: steady, grounding; Speed: measured; Tone: warm, low; Impression: gentle shadow-teacher.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How can I tell if the person means harm or help? It all feels the same.",
+      "instructions": "Accent: neutral; Emotional range: confused→frustrated; Intonation: rising at the end; Speed: moderate; Tone: raw, searching; Impression: inquisitive boy.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Begin with one honest breath. Invite your body to stop defending and start listening.",
+      "instructions": "Accent: neutral; Emotional range: reassuring→instructional; Intonation: calm, guiding; Speed: slow; Tone: soft authority; Impression: patient teacher.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "One breath can change how I feel about feedback?",
+      "instructions": "Accent: neutral; Emotional range: skeptical→curious; Intonation: surprised then hopeful; Speed: slower; Tone: tentative; Impression: growing curiosity.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Breathe in the suspicion—name it quietly. Breathe out the charge. Notice how the body loosens by a fraction.",
+      "instructions": "Accent: neutral; Emotional range: gentle→encouraging; Intonation: slow, rhythmic; Speed: slow; Tone: soothing; Impression: mindful guide.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I tried. My shoulders dropped and the anger felt smaller. It didn't erase the distrust, but it softened it.",
+      "instructions": "Accent: neutral; Emotional range: relieved→hopeful; Intonation: reflective; Speed: calm; Tone: warm; Impression: sincere progress.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Softening is the first bridge to understanding. When your body relaxes, feedback becomes data, not attack.",
+      "instructions": "Accent: neutral; Emotional range: wise→comforting; Intonation: steady, affirming; Speed: measured; Tone: calm confidence; Impression: wise shadow.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So the shadow that distrusts isn't the enemy—it's a guardian stuck in an old story.",
+      "instructions": "Accent: neutral; Emotional range: dawning realization; Intonation: gentle rise; Speed: moderate; Tone: soft; Impression: childlike insight.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Thank it for trying to keep you safe, breathe with it, and teach it a kinder response.",
+      "instructions": "Accent: neutral; Emotional range: nurturing→firm; Intonation: calm, instructional; Speed: steady; Tone: warm authority; Impression: encouraging mentor.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I'll practice—one breath at a time. I already feel my chest unclenching.",
+      "instructions": "Accent: neutral; Emotional range: determined→gentle; Intonation: hopeful; Speed: calm; Tone: steady; Impression: young healer.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Small breaths, consistent tenderness. That's how distrust becomes trust and wounds become wisdom.",
+      "instructions": "Accent: neutral; Emotional range: serene→uplifting; Intonation: concluding, warm; Speed: measured; Tone: peaceful; Impression: compassionate guide.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Take one deep breath now—what shifted by even a little? Share your moment below; your small change can help someone else begin.",
+      "instructions": "Accent: neutral; Emotional range: inviting→gentle urgency; Intonation: warm invitation; Speed: calm; Tone: encouraging; Impression: soft call-to-action.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

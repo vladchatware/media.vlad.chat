@@ -1,0 +1,77 @@
+{
+  "topic": "Glimpsing Unity — Healing the Shadow Through a Group Project",
+  "dialog": [
+    {
+      "text": "Why do you always expect more from me? It feels like you only notice what's wrong.",
+      "instructions": "Onyx: young boy, hurt and defensive; quick pace, higher pitch, questioning tone.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because I see what you can become. The part you call 'shadow' often pushes hard so you remember you have more to offer.",
+      "instructions": "Ash: teacher/shadow voice; calm, patient, slightly gravelly, slow measured intonation, compassionate undercurrent.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "But it makes me small. I start to resent you — like you're trying to break me instead of help me.",
+      "instructions": "Onyx: frank, wounded, a little heated; short breaths between phrases.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Resentment is honest. Thank it. I kept score because I feared you'd forget your gifts if you never were challenged.",
+      "instructions": "Ash: steady, matter-of-fact then softening; warmth beneath the firmness.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Then something happened — the group project. We were clumsy at first, everyone guarded, afraid to fail. But when we passed the paper and read each other's lines, we moved in time, like we were breathing together.",
+      "instructions": "Onyx: surprised, awed, breathy; voice brightening as the memory warms him.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That shared breath is the bridge. When attention shifts from ‘me’ to ‘we,’ the parts that tighten — the shadow — can finally relax.",
+      "instructions": "Ash: soft, gentle; warm cadence, a hint of relief in the tone.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "In that moment I felt my chest open. Your sharpness didn't feel like attack — it felt like a nudge to show up and listen, not to defend.",
+      "instructions": "Onyx: reflective, softer now; slow, peaceful cadence, a growing smile in the voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "There’s the turning. Expectations become chains when born of fear; they become invitations when they remind you of your capacity.",
+      "instructions": "Ash: clear, encouraging; steady pace, inspiring warmth.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So you weren't trying to crush me — you were training me to carry less ego and more courage?",
+      "instructions": "Onyx: light chuckle, curious, hopeful; quicker tempo.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Unity isn't losing yourself. It's remembering you're part of a living whole. Love arrives when contribution meets humility.",
+      "instructions": "Ash: resonant, peaceful; slightly slower for emphasis, uplifting tone.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I apologized to the group and to you. The knot in my chest loosened — I felt seen and seen others in return.",
+      "instructions": "Onyx: relieved, warm, quietly joyful; even breathing, calm pace.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "When your shadow pushes, listen for the lesson beneath the judgment. Next time you find yourself resisting in a small group, ask quietly: 'What am I being asked to remember?' Try it, and if it lands, share your discovery in the comments — I'd love to hear what unity teaches you.",
+      "instructions": "Ash: invitational, gentle closing; slower, warm, encouraging call to action.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

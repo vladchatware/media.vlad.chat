@@ -1,0 +1,65 @@
+{
+  "topic": "The Courage to See",
+  "dialog": [
+    {
+      "text": "How do I look at the part of me that scares me—without running away?",
+      "instructions": "Onyx voice: young, trembling, whispering, earnest; slow pacing; vulnerable tone.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start by asking a simple question and then listen. What does that part sound like when it talks to you?",
+      "instructions": "Ash voice: calm, warm, steady; patient pacing; soft, inviting tone.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It calls me worthless, reminds me of old mistakes, and keeps replaying the worst days like a storm that never ends.",
+      "instructions": "Onyx voice: breathy, rushed at first then faltering; emotional; quickened pace.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Don't argue with it. Picture it as a frightened child inside you. Kneel down—ask, 'What are you afraid of? What do you need to feel safe?'",
+      "instructions": "Ash voice: gentle, guiding; slow, clear pauses to allow reflection; compassionate warmth.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I asked... it said it was tired of being ignored, that if it quieted down we'd be vulnerable. It wanted safety, not punishment.",
+      "instructions": "Onyx voice: softening, surprised; small relief in tone; slower pacing.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "There you go. The shadow protects you. When you recognize its fear, it no longer needs to shout. Thank it for trying to keep you safe, then offer something better—presence.",
+      "instructions": "Ash voice: reassuring, steady; encouraging; slightly uplifted intonation.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I said, 'I'm here. You don't have to do this alone.' It sat with me instead of attacking. I felt lighter and strangely brave.",
+      "instructions": "Onyx voice: relieved, quiet wonder; calm, heartfelt; measured pacing.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That is the inner work: integration, not exile. Courage to see is the practice of noticing, naming, and making room for what we feared. Healing begins when we stop fighting ourselves.",
+      "instructions": "Ash voice: resonant, clear; dignified and warm; firm but gentle cadence.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So it's simple to understand—and stubbornly difficult to do every day.",
+      "instructions": "Onyx voice: wry, honest; reflective; even pacing.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Simple truth, steady practice. Keep asking, keep listening, and offer small acts of compassion to the parts you hide. The shadow will teach you what you need to become whole. Take a moment now: name one thing your shadow says, sit with it for five minutes, or share it below—your courage might help someone else start.",
+      "instructions": "Ash voice: warm, inviting, gently urgent; calm closing; encouraging pace for call to action.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

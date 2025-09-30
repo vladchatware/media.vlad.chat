@@ -1,0 +1,101 @@
+{
+  "topic": "Choosing Bliss — Healing the Shadow",
+  "dialog": [
+    {
+      "text": "How do I stop feeling like happiness is always just out of reach?",
+      "instructions": "Quiet, vulnerable, hesitant; youthful tone, a hint of longing; slow pace.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "By asking that, you have already started. Tell me—who do you think keeps happiness at bay?",
+      "instructions": "Warm, curious, slightly playful; steady tempo, soft smile in voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "My past? Other people? Everything I don’t have...",
+      "instructions": "Rushed, defensive then softening; a boy’s confusion and shame.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Those are stories. The keeper is closer—he sits inside you and calls himself Shadow. I am that part. Not your enemy, only afraid.",
+      "instructions": "Calm, intimate, a little raspy; patient teacher tone, gentle cadence.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Afraid of what? Losing control? Letting go?",
+      "instructions": "Curious, quieter now, earnest; breathing between phrases.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. It believes protection equals survival. So it builds walls, collects evidence that the world is dangerous, and convinces you to chase safety outside yourself.",
+      "instructions": "Matter-of-fact, compassionate; slight firmness to teach a truth.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So if I tear down the walls, will I be broken?",
+      "instructions": "Tremulous, afraid to hope; a small boy asking to be reassured.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "You won’t break— you’ll remember. The inner work is simple and brutal: notice the fear, sit with it, name the wound, and give it kindness. That’s how the walls become windows.",
+      "instructions": "Reassuring, clear, encouraging; measured pace with soft emphasis on key words.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "What does that look like when I try it?",
+      "instructions": "Hopeful, tentative; seeking a practical foothold.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start small. Breathe twice when you’re triggered. Say, ‘I see you,’ to the feeling. Ask, ‘What do you need from me?’ Then listen without fixing. Over time the Shadow stops screaming for attention and learns to rest.",
+      "instructions": "Practical, warm, encouraging; rhythmic, like giving a short ritual.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I tried. I told my anger I saw it. It shook, then softened. For the first time I didn’t have to prove anything.",
+      "instructions": "Amazed, relieved; voice brightening with wonder.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "There it is—the lesson. Happiness isn’t a prize won by outrunning pain. It’s a steady choice to meet yourself with compassion. The Shadow becomes an ally when it’s heard.",
+      "instructions": "Affirming, proud; soft crescendo then gentle landing.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So choosing bliss is not pretending everything’s perfect. It’s showing up for the parts that hurt until they heal?",
+      "instructions": "Reflective, gaining confidence; thoughtful cadence.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Bliss is a practiced stance of openness. Not denial—invitation. The moment you stop outsourcing your peace, you stop chasing horizons that never arrive.",
+      "instructions": "Kind, wise; a final, clear statement with warm conviction.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I’ll keep showing up. I’ll tell my Shadow I see him, and I’ll choose peace even when it’s hard.",
+      "instructions": "Resolute, gentle; small triumph in the voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Do that, and you’ll discover joy is always at home in you. Ask yourself tonight: what one small act can you do to hear your Shadow? Share it—your courage helps others begin.",
+      "instructions": "Inviting, soft call-to-action; hopeful, encouraging closeness.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "topic": "The Gift of Self-Honesty",
+  "dialog": [
+    {
+      "text": "Why does it feel like I'm fighting myself? I keep repeating the same mistakes and I don't know how to stop.",
+      "instructions": "young boy voice; curious, shaky at first; tentative pace; hopeful undertone; soft sighs between phrases.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because you are. But the one you're fighting is not an enemy—it's a wounded part of you that learned to survive. Calling it 'the shadow' doesn't make it evil; it makes it someone who hasn't been heard.",
+      "instructions": "teacher/shadow voice; calm, low, compassionate; slow, steady intonation; warm resonance; reassuring.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So what do I do—ignore it? Push it away? Pretend it's not there?",
+      "instructions": "uncertain, quick; a little defensive; then softer at the end; breathy.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "None of those. You begin with honesty. Not to punish yourself, but to name what hurts. Naming takes the power out of mystery. It brings the wound into the light where it can be tended.",
+      "instructions": "gentle, instructive tone; measured pace; kind firmness; empathetic.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Naming it feels scary. What if I say it out loud and it makes everything worse?",
+      "instructions": "vulnerable, small; quick inhale before speaking; voice cracks slightly then steadies.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Fear is part of the wound asking to be seen. Self-honesty isn't an attack—it's an offering. When you can say, 'I'm afraid' instead of pretending you're fine, the shadow stops defending and starts listening.",
+      "instructions": "soft, compassionate; slow cadence; comforting; a hint of gentle authority.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I even begin? I can't find where to start.",
+      "instructions": "frustrated then softening; searching tone; quickened pace followed by a pause.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start with one small truth. A single thought you usually hide—'I worry I'm not enough,' or 'I get angry because I feel unseen.' Sit with it without fixing it. Ask, 'What does this part need from me?'",
+      "instructions": "calm, guiding; deliberate pacing; encouraging; slightly resonant.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I tried saying 'I'm not enough' once, and oddly, I felt lighter afterward. Is that really what changes things?",
+      "instructions": "surprised, brightening; quick smile in voice; hopeful curiosity.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Not magic—choice. Each honest admission dissolves a lie you were living. The shadow doesn't vanish; it softens and becomes an ally carrying lessons from pain rather than commands from fear.",
+      "instructions": "warm, steady; proud but gentle; uplifting cadence.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "An ally? So the parts I hate—my anger, my shame—can actually teach me?",
+      "instructions": "curious, cautious optimism; softer at the end; thoughtful.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Anger marks a boundary that was crossed. Shame points to values you hold. When you listen without blaming, those parts become maps back to what you need to heal and protect.",
+      "instructions": "clear, steady; explanatory tone; compassionate clarity.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So forgiveness begins with me being honest with myself?",
+      "instructions": "soft, reflective; gentle realization in tone; slower pacing.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Forgiveness is clarity. Self-honesty is the map. Walk toward the parts you've avoided, name them with kindness, and tend them like you would a scared child.",
+      "instructions": "reassuring, warm; slightly elevated hope in voice; slow, deliberate ending.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Okay. Today I'll say one honest sentence aloud.",
+      "instructions": "determined, tender; softer, breathy; steadying confidence.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Say it. Let your shadow hear you and breathe with you.",
+      "instructions": "soft invitation; calm, hushed encouragement; lingering warmth.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "(whispered) I am willing to know the truth about myself.",
+      "instructions": "whisper; immediate sense of relief; quiet exhale at the end; gentle conviction.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That single sentence opened a door. Keep opening them—honesty, compassion, practice—and the shadow will stop stealing your energy and start returning your wholeness.",
+      "instructions": "soft smile in voice; encouraging; calm finality; warm and hopeful.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "If this landed for you, pause now and reflect: what's one small truth you've been avoiding? Share it in the comments if you feel brave, or just hold it gently for yourself. Healing begins with a brave sentence.",
+      "instructions": "direct invitation; warm, inviting tone; slow, compelling cadence; slight uplift at the end.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

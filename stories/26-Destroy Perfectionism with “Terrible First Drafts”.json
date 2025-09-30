@@ -1,0 +1,77 @@
+{
+  "topic": "Destroy Perfectionism with “Terrible First Drafts”",
+  "dialog": [
+    {
+      "text": "How do I stop waiting for everything to be perfect before I start?",
+      "instructions": "Neutral accent, anxious curiosity, rising intonation, quick speech, breathy.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Write a terrible first draft.",
+      "instructions": "Warm, confident, calm, steady pace, low tone, decisive.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Terrible? Won't that ruin everything?",
+      "instructions": "Doubtful, uncertain, faster, slightly high pitch, puzzled.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "No — think of it as a permission slip to be messy. It frees your thinking.",
+      "instructions": "Reassuring, gentle, slower pace, soft smile in voice, comforting.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I don't even know where to begin.",
+      "instructions": "Vulnerable, small, hesitant, soft, almost whispering at the end.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Begin with one sentence you don't care about. Then another. Momentum is kinder than perfection.",
+      "instructions": "Playful, encouraging, upbeat rhythm, clear enunciation, warm tone.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Did that actually work for you?",
+      "instructions": "Surprised, leaning-in tone, curious, quick recovery.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Once I wrote a chapter I called 'trash.' Weeks later it was the emotional heart of the book. The mess led me to meaning.",
+      "instructions": "Sincere, reflective, slower, emotive, measured cadence.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So the point is to move forward, not fix every word?",
+      "instructions": "Realization, brighter tone, steadier pace, hopeful.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Motion reveals direction; perfection only hides it. You learn by doing, then refining.",
+      "instructions": "Strong, motivational, rhythmic, firm but kind, steady pace.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Okay... I'll try a terrible draft tonight.",
+      "instructions": "Resolute but nervous, quiet smile in voice, soft but determined.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Do it. Then tell us what changed — leave a comment about how it felt or what you discovered. Reflect, share, and let the terrible first draft be your permission to begin.",
+      "instructions": "Inviting, warm, hopeful, slightly faster at the CTA, encouraging tone.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

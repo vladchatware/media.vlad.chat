@@ -1,0 +1,89 @@
+{
+  "topic": "Facing the Mirror",
+  "dialog": [
+    {
+      "text": "Why does the shadow feel like an enemy? Every time I look, it snarls and I push away.",
+      "instructions": "Accent: neutral. Emotional range: vulnerable, unsure. Intonation: rising at the end. Speed: slow. Tone: small, breathy.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Because you've learned to punish what frightens you. I am not your enemy—I am the part that carried what you couldn't yet carry.",
+      "instructions": "Accent: neutral. Emotional range: warm, steady. Intonation: calm and grounding. Speed: measured. Tone: compassionate.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "A part that carried pain? It only ever shouts, points fingers, reminds me of mistakes. How do I stop running from it?",
+      "instructions": "Accent: neutral. Emotional range: anxious, pleading. Intonation: questioning. Speed: moderate. Tone: soft urgency.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Begin with one breath. Place your hand on your heart. When the old alarm rings, name the feeling out loud—'fear', 'shame', 'lonely'—without blame.",
+      "instructions": "Accent: neutral. Emotional range: gentle instructor. Intonation: slow, rhythmic. Speed: slow. Tone: reassuring, step-by-step.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Won't naming it make it louder? I'm scared that calling it out will make it stronger.",
+      "instructions": "Accent: neutral. Emotional range: doubtful, tentative. Intonation: quiet, small. Speed: slow. Tone: worried whisper.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Names are lights in dark rooms. When you say 'shame' you stop feeding the mystery; you see its shape. Seeing lets you choose how to hold it.",
+      "instructions": "Accent: neutral. Emotional range: calm certainty. Intonation: gentle clarity. Speed: measured. Tone: warm and steady.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Okay… I'll try. What if it speaks back and I don't like what it says?",
+      "instructions": "Accent: neutral. Emotional range: brave, trembling. Intonation: hesitant but willing. Speed: moderate. Tone: hopeful.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Listen first. Ask, 'What do you need?' and wait. Don't fix, don't justify. Listening is the first heal—tender attention proves you're safe to be known.",
+      "instructions": "Accent: neutral. Emotional range: patient, invitational. Intonation: soft, encouraging. Speed: slow. Tone: intimate, steady.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It says it's tired of hiding, tired of making me small. It says it wanted to protect me and instead taught me to hide.",
+      "instructions": "Accent: neutral. Emotional range: surprised, relieved. Intonation: amazed, quiet. Speed: moderate. Tone: softer, accepting.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Thank it. Tell it you hear it, that you will not exile it anymore. A simple promise—'I will meet you'—builds a bridge between shame and love.",
+      "instructions": "Accent: neutral. Emotional range: encouraging, tender. Intonation: calm imperative. Speed: measured. Tone: soothing.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I promise. Saying it out loud feels like the knot inside me loosening—like remembering something warm I forgot.",
+      "instructions": "Accent: neutral. Emotional range: relieved, soft awe. Intonation: gentle release. Speed: slow. Tone: intimate and warm.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "This is the inner adventure Joseph Campbell named—the hero's journey inside you. Each time you choose to see rather than flee, you come home a little more.",
+      "instructions": "Accent: neutral. Emotional range: inspired, calm. Intonation: rising with hope. Speed: measured. Tone: wise and uplifting.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I will keep coming back to the mirror. I will listen, name, and promise again. I can feel the weight shifting.",
+      "instructions": "Accent: neutral. Emotional range: determined, peaceful. Intonation: steady, resolved. Speed: moderate. Tone: warm confidence.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start tonight with one honest look. Ask yourself: which part of me am I ready to meet? Share one small truth in the comments—one step. Let's hold this work together.",
+      "instructions": "Accent: neutral. Emotional range: inviting, calm. Intonation: soft invitation. Speed: moderate. Tone: encouraging call to action.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

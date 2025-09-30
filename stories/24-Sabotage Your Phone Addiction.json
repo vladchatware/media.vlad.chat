@@ -1,0 +1,65 @@
+{
+  "topic": "Sabotage Your Phone Addiction",
+  "dialog": [
+    {
+      "text": "How do I break my phone addiction? It feels like it's stealing whole afternoons—and I'm tired of that.",
+      "instructions": "Accent: neutral; Emotional range: anxious to earnest; Intonation: quick, rising; Speed: a bit fast; Tone: vulnerable",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Start by sabotaging it—deliberately make your phone the inconvenient option. Small, deliberate friction wins where willpower fails.",
+      "instructions": "Accent: neutral; Emotional range: calm, reassuring; Intonation: steady, confident; Speed: measured; Tone: warm, slightly smiley",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Sabotage? That sounds drastic. What does that even look like in real life?",
+      "instructions": "Accent: neutral; Emotional range: curious, hopeful; Intonation: questioning; Speed: moderate; Tone: eager",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Once, I promised myself dinner without screens. I left my phone in a locked drawer for a weeknight—awkward at first, but my partner and I actually finished a conversation. Over time those dinners felt like recovery.",
+      "instructions": "Accent: neutral; Emotional range: reflective; Intonation: storytelling; Speed: relaxed; Tone: gentle",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I can't just disappear—work messages, reminders… what if I miss something important?",
+      "instructions": "Accent: neutral; Emotional range: worried but sincere; Intonation: concerned; Speed: moderate; Tone: realistic",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Make compromises that create friction: turn off nonessential notifications, set work-check windows, put your charger in another room, switch your home screen to grayscale, and move social apps off the first page.",
+      "instructions": "Accent: neutral; Emotional range: practical; Intonation: clear, instructional; Speed: steady; Tone: empowering",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So tiny traps that interrupt the autopilot—okay, I can do tiny.",
+      "instructions": "Accent: neutral; Emotional range: tentative optimism; Intonation: softer; Speed: slower; Tone: encouraged",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. Remember: you're not fighting a device, you're rewiring a reward loop. Sabotage the loop and reward a different outcome—a short walk, a single chapter, a real conversation.",
+      "instructions": "Accent: neutral; Emotional range: encouraging, slightly inspirational; Intonation: rising toward the end; Speed: measured; Tone: warm, motivational",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Tonight I'll put it in a drawer before dinner and set a book on the table instead. Small experiment, one night.",
+      "instructions": "Accent: neutral; Emotional range: determined; Intonation: decisive; Speed: steady; Tone: hopeful",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Try one sabotage tonight. Reflect on what shifted—what you noticed, what felt empty or gained space—and share your experiment in the comments; your small change might help someone else start.",
+      "instructions": "Accent: neutral; Emotional range: inviting, confident; Intonation: calm call to action; Speed: moderate; Tone: encouraging",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}
