@@ -1,0 +1,89 @@
+{
+  "topic": "The Story of Struggle — Inner Work with the Shadow",
+  "dialog": [
+    {
+      "text": "Why does everything feel so heavy? My homework, my friendships… it all just feels impossible—life is hard.",
+      "instructions": "Neutral accent, anxious, rushed; short breaths, voice cracks with worry.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "You keep telling a story called 'life is hard.' Stories shape how heavy things feel.",
+      "instructions": "Soft, measured, calm; slow cadence, compassionate curiosity.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "But it’s true—every night I think I’ll fail. It feels real, not just a story.",
+      "instructions": "Small, pleading, uncertain; slight hesitance between words.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Truth and thought are different. Let’s try something simple: breathe with me and watch that thought like a cloud.",
+      "instructions": "Warm, steady, guiding; slow tempo with a gentle invitation.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "(inhales) Okay… I can see it. The thought is there, but it’s… lighter somehow.",
+      "instructions": "Surprised, softer, relief creeping in; longer exhale.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Exactly. The mind offered a script to protect you. The part that wrote it—your shadow—is a teacher in disguise.",
+      "instructions": "Calm, slightly mysterious; compassionate firmness.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "My shadow feels like a critic. It keeps saying I’m not enough.",
+      "instructions": "Vulnerable, honest; voice barely above a whisper.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Thank the critic for trying to keep you safe, then ask it a new question: 'What would truly help me right now?'\nWatch its answer without judgment.",
+      "instructions": "Gentle, instructive, reassuring; steady rhythm.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It said—do one small thing. So I did one math problem. Then another. Not heroic, just tiny steps.",
+      "instructions": "Hopeful, surprised, growing confidence; quicker pace.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Tiny steps are the grammar of change. Naming the thought, feeling it, then choosing one helpful action rewrites the narrative.",
+      "instructions": "Encouraging, clear, uplifting; confident and calm.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "The heaviness didn’t vanish magically. My day stayed the same—but my story about it shifted. I felt lighter.",
+      "instructions": "Relieved, brightening, steady pace.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That’s the work: notice the narrative, befriend the shadow that taught it, and choose kinder actions toward yourself. Freedom grows from small reps.",
+      "instructions": "Serene, inspiring, warm; gentle crescendo on final phrase.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I’m beginning to see my shadow as a teacher, not an enemy. I can listen and lead at the same time.",
+      "instructions": "Soft gratitude, confident; smile in the voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Keep practicing. Pause, name the thought, act with one small kind choice. What story are you telling yourself today? Share one line in the comments — your shift might start someone else’s.",
+      "instructions": "Inviting, warm call-to-action; upbeat, sincere.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

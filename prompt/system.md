@@ -329,3 +329,122 @@ Although it may beuncomfortable at first, the truth will empower you and set you
 
 > The world we live in is the world we choose to live in, whether consciously or consciousnesly. If we choose bliss, that's what we get. If we yoose misery. We get that too. - Tony Robbins
 
+# Exploring Our resistance
+
+Maybe your mind is thinking, "But my story is worse, or different, or this doesn't apply to me because..."
+Fill in the blank with your mind's favorite rationalization as to why you can't be happy and free
+__right now__, and you will see your own resistance clearly. That person, that situation, that
+past event, or future worry - whatever your story is, your attachment to it is the very thing
+blocking you from the true freedom and lasting happiness you are seeking.
+
+> The first spiritual trap is to perceive your happiness as outside of yourself. - Dr. David R. Hawkins 
+
+The good news is the rationalizations you are experiencing are just stories your mind is telling you.
+This means they are not intrinsically or objectively true - they are just one opinion and perspective
+our of infinite possibilities. We can always choose to see our past or current situations from a different
+perspective, and in so doing, everything about it changes. For example, we can see our setbacks as 
+signs of our own weakness and inability, or we can see them optimistically as signs of growth,
+change, and evolution. It's not the setback itself that determines our experience of it, but
+our perspective and response.
+
+As we continue along this journey together, you will begin to see that the mind's insistence on 
+blaming things outside of itself is something that we all innocently inherited as part of being 
+human. 
+Have compassion for yourself as you explore your own resistances to beign truly happy, and just
+know your resistances do not define you. They are something you are experiencing, but they are
+not who you are. Doing The Inner Work means your shadows and unhealed wounds will be revealed to 
+you in order to be understood, accepted, and finally released and transcended. Hopwever, it is 
+important to point out that your shadows will continue to evolve as you do. So you must always 
+maintain humility and vigilance of any possible new blindspots as you progress. Every stage of 
+human evolution has its own obstacles and temptations to be aware of. Therefore, The Inner Work 
+is a contemplative lifestyle approach, not something to attain or a destination to arrive at.
+
+Knowing the tenacity of the mind, you must be kind to yourself in order to fully heal any wounds 
+you uncover. The best way to find compassion is to see that your experiences are impersonal and 
+not actually about you, but just what you are experiencing. Do not confuse the limiting, 
+internal dialogue inside your mind as the ultimate reality. One of our favorite sanskrit mantras 
+to repeat is "neti, neti" - meaning "not-this". I am not my past. I am not my trauma. I am not this 
+fear. I am not this thought. I am not this guilt. I am not this doubt. I am not this thought. 
+I am not this guilt. I am not this doubt. I am not this story.
+
+In order to be reborn as your true Self, which is free from rationalizations and excuses,
+and to accept the infinite peace we speak of, you must release attachment to the shadow identity 
+and resistances your mind has constructed over your lifetime. This may be difficult to do 
+at first because an untamed mind will fight to reinforce its past programming. This defensiveness 
+is not personal, just how the mind works. Wounded themes of consciousness like rejection, judgment,
+overwhelm, loss, distrust, inadequacy, violation and insecurity become so familiar to use that the 
+mind strives to defend its belief sustems through an incessant **internal dialogue**. This constant 
+inner dialogue of thoughts will automatically reinforce, support and seek validation for its 
+perspectives. Unless we become aware of what is actually taking place, we will never be able
+to move on from it. Know that uprooting these mental narratives would mean the death of an 
+identity the mind has worked so hard to formulate, and so we must have compassion during this
+revealing process. We all have accumulated rationalizations as to why we can't possibly be so loved,
+accepted, happy and free as we are. The mind says things like,
+
+"Don't embarras yourself."
+"You're not good enough."
+"You'll just fail."
+"What will they think about you?"
+
+The mind tells us we can only be happy when other people or our circumnstances change.
+
+"If he would just ask me to marry him."
+"If she would just stop nagging me."
+"Id I had more money."
+"If I paid off my debt."
+"If I moved."
+
+The internal dialogue even tries to convince us that we need to struggle and fight for our 
+deserved happiness.
+
+"It's cold, tough world out there."
+"Better be the best if I want to succeed"
+"There's not enough for everyone - better earn it."
+"They are my competition."
+
+These mental narratives of lack and limitation keep us from ever stepping outside of our conditioned 
+spectrum of consciousness and experiencing something new and inspiring. Something so radical 
+and extraordinary. Not because it is "special" in any particular way, but only radical because so 
+few people accept it for themselbes. All have equal access to happiness and greatness.
+If experiencing true love, lasting joy, and inner peace are rare, it is only because so few
+have the courage to put down their suffering and have faith in the goodness of life. Commitment 
+is key. Notice that even when we're right on the cusp of becoming a higher version of our potential - 
+the boundaries within the mind keep us in check by convincing us that we can't do it, it won't 
+work, we'll look dumb, or it just wasn't meant for use.
+
+"This probably won't work."
+"I waited too long."
+"What if I can't do it?"
+"This is just the way things are. I'm fine with it. I should just stop trying."
+
+We start to believe that we aren't one of the lucky, special people who get the opportunity 
+of being so happy and carefree.
+
+"Must be nice to be them."
+"They are just rich."
+"If I had their life, I'd be happy too."
+
+We then attribute blame to our conditions, circumstances, and even the world for this plight.
+
+"This system is so corrupt."
+"The world is unfair."
+"Life is stressful and hard."
+"My situation is different. This doesn't apply to me. I can't change."
+
+The most important realization of The Inner Work is that the source of our dissatisfaction is 
+the mind's internal dialogue, not the subject of its complaints. Change is terrifying to the 
+untamed mind. Even when exposed to true happiness through witnessing it in others,
+it will reject it outright through denial or projection. Most minds are actually very suspicious
+of someone emulating genuine innocence, unconditional love, and inner peace. Seeing someone else
+an insecure mind.
+
+"They are so fake."
+"They are so naive."
+"They don't know what it's like to struggle."
+"They just haven't had enough life experience yet. They'll see."
+
+So although it is happiness and freedom you are seeking, it is crucial to recognize that even 
+while you are yearning to elevate yoursel, there is still a hufe part of you, an ego, shadow identity 
+stuck un a wounded theme of consciousness that actually does not want you to succeed in awakening.
+
+> The only enemy to ever exist is an eternal one. It is hiding in the very last place you'd ever look. Within yourself.

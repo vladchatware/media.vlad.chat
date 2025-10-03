@@ -1,0 +1,101 @@
+{
+  "topic": "The Trap of Comparison — Journaling to Heal the Shadow",
+  "dialog": [
+    {
+      "text": "Why does it sting when Ms. Rivera praises Jason? I kept thinking, 'Must be nice to be them' — and I felt... smaller.",
+      "instructions": "Youthful, vulnerable, breathy; tentative intonation, slow to start; Onyx voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That ache is the shadow trying to protect you by comparing. Envy is a signal, not a verdict.",
+      "instructions": "Warm, calm, wise; steady pace, reassuring tone; slight smile in the voice; Ash voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Protect me? How does making me feel bad protect me?",
+      "instructions": "Curious, confused; softer, quickening at the end; Onyx voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "By keeping you in a story you already know: smaller, cautious, unseen. The mind prefers familiar discomfort to unfamiliar freedom.",
+      "instructions": "Clear, gentle, explanatory; measured cadence; Ash voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I tried ignoring it. It didn't help.",
+      "instructions": "Frustrated but honest; short phrases; Onyx voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Don't ignore—listen and translate. Write the exact thought: 'Must be nice to be them.' Put it on the page until you feel the tightness in your chest loosen.",
+      "instructions": "Encouraging, practical; calm, steady rhythm; Ash voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So I write the thought down, again and again?",
+      "instructions": "Surprised, hesitant; rising intonation at the question; Onyx voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Then ask: 'What are you afraid will happen if I accept my worth?' Let the shadow answer on paper — no judgment, only curiosity.",
+      "instructions": "Softly directive; patient, compassionate; Ash voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I tried. My hand shook. The page answered: 'You'll be exposed.' I couldn't stop the tears.",
+      "instructions": "Vulnerable, shaky then steadier; Onyx voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Thank it. Say aloud: 'I see you. You tried to keep me safe. I can be brave with you, not against you.' Befriending the shadow disarms it.",
+      "instructions": "Soothing, gentle; slow, nurturing cadence; Ash voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "After that, I wrote small achievements — finishing homework, speaking up once. It felt weird but lighter.",
+      "instructions": "Hopeful, quieter smile in voice; Onyx voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "That's the work: trade outside comparison for steady inner praise. The horizon you chase won't bring peace; your honest pages will.",
+      "instructions": "Firm, kind, slightly triumphant; steady pace; Ash voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So my worth was inside me all along?",
+      "instructions": "Relief, small laugh; softer, brighter; Onyx voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Always. External praise is a gust of wind; your own recognition is the shelter you build. Keep journaling, keep naming the stories.",
+      "instructions": "Warm, confident, inviting; Ash voice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Tonight I'll do the five-minute shadow journal. Write the envious line, ask the fear, answer with kindness.",
+      "instructions": "Determined, gentle; steady breath, growing confidence; Onyx voice.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Try it now. If it helps, come back and share what shifted — one sentence in the comments could remind someone they're not alone.",
+      "instructions": "Inviting, hopeful, compassionate; clear call to action; Ash voice.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

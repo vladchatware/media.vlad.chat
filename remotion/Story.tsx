@@ -69,7 +69,7 @@ const Captions = ({ captions, combineTokensWithinMilliseconds }) => {
         key={j}
         premountFor={1}
         postmountFor={1}
-        durationInFrames={durationInFrames}
+        durationInFrames={durationInFrames || 10}
       >
         <main style={styles.main}>
           <p style={styles.p}>
@@ -100,12 +100,13 @@ type StoryMetadata = {
   }[]
 }
 
-export const Story = ({ story }: { story: StoryMetadata }) => {
+export const Story = ({ story, outroDurationInFrames }: { story: StoryMetadata }) => {
   return (<CameraMotionBlur shutterAngle={280} samples={1}>
+    <OffthreadVideo src={staticFile('1939477514.mp4')} volume={0.1} style={{ visibility: 'hidden' }} />
     <AbsoluteFill style={styles.container}>
       <Series>
         {story.dialog.map((line, i) =>
-          <Series.Sequence key={i} premountFor={30} durationInFrames={line.durationInFrames}>
+          <Series.Sequence key={i} premountFor={30} durationInFrames={line.durationInFrames || 10}>
             <AbsoluteFill>
               <Img src={staticFile('shadow.png')} fit="cover" style={{ ...styles.img, ...styles[line.side] }} />
               <Audio src={staticFile(line.sound)} />
@@ -113,8 +114,12 @@ export const Story = ({ story }: { story: StoryMetadata }) => {
             </AbsoluteFill>
           </Series.Sequence>
         )}
+        <Series.Sequence key={story.dialog.length + 1} premountFor={30} durationInFrames={outroDurationInFrames}>
+          <OffthreadVideo src={staticFile('Outro.mp4')} />
+        </Series.Sequence>
       </Series>
     </AbsoluteFill>
   </CameraMotionBlur>
   );
 };
+

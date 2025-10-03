@@ -1,0 +1,83 @@
+{
+  "topic": "Healing the Shadow of 'I'm Not Enough'",
+  "dialog": [
+    {
+      "text": "Why does it feel like you keep telling me I'm not enough? I try and I still hear that voice.",
+      "instructions": "young, shaky, breathy; halting questions; vulnerability and urgency",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "I said those things to keep you safe. I learned fear as armor and wore it for you.",
+      "instructions": "deep, soft, slow; compassionate admission with a faint echo; shadowlike warmth",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Safe from what? From trying? From failing? It just feels like a weight that won’t let me breathe.",
+      "instructions": "frustrated then tender; faster at the start, softening at the end",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "From being hurt. From being seen and then abandoned. I clung to doubt because doubt is predictable.",
+      "instructions": "steady, confessional; remorseful timbre; slow cadence",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "But keeping me small cost me everything I wanted to become.",
+      "instructions": "quiet, resolute; a small inhale before the line; building courage",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Then let us unlearn it together. Repeat after me—not as a trick, but as a truth you choose:",
+      "instructions": "gentle, encouraging; guiding tone, like a tutor leaning in",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I am not this doubt.",
+      "instructions": "soft then firmer on the last word; a small pause to let it land; growing steadiness",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Notice what changes inside: an old chair of fear vacates the room. There is space where potential can sit.",
+      "instructions": "warm, vivid imagery; calm invitation to feel the shift",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Wow—my chest unclenched. I can actually imagine trying without being crushed by 'not enough.'",
+      "instructions": "astonished, lighter; quicker breath, hint of laughter",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "I will step back when you welcome light. My duty changes: from guard to guide. I will remind you, not punish you.",
+      "instructions": "soft acceptance, relieved; calm, almost tender",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So I can be brave and still be cared for—by myself?",
+      "instructions": "hopeful question; growing confidence, warm smile in voice",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. Courage is your right. When doubt appears, answer: 'I am not this doubt.' Practice it until the shadow listens.",
+      "instructions": "firm, uplifting; teacherly finality with an encouraging uplift at the end",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "If this resonated, pause and say it once now. Then tell us—when did you start believing you weren't enough? Share below.",
+      "instructions": "direct, warm call to action; calm urgency to reflect and comment; inviting tone",
+      "side": "left",
+      "voice": "onyx"
+    }
+  ]
+}

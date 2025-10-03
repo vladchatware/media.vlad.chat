@@ -1,0 +1,107 @@
+{
+  "topic": "Blaming the Rules",
+  "dialog": [
+    {
+      "text": "Why are the rules so strict? It's not fair—you're making everything harder for me.",
+      "instructions": "young, frustrated, quick, resentful intonation",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Rules look strict because they hold a shape for learning. But when you say 'it's unfair,' I hear something deeper.",
+      "instructions": "calm, low, measured, gentle reveal",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Deeper what? You're the one who punishes. I don't like you because you take my choices away.",
+      "instructions": "hurt, accusatory, sharper tone",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "I am your teacher and your shadow at once. I show the limits you avoid—those parts that call rules 'punishment.'",
+      "instructions": "soft, compassionate, slightly mysterious",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So... you're saying it's not the rules that are the problem, it's me?",
+      "instructions": "hesitant, small, questioning",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Often yes. 'Life is unfair' is a convenient story that hands your power away. Blame points outward so you don't look inside.",
+      "instructions": "steady, encouraging, clear",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "How do I stop blaming everything? I don't want to feel controlled all the time.",
+      "instructions": "earnest, anxious, searching",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Begin with one honest sentence to yourself. Name the feeling and the need beneath it—slowly. For example: 'I feel angry because I want more choice.'",
+      "instructions": "gentle, guiding, slow pace",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I... I feel angry because I want freedom.",
+      "instructions": "breathy, vulnerable, tentative",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Good. Now ask: 'What in me resists this freedom?' Curiosity softens blame into something you can work with.",
+      "instructions": "calm, warm, inviting",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Maybe I'm afraid I'll mess up if I'm totally free. If I had full choice, I'd fail and everyone would see me fail.",
+      "instructions": "surprised, self-revealing, honest",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "There—there's the wound. Rules became a mirror and a guard for that scared part. Thank that part; it tried to keep you safe.",
+      "instructions": "tender, wise, reassuring",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I never thought of rules as protection. I thought they were the enemy keeping me small.",
+      "instructions": "softening, reflective, a hint of relief",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "When your story shifts from 'life is unfair' to 'what am I afraid of?' the shadow and the boy can become allies.",
+      "instructions": "uplifting, steady, hopeful",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So my resistance softened when I spoke honestly. That feels different—possible.",
+      "instructions": "hopeful, lighter, resolved",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. The inner work is tiny admissions like this repeated. Responsibility is not punishment—it's freedom in disguise.",
+      "instructions": "warm, encouraging, confident",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Pause now. Notice one place you blame the outside for how you feel; say one honest sentence to yourself about it, then share that sentence in the comments—let's turn blame into curiosity together.",
+      "instructions": "inviting, gentle, call-to-action tone",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}

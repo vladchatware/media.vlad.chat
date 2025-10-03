@@ -14,6 +14,18 @@ export const threadSchema = z.object({
   mode: z.enum(['dark', 'light'])
 })
 
+export const storyProp = z.object({
+  story: z.object({
+    topic: z.string(),
+    dialog: z.object({
+      text: z.string(),
+      instructions: z.string(),
+      side: z.enum(['left', 'right']),
+      voice: z.enum(['onyx', 'ash'])
+    }).array()
+  })
+})
+
 export const tweetSchema = z.object({
   image: z.string(),
   username: z.string(),

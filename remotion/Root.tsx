@@ -4,7 +4,7 @@ import { parseMedia } from '@remotion/media-parser'
 import { Story } from './Story'
 import { Thread } from './Thread'
 import { Tweet } from './Tweet'
-import { storySchema, threadSchema, tweetSchema } from './types'
+import { storyProp, storySchema, threadSchema, tweetSchema } from './types'
 import { openAiWhisperApiToCaptions } from '@remotion/openai-whisper'
 import { Main } from './Main'
 import { Outro } from './Outro'
@@ -28,70 +28,100 @@ export const RemotionRoot: React.FC = () =>
       fps={30}
       width={1080}
       height={1920}
-      schema={storySchema}
+      schema={storyProp}
       defaultProps={{
         story: {
-          topic: "A Moment of Patience - healing the shadow through inner work",
-          dialog: [
+          "topic": "The Power Within",
+          "dialog": [
             {
-              text: "Why does healing take so long? I try to be patient but every time I think I'm improving, the old anger and shame come back—what am I doing wrong?",
-              instructions: "voice: breathy youth; emotional range: anxious to hopeful; intonation: rising at the end; speed: slightly quick; tone: earnest, vulnerable",
-              side: "left",
-              voice: "onyx"
+              "text": "Shadow... why do you feel like a storm inside me?",
+              "instructions": "Accent: neutral. Emotional range: vulnerable, small. Intonation: rising at end, breathy. Speed: slow, hesitant. Tone: childlike curiosity and worry.",
+              "side": "left",
+              "voice": "onyx"
             },
             {
-              text: "You are not doing anything 'wrong.' Healing is not a race; it's learning to be with what you once fled from. Patience here is a practice, not a timetable.",
-              instructions: "warm, low, steady; emotional range: calm, compassionate; intonation: even; speed: slow; tone: reassuring",
-              side: "right",
-              voice: "ash"
+              "text": "Because I've been carrying every 'no' and every scar you tried to tuck away.",
+              "instructions": "Accent: neutral. Emotional range: gentle, wise. Intonation: even, reassuring. Speed: measured. Tone: warm, steady like an old friend.",
+              "side": "right",
+              "voice": "ash"
             },
             {
-              text: "But my shadow feels huge—like it swallows the progress I make. How do I stop being afraid of it?",
-              instructions: "soft, fragile; emotional range: fearful to curious; intonation: pleading; speed: moderate; tone: small and open",
-              side: "left",
-              voice: "onyx"
+              "text": "But you scare me. I push you away and pretend you're not there.",
+              "instructions": "Accent: neutral. Emotional range: anxious, ashamed. Intonation: quickened, trailing off. Speed: slightly hurried. Tone: small, confessing.",
+              "side": "left",
+              "voice": "onyx"
             },
             {
-              text: "Imagine a garden that floods each spring. If you fight the water with your hands you'll tire quickly. If you plant differently—deeper roots, stones to guide the flow—the same water becomes life. Your shadow is part of the season; learn its language and it will stop wrecking the house.",
-              instructions: "metaphoric, steady; emotional range: patient wisdom; intonation: rising then softening; speed: measured; tone: vivid and calm",
-              side: "right",
-              voice: "ash"
+              "text": "Pushing only tightens the wound. Hiding made you safe from others, but it kept you small from yourself.",
+              "instructions": "Accent: neutral. Emotional range: compassionate, firm. Intonation: calming, deliberate. Speed: steady. Tone: gentle teacher, non-blaming.",
+              "side": "right",
+              "voice": "ash"
             },
             {
-              text: "That sounds poetic, but in a moment of panic I can't remember metaphors. I just react.",
-              instructions: "rushed, honest; emotional range: frustrated; intonation: clipped; speed: quick; tone: candid",
-              side: "left",
-              voice: "onyx"
+              "text": "How do I meet you without drowning in everything you've got?",
+              "instructions": "Accent: neutral. Emotional range: fearful but curious. Intonation: rising-question. Speed: cautious. Tone: young, searching for a map.",
+              "side": "left",
+              "voice": "onyx"
             },
             {
-              text: "Then begin with one small thing: the pause. When a trigger flares, take a single held breath—notice the sensation, name the feeling silently, and say, 'I see you.' Not to fix it, only to welcome it. That tiny pause interrupts the old loop and teaches your nervous system another way.",
-              instructions: "gentle, instructional; emotional range: encouraging; intonation: calm crescendos on key phrases; speed: slow; tone: guiding",
-              side: "right",
-              voice: "ash"
+              "text": "Breathe. Witness me like you would a bruise — notice the color, the hurt, without flinching. Ask what it needs, then listen.",
+              "instructions": "Accent: neutral. Emotional range: calm, instructive. Intonation: slow, rhythmic. Speed: deliberate. Tone: grounding, very gentle.",
+              "side": "right",
+              "voice": "ash"
             },
             {
-              text: "A single held breath. I can try that. It feels almost too small to matter.",
-              instructions: "hesitant then a little lighter; emotional range: doubtful to tentative hope; intonation: falling then hopeful; speed: moderate; tone: soft",
-              side: "left",
-              voice: "onyx"
+              "text": "I keep feeling shame. I thought hiding would keep me safe from being broken.",
+              "instructions": "Accent: neutral. Emotional range: tender, ashamed. Intonation: soft, confessional. Speed: slow. Tone: honest and small.",
+              "side": "left",
+              "voice": "onyx"
             },
             {
-              text: "Small is everything. Each patient pause is a stitch—over time they mend the fabric. Your shadow isn't an enemy to defeat; it's a story to listen to. When you listen with steady patience, the story changes.",
-              instructions: "warm, resonant; emotional range: confident compassion; intonation: emphatic on 'small' and 'listen'; speed: slow; tone: nurturing",
-              side: "right",
-              voice: "ash"
+              "text": "Shame thrives in secrecy. Light dissolves it. Naming it — out loud, inside you — takes its power away.",
+              "instructions": "Accent: neutral. Emotional range: encouraging, poetic. Intonation: warm, metaphorical. Speed: steady. Tone: hopeful and evocative.",
+              "side": "right",
+              "voice": "ash"
             },
             {
-              text: "Okay—today I'll try one pause every time I feel the old surge. If nothing else, I'll practice being kind to myself in the in-between.",
-              instructions: "quiet resolve; emotional range: resolved, calm; intonation: steady uplift at the end; speed: moderate; tone: sincere",
-              side: "left",
-              voice: "onyx"
+              "text": "If I feel it fully, won't it take over? Won't I become the hurt?",
+              "instructions": "Accent: neutral. Emotional range: worried, doubtful. Intonation: pleading. Speed: moderate. Tone: vulnerable, young.",
+              "side": "left",
+              "voice": "onyx"
             },
             {
-              text: "Good. Start there. Healing keeps company with patience. Each small moment you offer to yourself is the greatest proof of love. Take one minute now—pause, breathe, name one feeling—and come back below to share what you noticed.",
-              instructions: "soft command, inviting; emotional range: warm encouragement; intonation: gentle crescendo toward CTA; speed: slow; tone: hopeful, present; whispering at the final phrase for intimacy",
-              side: "right",
-              voice: "ash"
+              "text": "Feeling isn't being swallowed — it's clearing the room. Stay with the sensation, name it, then choose how you reply. That choice is your freedom.",
+              "instructions": "Accent: neutral. Emotional range: firm, empowering. Intonation: rising then steady. Speed: measured. Tone: resolute yet compassionate.",
+              "side": "right",
+              "voice": "ash"
+            },
+            {
+              "text": "Okay... I forgive myself for hiding. I forgive myself for thinking I needed to be perfect.",
+              "instructions": "Accent: neutral. Emotional range: soft relief, sincere. Intonation: calm, affirming. Speed: slow. Tone: healing, quieter strength.",
+              "side": "left",
+              "voice": "onyx"
+            },
+            {
+              "text": "And I forgive you for fearing me. We are parts of one heart — when you welcome me, you reclaim the energy wasted on pretending.",
+              "instructions": "Accent: neutral. Emotional range: tender, relieved. Intonation: warm, embracing. Speed: gentle. Tone: comforting, like a hand on the shoulder.",
+              "side": "right",
+              "voice": "ash"
+            },
+            {
+              "text": "It's like the storm turned into a window. I can see the sky now.",
+              "instructions": "Accent: neutral. Emotional range: surprised delight. Intonation: light, rising. Speed: brighter, quicker. Tone: amazed and hopeful.",
+              "side": "left",
+              "voice": "onyx"
+            },
+            {
+              "text": "Remember: the greatest journey is inward. The power you look for outside already lives inside you — waiting for your courage to stop running and start listening.",
+              "instructions": "Accent: neutral. Emotional range: inspiring, calm. Intonation: steady crescendo. Speed: measured, deliberate. Tone: deep, resonant, encouraging.",
+              "side": "right",
+              "voice": "ash"
+            },
+            {
+              "text": "Take a breath. Who is the shadow you can invite in today? Share one small step you'll take to meet them in the comments — or pause and reflect for a moment.",
+              "instructions": "Accent: neutral. Emotional range: inviting, gentle. Intonation: soft call to action. Speed: calm, concise. Tone: warm invitation to reflect and engage.",
+              "side": "right",
+              "voice": "ash"
             }
           ]
         }
@@ -116,7 +146,14 @@ export const RemotionRoot: React.FC = () =>
           }
         }))
 
-        const totalDuration = sounds.reduce((acc, sound) => acc + sound.durationInFrames, 0)
+        const { slowDurationInSeconds: outroSlowDurationInSeconds } = await parseMedia(({
+          src: staticFile('Outro.mp4'),
+          fields: { slowDurationInSeconds: true }
+        }))
+
+        const outroDurationInFrames = Math.floor(outroSlowDurationInSeconds * 30)
+
+        const totalDuration = sounds.reduce((acc, sound) => acc + sound.durationInFrames, 0) + outroDurationInFrames
 
         return {
           props: {
@@ -124,7 +161,8 @@ export const RemotionRoot: React.FC = () =>
             story: {
               topic: props.story.topic,
               dialog: sounds
-            }
+            },
+            outroDurationInFrames
           },
           durationInFrames: totalDuration
         }

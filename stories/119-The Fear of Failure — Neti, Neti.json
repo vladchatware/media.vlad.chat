@@ -1,0 +1,77 @@
+{
+  "topic": "The Fear of Failure — Neti, Neti",
+  "dialog": [
+    {
+      "text": "I'm so nervous about the class presentation—what if I just fail?",
+      "instructions": "Accent: neutral; Emotional range: anxious; Intonation: rising; Speed: quick; Tone: young, shaky voice; Impression: a boy on the edge of tears.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Say the fear out loud. What is it telling you right now?",
+      "instructions": "Accent: neutral; Emotional range: calm, curious; Intonation: even, probing; Speed: slow; Tone: warm, grounding; Impression: gentle shadow teacher holding space.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "It keeps saying, ‘You’ll fail. They’ll laugh. You’re not good enough.’",
+      "instructions": "Accent: neutral; Emotional range: defeated then honest; Intonation: falling; Speed: measured; Tone: small, confessional.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Listen—those are words your mind is rehearsing. They’re a story, not the stage. Breathe with me and chant: neti, neti — ‘not this, not this.’",
+      "instructions": "Accent: neutral; Emotional range: soothing authority; Intonation: rhythmic; Speed: slow; Tone: inviting; Impression: guiding the boy into a practice.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Neti... neti...",
+      "instructions": "Accent: neutral; Emotional range: tentative to curious; Intonation: soft and steady; Speed: slow; Tone: whisper to stronger; Impression: the boy trying the chant and feeling it shift.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Good. Now name the thought: ‘I will fail.’ See it as a character on the stage of your mind — an actor playing a part, not your truth.",
+      "instructions": "Accent: neutral; Emotional range: instructive, compassionate; Intonation: clear, visual; Speed: calm; Tone: steady; Impression: teacher helping separate identity from story.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "So I can watch it and not be it? I can choose something else?",
+      "instructions": "Accent: neutral; Emotional range: hopeful; Intonation: questioning then rising; Speed: moderate; Tone: surprised, lighter.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Yes. You can choose to breathe, to begin despite the trembling. Courage is a choice—one small step at a time. Let the story remain in the wings.",
+      "instructions": "Accent: neutral; Emotional range: encouraging; Intonation: steady, uplifting; Speed: measured; Tone: warm, firm; Impression: shadow as ally, not enemy.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "I went up. My hands shook, my voice quivered, but I finished. It wasn’t perfect—and I feel freer than before.",
+      "instructions": "Accent: neutral; Emotional range: relieved, proud; Intonation: soft, steadying; Speed: moderate; Tone: youthful relief; Impression: small victory, integration of lesson.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Perfection isn’t the test—presence is. You practiced seeing fear as a story, and that is progress. The shadow served you by showing the script; now you edit it.",
+      "instructions": "Accent: neutral; Emotional range: warm, wise; Intonation: concluding, gentle uplift; Speed: calm; Tone: reflective mentor; Impression: synthesis of inner work.",
+      "side": "right",
+      "voice": "ash"
+    },
+    {
+      "text": "Thank you. I’ll remember neti, neti next time and choose to act anyway.",
+      "instructions": "Accent: neutral; Emotional range: resolved; Intonation: quiet confidence; Speed: steady; Tone: settled, grateful.",
+      "side": "left",
+      "voice": "onyx"
+    },
+    {
+      "text": "Try this now: the next time a fearful story shows up, whisper ‘neti, neti,’ name the thought, and step forward anyway. If this helped you, pause and try the chant for thirty seconds—then share what you felt in the comments.",
+      "instructions": "Accent: neutral; Emotional range: inviting; Intonation: warm invitation; Speed: moderate; Tone: gentle call to action; Impression: closing mentor asking for reflection and community.",
+      "side": "right",
+      "voice": "ash"
+    }
+  ]
+}
