@@ -18,4 +18,6 @@ export const concat = async (name) => {
 export const cleanup = async () => {
   await $`rm ${path}/videos.txt`.nothrow()
   await $`rm ${path}/*.mp4`.nothrow()
+  await $`rm ${_path.join(__dirname, '..', 'public', 'captions-*.json')}`
+  await $`rm ${_path.join(__dirname, '..', 'public', 'speech-*.mp3')}`
 }

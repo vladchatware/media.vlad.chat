@@ -21,7 +21,8 @@ export const storyProp = z.object({
       text: z.string(),
       instructions: z.string(),
       side: z.enum(['left', 'right']),
-      voice: z.enum(['onyx', 'ash'])
+      voice: z.enum(['onyx', 'ash']),
+      shot: z.enum(['two-shot', 'medium', 'closeup']).default('two-shot')
     }).array()
   })
 })

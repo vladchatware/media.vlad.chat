@@ -11,41 +11,25 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    height: '100%',
+    width: '100%',
   },
-  p: {
-    fontSize: 42,
+  caption: {
+    backgroundColor: 'white',
+    paddingInline: 24,
+    marginBlock: -5,
+    borderRadius: 16,
+    borderSize: 1,
+    borderColor: 'transparent',
+    borderStyle: 'solid',
+  },
+  captionToken: {
+    fontSize: 52,
     fontWeight: 600,
     fontFamily,
-    borderRadius: 16,
-    borderColor: 'white',
-    borderSize: 1,
-    borderStyle: 'solid',
-    background: 'white',
-    display: 'inline-block',
-    textAlign: 'center',
-    paddingInline: 10,
-    maxWidth: 800
   },
   main: {
-    position: 'absolute',
-    top: 100,
-    left: 50,
-    marginInline: 30,
-    zIndex: 2,
-  },
-  img: {
     flex: 1,
-    position: 'absolute',
-    zIndex: 1,
-    top: -300,
-    height: '150%',
-    // width: '200%'
-  },
-  left: {
-    left: -200,
-  },
-  right: {
-    right: -150
   }
 }
 
@@ -55,7 +39,28 @@ const inFrame = (frame, from, to) => {
   return frameFrom <= frame && frame <= frameTo
 }
 
-const Captions = ({ captions, combineTokensWithinMilliseconds }) => {
+const captionPositionStyle = {
+  'left-closeup': {
+    paddingTop: 800
+  },
+  'left-medium': {
+    paddingTop: 100
+  },
+  'right-closeup': {
+    paddingBottom: 1200
+  },
+  'right-medium': {
+    paddingTop: 100
+  },
+  'left-two-shot': {
+    paddingTop: 100
+  },
+  'right-two-shot': {
+    paddingTop: 100
+  }
+}
+
+const Captions = ({ captions, captionPosition, combineTokensWithinMilliseconds }) => {
   const frame = useCurrentFrame()
   const { pages } = createTikTokStyleCaptions({
     captions,
@@ -71,21 +76,22 @@ const Captions = ({ captions, combineTokensWithinMilliseconds }) => {
         postmountFor={1}
         durationInFrames={durationInFrames || 10}
       >
-        <main style={styles.main}>
-          <p style={styles.p}>
-            {caption.tokens.map((token, i) =>
-              <span
-                key={i}
-                style={inFrame(frame, token.fromMs, token.toMs) ? { color: 'red' } : { color: 'black' }}
-              >
+        <AbsoluteFill style={{ ...captionPositionStyle[captionPosition], ...styles.container }}>
+          <div style={styles.caption}>
+            {caption.tokens.map((token, i) => {
+              const visible = inFrame(frame, token.fromMs, token.toMs)
+              const style = visible ? { color: 'red' } : { color: 'black' }
+
+              return <span key={i} style={{ ...style, ...styles.captionToken }}>
                 {token.text}
-              </span>)}
-          </p>
-        </main>
+              </span>
+            })}
+          </div>
+        </AbsoluteFill>
       </Series.Sequence>
     }
     )}
-  </Series>
+  </Series >
 }
 
 type StoryMetadata = {
@@ -93,6 +99,7 @@ type StoryMetadata = {
     text: string
     instructions: string
     side: 'left' | 'right',
+    shot: 'two-shot' | 'closeup' | 'medium'
     voice: 'onyx' | 'ash',
     durationInFrames: number,
     sound: string,
@@ -100,25 +107,37 @@ type StoryMetadata = {
   }[]
 }
 
+const shots = {
+  'left-closeup': 'shadow-left-closeup.png',
+  'left-medium': 'shadow-left-medium.png',
+  'two-shot': 'shadow-two-shot.png',
+  'right-closeup': 'shadow-right-closeup.png',
+  'right-medium': 'shadow-right-medium.png',
+  'left-two-shot': 'shadow-two-shot.png',
+  'right-two-shot': 'shadow-two-shot.png'
+}
+
+
 export const Story = ({ story, outroDurationInFrames }: { story: StoryMetadata }) => {
   return (<CameraMotionBlur shutterAngle={280} samples={1}>
-    <OffthreadVideo src={staticFile('1939477514.mp4')} volume={0.1} style={{ visibility: 'hidden' }} />
-    <AbsoluteFill style={styles.container}>
-      <Series>
-        {story.dialog.map((line, i) =>
-          <Series.Sequence key={i} premountFor={30} durationInFrames={line.durationInFrames || 10}>
-            <AbsoluteFill>
-              <Img src={staticFile('shadow.png')} fit="cover" style={{ ...styles.img, ...styles[line.side] }} />
-              <Audio src={staticFile(line.sound)} />
-              <Captions captions={line.captions} combineTokensWithinMilliseconds={1200} />
-            </AbsoluteFill>
-          </Series.Sequence>
-        )}
-        <Series.Sequence key={story.dialog.length + 1} premountFor={30} durationInFrames={outroDurationInFrames}>
-          <OffthreadVideo src={staticFile('Outro.mp4')} />
+    <OffthreadVideo src={staticFile('1939477514.mp4')} volume={0.1} style={{ visibility: 'hidden' }} showInTimeline={false} />
+    <Series>
+      {story.dialog.map((line, i) =>
+        <Series.Sequence key={i} premountFor={30} durationInFrames={line.durationInFrames || 10}>
+          <Img src={staticFile(shots[`${line.side}-${line.shot}`])} style={styles.img} />
+          <AbsoluteFill style={styles.container}>
+            <Audio src={staticFile(line.sound)} />
+            <Captions
+              captions={line.captions}
+              captionPosition={`${line.side}-${line.shot}`}
+              combineTokensWithinMilliseconds={1200} />
+          </AbsoluteFill>
         </Series.Sequence>
-      </Series>
-    </AbsoluteFill>
+      )}
+      <Series.Sequence key={story.dialog.length + 1} premountFor={30} durationInFrames={outroDurationInFrames}>
+        <OffthreadVideo src={staticFile('Outro.mp4')} />
+      </Series.Sequence>
+    </Series>
   </CameraMotionBlur>
   );
 };

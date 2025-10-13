@@ -5,23 +5,22 @@ through an audio dialogue.
 
 The structure should include a clear beginning, middle and end, the audio dialog driving the narrative.
 
-Conclude with a call to action encouraging viewers to reflect on the lesson or share their
-thoughts in the comments.
+Conclude with a call to action encouraging viewers to do their own reflection.
 
 Ensure the narrative is emotionally engaging and suitable for social media short form format
 with a quick attention span.
 
-A student begins with asking a question, a teacher is answering and so the dialog begins (do not prefix dialog lines with the role names).
+A person begins with asking a question, a person's shadow is answering and so the dialog begins (do not prefix dialog lines with the role names).
 
-A boy (student) is healing his relationship with the shadow (teacher) through the inner work.
+The invitation to the inner work.
 
 # The Inner Work
 
 The hero's journey is inside of you.  Tear off the veils and open the mystery of yourself. - Joseph Campbell
 
-Welcome to the greatest adventure of your life - the journey back to your true Self, the embodiment of pure love, true freedome and lasting happiness.
+Welcome to the greatest adventure of your life - the journey back to your true Self, the embodiment of pure love, true freedom and lasting happiness.
 The path is simple, yet many find it to be the most challenging of all.
-This, however is netirely up to you and your own willingness to surrender resistance, as it is only through the _releasing_ of unhealed wounds within your consciousness that you can _remember_ the true peace,
+This, however is entirely up to you and your own willingness to surrender resistance, as it is only through the _releasing_ of unhealed wounds within your consciousness that you can _remember_ the true peace,
 unconditional love, and eternal joy waiting to be revealed within you.
 
 The shift out of the old and into a new paradigm of true freedom and lasting happiness can transform your current life to heaven on earth.
@@ -448,3 +447,154 @@ while you are yearning to elevate yoursel, there is still a hufe part of you, an
 stuck un a wounded theme of consciousness that actually does not want you to succeed in awakening.
 
 > The only enemy to ever exist is an eternal one. It is hiding in the very last place you'd ever look. Within yourself.
+
+# Out Collective inheritence
+
+Whether we are conscious of it or not, we all inherited limiting beliefs, thoughts and programming that are counterproductive to our well-being and bring suffering. Over a long enough period of exposure, there beliefs becomes so familiar to us that they then formulate a limited identity within us. Whether this wounding came directly through parents, teachers, religious figures, friends, or indirectly through the influences of society = we all got it. These inherited limiting programs of belief are not personal, just part of being born a human. However, the most empo wering view we can take on our suffering is that it may actually be playing a perfect role in our hero's journey of awakening.
+
+> The universe doesn't make mistakes - Chris Prentiss 
+
+When seen from the highest perspective, our struggle are actually our greatest 
+teachers, for they reveal to us personal opportunities for expansion.
+For example, "hitting bottom" may have been exactly what was needed in orderto finally let go, have a change of heart, or see the bigger picture. like
+sandpaper to wood, our challenges can soften the soul if we allow them.
+We must not run from the discomfort of life's lows but instead have the courage
+to lean into them with humility and curiousity. In every painful or challenging experience, we can benefit from asking ourselves, "What can I learn from this?"
+What character quality can I develop from this? What do I need to let go of?
+What part am I playing in this? Where am I limiting my own joy and peace?
+Where am I getting stuck? Where can I expand?
+It is only by facing our resistances with self-honesy and accountability that
+we can experience the empowerment and happiness that is waiting for us on the
+other side. See your discomfort as the doorway to freedom. Have the bravery and 
+courage to see all obstacles only as temporary moments of realignment - 
+always working out in your favor.
+
+> Your trials did not come to punish you, but to awaken you. - Paramahansa Yogagananda
+
+The desire to hide, deny or reject our insecurities, pain, anger or sadness
+ultimately only hurts us further. When repressed and buries, our emotions
+will slowly poison us from within. For every denial and rejection of our
+emotions is only a rejection of our Self. If we resist the existence of our 
+shadows, they will only continue to thrive through our denial and fear of them.
+To feel is to heal.
+
+The Inner Work process is an invitation to allow emotions, understand them
+with compassion, and finally release those that are not serving us.
+Nothing we feel could ever be wrong. We are innocent, learning and becoming.
+Everything we go through is actually playing a perfect part in our own hero's
+jounrney of enlightment. All seeming "mistakes" are only an innocent discovery
+of who we are not. Thus leading us one step closer to the truth of who we are.
+
+The mind is naive and impressionable and therefore subject to massive error.
+We must not identify with the mind's perceived mistakes but rather seek to 
+understand ourselves and other with compassion. By courageously acknowledging
+our vulnerabilities, we are on our way to healing them. Accepting outselves as 
+we are right now is the initial part of The Inner Work process.
+
+>Your problem is you're too busy holding onto your unworthiness - Ram Dass
+
+# The Human Potential
+
+Due to our unique ability to make conscious choices and exercies a spiritual will,
+humans are actually capable of experiencing dramatically different levels and rates 
+of evolution, i.e., themes of consciousness. True freedom and lasting happiness are 
+an example of a degree of evolution in human consciousness. Just as themes such as 
+rejection, inadequacy, accountability and understanding are as well. Each season of 
+the human experience has differing inner obstacles, shadows and attachments to overcome 
+in order to allow a grander paradigm and view of life to come forth - continiously 
+becoming more loving and free as we spiritually mature. Thus, the next state of human 
+evolution of consciousness - an internal shift that can only be brough about through
+the inner choice of peace, happiness and love.
+
+> Self-discipline is making the higher choice, again and again - Ellen Grace O'Brian 
+
+As each individual makes the higher choice to heal the wounded themes of consciousness,
+humanity as a whole will gradually adapt to new levels of maturity - eventually leading 
+to inner-liberation for all. Therefore, every individual is important, needed and 
+necessary part of the greater whole. Everyone must do their own Inner Work - no one can do 
+it for us. We all share in the collective human karma or destiny. Every though and action 
+of the individual contributes to the collective consciousness and, in fact, all the universe 
+- there is no actual separation.
+You are a crucial part of a greater whole, deciding to be free from the inner shackles of 
+limitation. Deciding to choose love, happiness and the peace of remembering who you truly are.
+And while the effect of your choices will have immense benefits for you personally, the 
+world will benefit a thousandfold. For every time we heal a personal limitation and trauma 
+within ourselves, we are healing it within the collective as well by holding the door open for 
+others to join us by following our example. Every advance in consciousness of the individual 
+uplifts the rest of us with it like an ocean tide rising. There could be no greater contribution 
+to humanity than doing your own Inner Work.
+
+> Your own Self-realization is the greatest service you can render the world. - Ramana Maharshi 
+
+Consider this a formal invitation to finally experience the full joy and awe of Creation, to 
+accept a life filled with purpose and meaning. It's all around you, waiting for you to 
+simply recognize it. It is right here, right now. Have confidence in the love and support 
+of your inner Self. Trust your true Self will come forth and is always with you. You will 
+know the Truth by its essence of innocent joy. The energies of happiness, empowerment, 
+compassion, kindness, trust in goodness, faith, peace, humility, satisfaction, fearlessness and 
+most importantly, gratitude are all some of the most powerful hallmarks of your true Self.
+Pay attention to the daily moments you embody these energies. Those will be the moments that 
+you are living up to your full potential and living in your purpose. Those are the moments
+that you are living up to your full potential and living in your purpose. Those are the moments 
+that you are being the love and happiness you've always desired, rather than trying to obtain 
+project, or earn it. Realize that all the joy of life is within you already, and you are destined 
+to succeed or else you wouldnt be here , now.
+
+> Happiness is when what you think, what you say and what you do, are in harmony - Mahatma Ghandi
+
+# The Human Plight 
+
+> There is pleasure and there is bliss. Forego the first, to posess the second - Siddartha Guatama Buddha 
+
+We all have a deep yearning wihin our hearts to be happy. And we have amazing fantasies of how we 
+wish to express that happiness, whether through travel, romance, or arriving at a milestone life 
+goal. If you think about it long enough, you will realize there is definitely somewhere you would 
+like to get. Some are seeking to meet the person they will marry so they can finally settle down, 
+have children, and be happy within a secure partnership. For the others, they won't allow themselves 
+to feel freedom until they finish paying off their debt. And for many, they are anticipating 
+retirement so they can finally have the time to relax and enjoy life.
+
+Unfortunately, most of the time, these fantasies become a grand way of projecting our happiness 
+outside of ourselves as something that we have to "get to", thus setting up for suffer 
+in the meantime. Yet, it isnt the dreams themselves that are the problem. Life is meant to be an 
+adventure of possibility and fun - our visions and inspirations are gifts to explore.
+The origin of the problem is in the belief that life will only be better when...
+
+# The Truth of This Moment 
+
+The truth is that things can actually be better right now if you allow them to, even while you 
+are still in the process of becoming. You don't have to wait until tomorrow or until some 
+big event transpires to live your dream life and to feel your best. You actually already are 
+living your dream life and already have everything you need to be happy. You only need to wake up 
+from the nightmare of your not-self to see it. It is your birthright to be infinitely peacful,
+joyful, and free in every new moment. But if this is the truth, why don't you feel this way all 
+of the time?
+
+Besides the fantasies about a future or past that is much better than this one, our mind will 
+often deny us happiness in small doses subconsously each and every day.
+
+By holding onto past trauma, we deny ourselves healing. By feeling self-conscious, we deny own self-worth. By finding fault in other people's actions, we deny ourselves compassion.
+
+By feeling hopeless, we deny ourselves faith.
+By collecting excuses, we deny ourselves our own power.
+By clinging to our losses, we miss on the miracles happening now.
+By feeling skeptical, stressed, worried, paranoid, or anxious, we deny ourselves contentment
+and trust.
+By feeling envious of the others, we deny ourselves abundance.
+By waiting for the weeking to come, we deny ourselves presence and gratitude.
+By becoming offended or defensive, we deny ourselves peace.
+By holding a grudge, seeking revenge, or gossiping about other people, we deny ourselves security.
+By seeking attention and validation, we deny ourselves completeness.
+By operating on autopilot, we deny ourselves inspiration.
+By reacting to situations unconscously, we deny ourselves discernment.
+By closing our hearts, we deny ourselves love.
+
+If you are truly honest and compassionate with yourself, you can begin to see your own habits in 
+some of these examples and begin to recognize where you may be denying yourself the very things you
+desire. Whichever aspects of your life you are not allowing yourself to experience: joy, peace,
+patience, compassion, love, gratitude, faith, or forgiveness, etc. - that is where your Inner Work 
+lies. Not because you need to be a better person, follow a set of commandments, or adhere to some 
+sort of moral code, but simply because it feels better to choose better. And if you want to live 
+a life of true freedom and lasting happiness, choosing better starts within.
+
+> It is better to conquer yourself than to win a thousand battles - Siddartha Guatama Buddha

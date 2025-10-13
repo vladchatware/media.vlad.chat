@@ -11,13 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "@ai-sdk/openai": "^2.0.23",
-    "@remotion/cli": "4.0.340",
-    "@remotion/google-fonts": "4.0.340",
-    "@remotion/media-utils": "4.0.340",
-    "@remotion/motion-blur": "4.0.340",
-    "@remotion/openai-whisper": "^4.0.353",
-    "@remotion/transitions": "4.0.340",
-    "@remotion/zod-types": "4.0.340",
+    "@remotion/cli": "4.0.358",
+    "@remotion/google-fonts": "4.0.358",
+    "@remotion/media-utils": "4.0.358",
+    "@remotion/motion-blur": "4.0.358",
+    "@remotion/openai-whisper": "4.0.358",
+    "@remotion/captions": "4.0.358",
+    "@remotion/transitions": "4.0.358",
+    "@remotion/zod-types": "4.0.358",
     "@types/bun": "^1.2.21",
     "ai": "^5.0.28",
     "express": "^4.21.2",
@@ -27,7 +28,7 @@
     "zod": "^3.0.0"
   },
   "devDependencies": {
-    "@remotion/renderer": "^4.0.340",
+    "@remotion/renderer": "4.0.358",
     "prettier": "^3.6.2"
   }
 }
