@@ -31,97 +31,57 @@ export const RemotionRoot: React.FC = () =>
       schema={storyProp}
       defaultProps={{
         story: {
-          "topic": "The Power Within",
+          "topic": "Mindless Chatter",
           "dialog": [
             {
-              "text": "Shadow... why do you feel like a storm inside me?",
-              "instructions": "Accent: neutral. Emotional range: vulnerable, small. Intonation: rising at end, breathy. Speed: slow, hesitant. Tone: childlike curiosity and worry.",
+              "text": "Why won't my mind ever quiet down? I'm exhausted by the constant noise—what if this is all I'll ever be?",
+              "narration": "A young person sits on the edge of a rooftop at dusk, legs dangling. City lights shimmer below like a distant galaxy. Their jacket is ordinary, hair tousled from wind. A long shadow stretches from their shoulder across the concrete and up the brick wall—taller, steadier, almost alive. The air smells of rain and possibility.",
+              "instructions": "Breathy, vulnerable, quick inhale before lines, rising intonation at the end; honest, a touch of fear.",
               "side": "left",
-              "voice": "onyx"
+              "shot": "medium",
+              "mood": "questioning",
+              "voice": "onyx",
+              "seconds": 4
             },
             {
-              "text": "Because I've been carrying every 'no' and every scar you tried to tuck away.",
-              "instructions": "Accent: neutral. Emotional range: gentle, wise. Intonation: even, reassuring. Speed: measured. Tone: warm, steady like an old friend.",
+              "text": "Because you keep treating the noise like it defines you. The chatter learned to protect you; it learned how to get attention. This is the invitation to the Inner Work: stop feeding the story and listen for what the story is hiding.",
+              "narration": "The shadow's voice seems to come from the wall itself. Up close you notice its edges ripple like smoke; it wears no clothes but carries an ancient calm. The skyline frames the shadow as if it's an elder at a campfire telling a truth. Night air is still, the city's hum receding.",
+              "instructions": "Low, steady, compassionate; slow cadence with gentle emphasis on 'invitation' and 'listen'; confident and loving.",
               "side": "right",
-              "voice": "ash"
+              "shot": "closeup",
+              "mood": "wise",
+              "voice": "ash",
+              "seconds": 8
             },
             {
-              "text": "But you scare me. I push you away and pretend you're not there.",
-              "instructions": "Accent: neutral. Emotional range: anxious, ashamed. Intonation: quickened, trailing off. Speed: slightly hurried. Tone: small, confessing.",
+              "text": "But how do I stop believing it? The mind says, 'You're not enough,' 'You need more,' 'What if it all falls apart.' I don't know which part of me to trust.",
+              "narration": "The person presses their palms to their temples as the words tumble out. The shadow remains still, an unblinking presence on the brick. The wind tugs a loose thread from the person's sleeve; small details feel huge in the quiet. Vulnerability is raw but honest.",
+              "instructions": "Urgent, a little shaky, quickening pace when listing the thoughts; ends with a softer, questioning tone.",
               "side": "left",
-              "voice": "onyx"
+              "shot": "medium",
+              "mood": "conflicted",
+              "voice": "onyx",
+              "seconds": 12
             },
             {
-              "text": "Pushing only tightens the wound. Hiding made you safe from others, but it kept you small from yourself.",
-              "instructions": "Accent: neutral. Emotional range: compassionate, firm. Intonation: calming, deliberate. Speed: steady. Tone: gentle teacher, non-blaming.",
+              "text": "Those phrases are themes of consciousness—wounds trying to keep you safe by repeating themselves. First, name them. Then feel them without fighting. Witness the pattern: wounding, seeking, reacting. When you stop identifying with the chatter, it loses its power. Tear off the veils and open the mystery of yourself; the hero's journey is inside you.",
+              "narration": "The shadow leans forward slightly, voice like warm stone. As it speaks, faint images flicker across the wall—childhood echoes, a closed door, a horizon—then dissolve. The city breathes with them. It's as if the rooftop becomes a small theater for inner truth. The sky is a deep indigo, stars pricking awake.",
+              "instructions": "Reassuring, deliberate, slightly resonant; pause after 'name them' and 'witness the pattern' to let each idea land. Soft crescendo on 'hero's journey'.",
               "side": "right",
-              "voice": "ash"
+              "shot": "closeup",
+              "mood": "soothing",
+              "voice": "ash",
+              "seconds": 12
             },
             {
-              "text": "How do I meet you without drowning in everything you've got?",
-              "instructions": "Accent: neutral. Emotional range: fearful but curious. Intonation: rising-question. Speed: cautious. Tone: young, searching for a map.",
-              "side": "left",
-              "voice": "onyx"
-            },
-            {
-              "text": "Breathe. Witness me like you would a bruise — notice the color, the hurt, without flinching. Ask what it needs, then listen.",
-              "instructions": "Accent: neutral. Emotional range: calm, instructive. Intonation: slow, rhythmic. Speed: deliberate. Tone: grounding, very gentle.",
+              "text": "Start with one minute: breathe, notice one recurring thought, and ask, 'Is this true right now?' If it isn't, breathe it out. Do this daily. Reflect: where is your mindless chatter keeping you from love, peace, or joy? Your Inner Work begins when you choose to look. Will you begin today?",
+              "narration": "The camera pulls back into a two-shot: the person and their shadow on the wall together, framed by city lights and an open sky. The atmosphere is quiet but charged with possibility. The person's shoulders drop a fraction; a small, hopeful smile appears. The shadow's form is less sharp now—softer, as if relaxed.",
+              "instructions": "Warm, invitational, gentle encouragement; slower pace for the practical steps, then a clear, slightly rising tone on the closing question to invite action.",
               "side": "right",
-              "voice": "ash"
-            },
-            {
-              "text": "I keep feeling shame. I thought hiding would keep me safe from being broken.",
-              "instructions": "Accent: neutral. Emotional range: tender, ashamed. Intonation: soft, confessional. Speed: slow. Tone: honest and small.",
-              "side": "left",
-              "voice": "onyx"
-            },
-            {
-              "text": "Shame thrives in secrecy. Light dissolves it. Naming it — out loud, inside you — takes its power away.",
-              "instructions": "Accent: neutral. Emotional range: encouraging, poetic. Intonation: warm, metaphorical. Speed: steady. Tone: hopeful and evocative.",
-              "side": "right",
-              "voice": "ash"
-            },
-            {
-              "text": "If I feel it fully, won't it take over? Won't I become the hurt?",
-              "instructions": "Accent: neutral. Emotional range: worried, doubtful. Intonation: pleading. Speed: moderate. Tone: vulnerable, young.",
-              "side": "left",
-              "voice": "onyx"
-            },
-            {
-              "text": "Feeling isn't being swallowed — it's clearing the room. Stay with the sensation, name it, then choose how you reply. That choice is your freedom.",
-              "instructions": "Accent: neutral. Emotional range: firm, empowering. Intonation: rising then steady. Speed: measured. Tone: resolute yet compassionate.",
-              "side": "right",
-              "voice": "ash"
-            },
-            {
-              "text": "Okay... I forgive myself for hiding. I forgive myself for thinking I needed to be perfect.",
-              "instructions": "Accent: neutral. Emotional range: soft relief, sincere. Intonation: calm, affirming. Speed: slow. Tone: healing, quieter strength.",
-              "side": "left",
-              "voice": "onyx"
-            },
-            {
-              "text": "And I forgive you for fearing me. We are parts of one heart — when you welcome me, you reclaim the energy wasted on pretending.",
-              "instructions": "Accent: neutral. Emotional range: tender, relieved. Intonation: warm, embracing. Speed: gentle. Tone: comforting, like a hand on the shoulder.",
-              "side": "right",
-              "voice": "ash"
-            },
-            {
-              "text": "It's like the storm turned into a window. I can see the sky now.",
-              "instructions": "Accent: neutral. Emotional range: surprised delight. Intonation: light, rising. Speed: brighter, quicker. Tone: amazed and hopeful.",
-              "side": "left",
-              "voice": "onyx"
-            },
-            {
-              "text": "Remember: the greatest journey is inward. The power you look for outside already lives inside you — waiting for your courage to stop running and start listening.",
-              "instructions": "Accent: neutral. Emotional range: inspiring, calm. Intonation: steady crescendo. Speed: measured, deliberate. Tone: deep, resonant, encouraging.",
-              "side": "right",
-              "voice": "ash"
-            },
-            {
-              "text": "Take a breath. Who is the shadow you can invite in today? Share one small step you'll take to meet them in the comments — or pause and reflect for a moment.",
-              "instructions": "Accent: neutral. Emotional range: inviting, gentle. Intonation: soft call to action. Speed: calm, concise. Tone: warm invitation to reflect and engage.",
-              "side": "right",
-              "voice": "ash"
+              "shot": "two-shot",
+              "mood": "inspirational",
+              "voice": "ash",
+              "seconds": 8
             }
           ]
         }

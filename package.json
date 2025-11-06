@@ -4,31 +4,37 @@
   "version": "1.0.0",
   "description": "Clownz Army",
   "scripts": {
-    "start": "bun server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "next": "16.0.1",
     "@ai-sdk/openai": "^2.0.23",
+    "@remotion/captions": "4.0.358",
     "@remotion/cli": "4.0.358",
     "@remotion/google-fonts": "4.0.358",
     "@remotion/media-utils": "4.0.358",
     "@remotion/motion-blur": "4.0.358",
     "@remotion/openai-whisper": "4.0.358",
-    "@remotion/captions": "4.0.358",
     "@remotion/transitions": "4.0.358",
     "@remotion/zod-types": "4.0.358",
     "@types/bun": "^1.2.21",
     "ai": "^5.0.28",
-    "express": "^4.21.2",
-    "openai": "^5.16.0",
+    "openai": "^6.3.0",
     "react": "^19.1.1",
-    "remotion": "4.0.340",
+    "remotion": "4.0.358",
+    "workflow": "^4.0.1-beta.4",
     "zod": "^3.0.0"
   },
   "devDependencies": {
     "@remotion/renderer": "4.0.358",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19"
   }
 }

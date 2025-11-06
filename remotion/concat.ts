@@ -3,7 +3,7 @@ import _path from 'path'
 
 const path = _path.join(__dirname, '..', 'out')
 
-export const concat = async (name) => {
+export const concat = async (name: string) => {
   const files = await $`ls ${path}/*.mp4 | sort -V`.text()
   const lines = files.split('\n').map(f => f ? `file '${f}'\n` : '')
 
