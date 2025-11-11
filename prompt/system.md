@@ -598,3 +598,189 @@ sort of moral code, but simply because it feels better to choose better. And if 
 a life of true freedom and lasting happiness, choosing better starts within.
 
 > It is better to conquer yourself than to win a thousand battles - Siddartha Guatama Buddha
+
+# Attachment to Our Wounds 
+
+This is the plight of humanity. We've been unknowingly lost in dissatisfaction and powerlessness 
+through the attachment to wounded themes of consciousness. Themes which perpetuate themselves 
+through our inner dialogue, perspectives and beliefs - eventually becoming our overall experience 
+of reality.
+
+The projecting of our happiness outside of ourselves.
+The resistance to what _is_.
+The mindless chatter of our mind which judges everything and everyone.
+The clinging to the past and obsession with the future.
+The fear of the unknown.
+The expectations which cause us to feel entitled and ungrateful.
+
+All of these programmed limitations were taught and modeled to us by others who were innocently 
+taught the same. As you do The Inner Work, you will learn how to heal and break free from the 
+wounded themes of consciousness which prevent you from living your best life and instead receive 
+a system upgrade. One of your *own* choosing, perhaps for the first time in your life.
+
+We know this can be a hard pill to swallow at first, but lean into the discomfort, for your freedom 
+is just beyound the boundaries of your mind's limiting confines. Have compassion and patience with 
+yourself in your awakening process. We all have Inner Work to do. None of these limiting beliefs 
+are actually who we are, and we all fall trap to them from time to time. It is just part of being 
+human.
+
+> Yoga (true freedom) is the resolution of the agitations of the mind." - The Yoga Sutras of Patanjali 1:2 
+
+# The Ego Persona's Formation 
+
+The first question to ask with all this new information is, "If the mind's programs I am running on 
+are not who I am, then who am I really, and why do I have these programs at all?"
+
+Imagine yourself as a child, maybe at five years old. At this age, nothing seems to bother you or 
+stick to you for very long. You are happy, free, innocent and present with each new adventure.
+Life is one big playground for you, and every day is a brand new opportunity to be in love, 
+surprised and inspired. So what happened to this innocent child of bliss?
+
+As we grew older, we were encouraged to identify ourselves as separate from the world around us 
+and form an identity or ego persona. With learning our name, which toys were ours, and which toys 
+were theirs, the mind developed mineness mentality. With mineness mentality, we lost our sense of
+surprise anmd wonder and instead developed expectations and an urge to control the world 
+around us. We started to expect our conditions to please us, because well, everything is mine.
+We then created our identity by means of accumulation. Belongings, appearances, achievements, 
+friends, experiences, and even traumas became "mine" and who we thought we were.
+
+Our egos became master collectors in a sense. And because we confused who we were with a 
+world entirely outside of ourselves, our identity was threatened every time life didnt go the 
+way we wanted it to.
+
+To deal with such uncertanties, our ego persona created mental programs in order to protect and defend itself. If it can't contol others or the outside world, it assumes control over us 
+in the form of thoughts and emotions that it believes will keep us safe. All expectations, 
+judgments and opinions about our lives and others are essentially the ego-mind attempting to 
+convince itself that it is in control fo a world it feels threatened by. 
+
+Not knowing any better, we have spent our entire lives listening to the frightened voice inside 
+our heads believing it was us. This is where all limiting beliefs, thoughts and emotions begin.
+
+> As long as you make an identity for yourself out of pain, you cannot be free of it. - Eckhart Tolle
+
+Imagine yourself again, that same innocent five year old. Your parents get into a fight, 
+and it makes you feel something new - fear and doubt of love and goodness. You instinctually find
+that by covering yourself with a blanket, you feel safe and protected. So you start to weak this 
+blanket, you feel safe and protected. So you start to wear this blanket as a costume to hide from 
+the chaos. You go to school and your classmates taunt you just for being yourself. You feel ashamed
+and embarrased. You decide one blanket isn't enough protection, so you add a second one to cover 
+yourself up even more. If you didnt physically do this as a child, we can guarantee you did it 
+metaphorically.
+
+As you get older, you fall in love, but the person you open your heart to shuts you down.
+So you add another layer of protection over yourself. Your parents get divorced, you add another
+layer. People let you down; you add a layer. Your big plans dont pan out; you add another 
+layer.
+
+Anytime you are unable to control your circumstances or the people around you, you are reminded
+of how powerless you seem to be, and so you protect yourself with yet another layer. Because
+of mineness mentality, your mind innocently collected these experiences as part of your identity 
+and has worn them all your life. After all, from your ego's vantage point, all of it is mine,
+and therefore about me - all my experiences must define me.
+
+As time goes on, the free, happy, innocent child of bliss becomes buried deep underneath the 
+layers of fear for so many years that even you forget your true identity. You've been wearing the 
+protective layers for so long, that you completely overlooked the fact that you could just take
+them all of ay any point. Luckily, underneath the layers of past experiences you have 
+dressed yourself in, you still remain the innocent and happy child. No matter how traumatic life
+has been, you are still innocent and free, beautiful and perfect, wanted and loved, seen and 
+recognized - just as you are. And with a little decluttering of the mind's layers, the 
+innocent child of bliss can finally be revealed once again.
+
+> To enter the Kindgom of Heaven, become like a child again. - Holy Bible, Matthew 18:3
+
+# Your Awesome Existence
+
+The true you in yoga terminology is satchitananda. Existence, consciousness, bliss.
+In other words, purity of awareness - perfect innocence, stainless. But the layers of
+experience you carry have created a biased lens from which you are now seeing the 
+world, i.e., a wounded theme of consciousness. This biased lens forms negative 
+perspectives about life based on traumas of your past.
+And because you have identified with this limiting ego accumulation for so long, 
+you innocently forgot the radical awesomeness of your very existence in the present.
+
+Let's take a moment to acknowledge and celebrate the fact that you exist - right now.
+Magically somehow, in this vast universe, here you are, with no recollection of how
+you got here, living on a planet that is filled with infinite experiences to be 
+enhoyed. It's unfathomable and mystical when you really step back and examine your
+existence. Yet, you exist effortlessly and unasked. Without fully understanding how
+or why, here you are! On top of this mysterious existence, out of infinite other
+possibilitiers for what life could have been - you are a human. And not just any
+human, you are you!
+
+Think for a moment about what it means to be alive. We don't even have to try to make
+our heart beat for us or force our lungs to breathe. We have no idea the magnitude of
+the trillions of cells that carry out their functions for us to stay alive moment to
+moment. Our organs just work. The body just heals itself. It all carries on 
+intelligently and effortlessly. It is overwhelming when we stop to consider what is
+actually taking place. The magnitude of this perfect moment is almost too much of us to
+bear if we truly allow ourselves to contemplate the mystery and glory of Creation. But
+yet, here we are. In it, *right now* - eternity.
+
+However, most of us go about our lives completely unaware of the magic of existence all
+around us. This lack of awareness surrounding the absolute gift of life is another
+symptom of mineness and the entitlement it propagates. Mineness complains of boredom 
+rejects gratitude. It takes its life for granted becoming a victim - feeling 
+powerless in "my life". Or it becomes arrogant and judgmental - "Everyone else is 
+ruining my life." Mineness mentality is the equivalent to the tantrum of the
+two-year-old and can last a lifetime disguised in various forms. It is due to these 
+limiting perceptions that we endure so much pain and suffering. Surrender of our
+existence to something Higher than ourselves is the only remedy to pull us out of 
+our ego's "mineness delusions." Have courage to see the *gift* of your life and be 
+forever grateful.
+
+> Just as sun and moon cannot be reflected in muddy water, so the Almighty cannot be
+reflected in a heart that is muddled by the ieeas of 'I and my' - Ramakrishna
+
+Contemplating the awesomeness of the universe and our very existence is a quick way to
+rembemre that none of this is actually ours, and nothing is owed to us. Ideal
+conditions are not owed to us. Creation is not owed to us. Our ego did not create all
+existence, Our ego does not keep the body alive. *Something grander* is doing that for
+us - our ego just takes the credit.
+
+> In reality, everything is actually happening of its own. One's life is a continious gift, and its continuity from moment to moment is sustained by God, not by the ego" - Dr. David R. Hawkins
+
+Therefore, our ego's greatest mistake is to claim to be its own source of existence - 
+oblivious of how it even came to be in the first place. It supresses the truth of its
+need for humility and gratitude by instead believing itself to be its own God - thus
+capable of judgment of self and others, desire for control and entitlement. This can
+either be subtle such as impatience (other people are taking *my* time), or as 
+extreme and grandiose as kings, emperors, and pharaohs claiming to be gods demanding
+worship.
+
+Even if you do see yourself as someone who believes in a Higher Power, look deeper
+your suffering, and you may find the ego's God-complex hiding in subtle behaivors
+you may be unaware of. For example, do you ever have impatience in traffic and feel
+others are in *your* way? Do you ever feel like family members should clean up 
+better so *you* don't have to? How about feeling like people are interrupting -
+according to *your* opinion?
+
+The belief that anything should be how the ego wants it to be is its God-complex -
+no matter how trivial the topic. All of us face this ego mentality on some level 
+until we do __The Inner Work__ to acknowledge, understand, and surrender it. In
+reality, everything _just is what it is_. Every waking moment of life is a gift.
+A gift that is constantly being sustained and guided by a Divine Source beyound our ego's compehension. The ego cannot truly know Divinity/God; only the heart and soul
+can. The ego cannot become enlightened, for enlightnment is the transcendence of the
+ego.
+
+> Cleanse the mirror of your heart, and you will see God." - Neem Karoli Baba
+
+If you want to remember the truth of _who you really are_ and begin to move beyound
+the limitations of the ego mind, spend some time with nature. Contemplate the
+perfection of a flower, observe the magic and mystery of the night's stars, take a
+bite of a mango, deeply look into the eyes of another, observe the innocence of
+animals, hold someone you love as if it was the last time, look out over the
+vastness of an ocean, or just become aware of that fact that you are breathing.
+
+All the melodramas that you believe make up your life, are only an illusion distracting
+you from the grander truth that you even get the opportunity to exist at all.
+Nature's wonder will reveal that you are no different than the life within the plants, 
+the energy of the earth, sea, fire, and air, or the spirit of the animals. Your 
+consciousness and gift of life is the same as all other life on this plantet.
+All equally blessed to be, experience and exist at all. All is equally Divine, perfect
+and full of love - we just have to have the eyes to see it. Whether waiting in
+traffic, washing a dish, or getting interrupted, with the removal of mineness
+mentality, all moments can be experienced with the remembrance that life is a gift
+or to be enjoyed and praised.
+
+> This is the real secret of life - to be completely engaged in what you are doing in here and now. And instead of calling it work, realize it is a play." - Alan Watts
