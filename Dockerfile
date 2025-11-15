@@ -26,5 +26,4 @@ RUN npm i --legacy-peer-deps
 # Install Chrome
 RUN npx remotion browser ensure
 # Run your application
-COPY render.mjs render.mjs
-CMD ["node", "render.mjs"]
+CMD ["npx", "remotion", "studio"]
