@@ -22,7 +22,7 @@ COPY src ./src
 # If you have a public folder:
 COPY public ./public
 # Install the right package manager and dependencies - see below for Yarn/PNPM
-RUN npm i --ignore-peer-deps
+RUN npm i --legacy-peer-deps
 # Install Chrome
 RUN npx remotion browser ensure
 # Run your application
