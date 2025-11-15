@@ -23,11 +23,11 @@
     "@remotion/player": "4.0.357",
     "@remotion/transitions": "4.0.357",
     "@remotion/zod-types": "4.0.357",
-    "@types/bun": "^1.2.21",
     "ai": "^5.0.28",
     "next": "16.0.1",
     "openai": "^6.3.0",
     "react": "^19.1.1",
+    "react-dom": "^19.2.0",
     "remotion": "4.0.357",
     "workflow": "^4.0.1-beta.13",
     "zod": "^4.0.0"
@@ -37,6 +37,7 @@
     "prettier": "^3.6.2",
     "typescript": "^5",
     "@types/node": "^20",
-    "@types/react": "^19"
+    "@types/react": "^19",
+    "@types/bun": "^1.2.21"
   }
 }
