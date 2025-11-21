@@ -2,6 +2,8 @@ import OpenAI from 'openai'
 import { zodTextFormat } from 'openai/helpers/zod'
 import { readdirSync, createReadStream, createWriteStream, writeFile, writeFileSync } from 'node:fs'
 import { z } from 'zod'
+import { gateway } from '@ai-sdk/gateway'
+import { generateObject } from 'ai'
 const openai = new OpenAI()
 
 const imageSchema = z.object({
@@ -58,15 +60,24 @@ export const readStory = async (name: string | undefined): Promise<Story> => {
 }
 
 export const generateStory = async (system: string, prompt: string) => {
-  const response = await openai.responses.parse({
-    model: 'gpt-5-mini',
-    input: [{ role: 'system', content: system }, { role: 'user', content: prompt }],
-    text: {
-      format: zodTextFormat(storySchema, 'json_object')
-    }
+  const {object} = await generateObject({
+    model: 'openai/gpt-5-mini',
+    system,
+    prompt,
+    schema: storySchema
   })
 
-  const story = storySchema.parse(response.output_parsed)
+  const story = storySchema.parse(object)
+
+  // const response = await openai.responses.parse({
+  //   model: gateway.textEmbeddingModel('openai/gpt-5-mini'),
+  //   input: [{ role: 'system', content: system }, { role: 'user', content: prompt }],
+  //   text: {
+  //     format: zodTextFormat(storySchema, 'json_object')
+  //   }
+  // })
+
+  // const story = storySchema.parse(response.output_parsed)
 
   const counter = readdirSync(`${__dirname}/../stories`).length
 
