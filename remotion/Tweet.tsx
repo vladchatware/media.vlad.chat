@@ -83,7 +83,7 @@ const theme = {
   }
 }
 
-export const Tweet = ({ image, username, content, sound, handle, mode }: { image: string, username: string, content: string, sound: string, mode: 'dark' | 'light'}) => {
+export const Tweet = ({ image, username, content, sound, handle, mode }: { image: string, username: string, content: string, sound: string, handle: string, mode: 'dark' | 'light'}) => {
   const _theme = theme[mode]
   return (<CameraMotionBlur shutterAngle={280} samples={1}>
     <AbsoluteFill>

@@ -4,30 +4,41 @@
   "version": "1.0.0",
   "description": "Clownz Army",
   "scripts": {
-    "start": "bun server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "studio": "remotion studio"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ai-sdk/gateway": "^2.0.12",
     "@ai-sdk/openai": "^2.0.23",
-    "@remotion/cli": "4.0.340",
-    "@remotion/google-fonts": "4.0.340",
-    "@remotion/media-utils": "4.0.340",
-    "@remotion/motion-blur": "4.0.340",
-    "@remotion/openai-whisper": "^4.0.353",
-    "@remotion/transitions": "4.0.340",
-    "@remotion/zod-types": "4.0.340",
-    "@types/bun": "^1.2.21",
-    "ai": "^5.0.28",
-    "express": "^4.21.2",
-    "openai": "^5.16.0",
-    "react": "^19.1.1",
-    "remotion": "4.0.340",
-    "zod": "^3.0.0"
+    "@remotion/captions": "4.0.357",
+    "@remotion/cli": "4.0.357",
+    "@remotion/google-fonts": "4.0.357",
+    "@remotion/media-utils": "4.0.357",
+    "@remotion/motion-blur": "4.0.357",
+    "@remotion/openai-whisper": "4.0.357",
+    "@remotion/player": "4.0.357",
+    "@remotion/transitions": "4.0.357",
+    "@remotion/zod-types": "4.0.377",
+    "ai": "^5.0.97",
+    "next": "16.0.1",
+    "openai": "^6.3.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "remotion": "4.0.357",
+    "workflow": "^4.0.1-beta.13",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@remotion/renderer": "^4.0.340",
-    "prettier": "^3.6.2"
+    "@remotion/renderer": "4.0.357",
+    "prettier": "^3.6.2",
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/bun": "^1.2.21"
   }
 }
