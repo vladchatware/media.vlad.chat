@@ -1,8 +1,6 @@
 import OpenAI from 'openai'
-import { zodTextFormat } from 'openai/helpers/zod'
-import { readdirSync, createReadStream, createWriteStream, writeFile, writeFileSync } from 'node:fs'
+import { readdirSync, createReadStream } from 'node:fs'
 import { z } from 'zod'
-import { gateway } from '@ai-sdk/gateway'
 import { generateObject } from 'ai'
 const openai = new OpenAI()
 
