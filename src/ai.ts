@@ -145,19 +145,20 @@ ${text}
   })
 
   await new Promise((res, rej) => {
-    let completed = false
-
-    setInterval(async () => {
-      if (completed) {
-        return res(job)
-      }
-
+    const interval = setInterval(async () => {
       try {
-        const res = await openai.videos.retrieve(job.id)
-        if (res.completed_at) completed = true
-        if (res.error) return rej(res.error)
-        process.stdout.write(`status: ${res.status}, completed: ${res.progress}\r`)
+        const result = await openai.videos.retrieve(job.id)
+        if (result.completed_at) {
+          clearInterval(interval)
+          return res(job)
+        }
+        if (result.error) {
+          clearInterval(interval)
+          return rej(result.error)
+        }
+        process.stdout.write(`status: ${result.status}, completed: ${result.progress}\r`)
       } catch (e) {
+        clearInterval(interval)
         rej(e)
       }
     }, 1000)
