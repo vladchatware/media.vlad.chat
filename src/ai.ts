@@ -186,10 +186,15 @@ export const generateSlide = async (options: z.infer<typeof imageSchema>, name =
   const image = await openai.images.generate({
     model: 'gpt-image-1',
     prompt,
-    size: '1024x1536'
+    size: '1024x1536',
+    response_format: 'b64_json'
   })
 
-  await Bun.write(`${__dirname}/../public/${name}`, Buffer.from(image.data?.[0].b64_json!, 'base64'))
+  if (!image.data || image.data.length === 0 || !image.data[0].b64_json) {
+    throw new Error('Image generation failed: No image data returned from OpenAI.')
+  }
+
+  await Bun.write(`${__dirname}/../public/${name}`, Buffer.from(image.data[0].b64_json, 'base64'))
 
   return name
 }
