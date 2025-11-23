@@ -1,4 +1,12 @@
 node_modules
 .env
+.env.local
 out
 finished
+.next
+public/captions-*.json
+public/speech-*.mp3
+public/slide-*.png
+public/video-*.mp4
+stories
+prompt/innerwork.md

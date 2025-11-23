@@ -1,13 +1,95 @@
 import React from 'react'
+import { z } from 'zod'
 import { Composition, staticFile } from 'remotion'
 import { parseMedia } from '@remotion/media-parser'
-import { Story } from './Story'
+import { Story, StoryMetadata } from './Story'
 import { Thread } from './Thread'
 import { Tweet } from './Tweet'
-import { storySchema, threadSchema, tweetSchema } from './types'
+import { Slide, SlideProps } from './Slide'
+import { storyProp, storySchema, threadSchema, tweetSchema, slideSchema, carouselSchema } from './types'
 import { openAiWhisperApiToCaptions } from '@remotion/openai-whisper'
-import { Main } from './Main'
+import { Carousel } from './Carousel'
 import { Outro } from './Outro'
+import { storyData } from './data'
+
+const sampleStory = {
+  "topic": "Waiting for the Weekend — An invitation to The Inner Work",
+  "image": {
+    "medium_format": "Vertical 4K smartphone cinematic (portrait), shallow depth for social-short",
+    "subject_action": "A person in a simple apartment by a window, speaking aloud to their own elongated shadow on the wall; later putting phone down, inhaling, watching a patch of sky and a bird, subtly smiling.",
+    "environment_time": "Early Monday morning, soft golden-hour window light with long shadows and dust motes.",
+    "camera_angle_lens": "Slight low-angle intimate framing, ~50mm equivalence on full-frame, aperture f/1.8 for gentle bokeh",
+    "composition_framing": "Vertical rule-of-thirds: subject on the right third, shadow occupying left third; occasional two-shot as shadow and person visually overlap.",
+    "color_grading_film_stock": "Warm morning highlights with cool indigo shadows; filmic contrast, gentle grain for tactile warmth.",
+    "light_behaivor_atmosphere": "Soft directional window light carving the shadow, subtle rim light on hair, visible dust particles creating quiet atmosphere.",
+    "texture_detail": "Visible skin texture, knit sweater threads, steam from a mug, organic details emphasized for intimacy.",
+    "mood_emotional_tone": "From restless and yearning to calm, awakened and gently joyful.",
+    "style_lineage_reference": "Contemporary mindfulness short fused with Malick-like naturalism and minimalist shadow-play (influence: visual poetry, intimate confessionals).",
+    "special_qualities": "Designed for short-form social video: whispery shadow voiceover, vertical intimacy, quick evocative beats that invite immediate inner practice."
+  },
+  "dialog": [
+    {
+      "text": "When does life actually start? Is real life only on Friday?",
+      "narration": "A young person stands at the window on a gray Monday morning, phone in hand, shoulders tense. Their shadow stretches long across the plaster wall. The city hums faintly beyond the glass.",
+      "instructions": "Slightly breathy, anxious curiosity; medium pace; rising intonation toward the end.",
+      "side": "left",
+      "shot": "medium",
+      "mood": "restless, yearning",
+      "voice": "onyx",
+      "seconds": 8
+    },
+    {
+      "text": "What if life isn't a date on the calendar but the attention you bring to this breath, this step, this sky?",
+      "narration": "The shadow on the wall seems to answer before the lips do — a voice that belongs to the same room but knows deeper rhythms. Light slices the silhouette into warm and cool halves.",
+      "instructions": "Calm, slow, soft but unwavering; low register; invitational tone.",
+      "side": "right",
+      "shot": "closeup",
+      "mood": "contemplative",
+      "voice": "ash",
+      "seconds": 12
+    },
+    {
+      "text": "But Mondays are work, chores, a countdown until Friday. How do I make this one sacred?",
+      "narration": "The person gestures—half-exasperated, half-hopeful—scrolling through a feed full of weekend photos. The room smells faintly of coffee and detergent.",
+      "instructions": "Wistful, quickening; a small laugh under the frustration; real, vulnerable.",
+      "side": "left",
+      "shot": "medium",
+      "mood": "conflicted, honest",
+      "voice": "onyx",
+      "seconds": 8
+    },
+    {
+      "text": "Start here: set the phone down. Feel one full inhale. Name one thing you see outside the window. Stay with that for one whole breath.",
+      "narration": "The shadow points to the phone, then to the chest, then to the window. Outside, a single crow crosses the pale sky, the distant sound of a bus brakes faintly.",
+      "instructions": "Low, coaxing whisper; steady cadence; compassionate insistence.",
+      "side": "right",
+      "shot": "closeup",
+      "mood": "soothing, instructive",
+      "voice": "ash",
+      "seconds": 12
+    },
+    {
+      "text": "I put it down. I breathed. The air is cold on my face; there’s a crow calling — for a moment Monday blinked awake.",
+      "narration": "They place the phone face down on the table. A slow inhale, the shoulders soften. A small, surprised smile forms as the ordinary details arrive like guests at a long-forgotten table.",
+      "instructions": "Soft surprise then warmth; slowed tempo as realization lands.",
+      "side": "left",
+      "shot": "medium",
+      "mood": "awakened, tender",
+      "voice": "onyx",
+      "seconds": 12
+    },
+    {
+      "text": "That’s the turn — you stopped waiting for life and started living this moment. Invitation: for two minutes tomorrow morning, name three things you feel with your body. Notice what changes. Do the inner work; ask your shadow to answer.",
+      "narration": "The shadow and the person soften toward each other; light edges their faces like a small benediction. The room feels less like a stage and more like a chapel.",
+      "instructions": "Encouraging, steady, slightly celebratory; clear call-to-action at the end.",
+      "side": "right",
+      "shot": "two-shot",
+      "mood": "uplifting, hopeful",
+      "voice": "ash",
+      "seconds": 12
+    }
+  ]
+}
 
 const calculateMetadata = async ({ props }) => {
   const { slowDurationInSeconds } = await parseMedia({
@@ -76,79 +158,32 @@ export const RemotionRoot: React.FC = () =>
       }}
     />
     <Composition
+      id="Carousel"
+      component={Carousel}
+      fps={30}
+      width={1080}
+      height={1920}
+      // schema={carouselSchema}
+      defaultProps={{
+        story: storyData,
+        image: '146.jpeg'
+      }}
+      calculateMetadata={async ({ props }) => {
+        return {
+          durationInFrames: props.story.dialog.reduce((acc, line) => acc + 1, 0)
+        }
+      }}
+    />
+    <Composition
       id="Story"
       component={Story}
       fps={30}
       width={1080}
       height={1920}
-      schema={storySchema}
+      schema={storyProp}
       defaultProps={{
-        story: {
-          topic: "A Moment of Patience - healing the shadow through inner work",
-          dialog: [
-            {
-              text: "Why does healing take so long? I try to be patient but every time I think I'm improving, the old anger and shame come back—what am I doing wrong?",
-              instructions: "voice: breathy youth; emotional range: anxious to hopeful; intonation: rising at the end; speed: slightly quick; tone: earnest, vulnerable",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "You are not doing anything 'wrong.' Healing is not a race; it's learning to be with what you once fled from. Patience here is a practice, not a timetable.",
-              instructions: "warm, low, steady; emotional range: calm, compassionate; intonation: even; speed: slow; tone: reassuring",
-              side: "right",
-              voice: "ash"
-            },
-            {
-              text: "But my shadow feels huge—like it swallows the progress I make. How do I stop being afraid of it?",
-              instructions: "soft, fragile; emotional range: fearful to curious; intonation: pleading; speed: moderate; tone: small and open",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "Imagine a garden that floods each spring. If you fight the water with your hands you'll tire quickly. If you plant differently—deeper roots, stones to guide the flow—the same water becomes life. Your shadow is part of the season; learn its language and it will stop wrecking the house.",
-              instructions: "metaphoric, steady; emotional range: patient wisdom; intonation: rising then softening; speed: measured; tone: vivid and calm",
-              side: "right",
-              voice: "ash"
-            },
-            {
-              text: "That sounds poetic, but in a moment of panic I can't remember metaphors. I just react.",
-              instructions: "rushed, honest; emotional range: frustrated; intonation: clipped; speed: quick; tone: candid",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "Then begin with one small thing: the pause. When a trigger flares, take a single held breath—notice the sensation, name the feeling silently, and say, 'I see you.' Not to fix it, only to welcome it. That tiny pause interrupts the old loop and teaches your nervous system another way.",
-              instructions: "gentle, instructional; emotional range: encouraging; intonation: calm crescendos on key phrases; speed: slow; tone: guiding",
-              side: "right",
-              voice: "ash"
-            },
-            {
-              text: "A single held breath. I can try that. It feels almost too small to matter.",
-              instructions: "hesitant then a little lighter; emotional range: doubtful to tentative hope; intonation: falling then hopeful; speed: moderate; tone: soft",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "Small is everything. Each patient pause is a stitch—over time they mend the fabric. Your shadow isn't an enemy to defeat; it's a story to listen to. When you listen with steady patience, the story changes.",
-              instructions: "warm, resonant; emotional range: confident compassion; intonation: emphatic on 'small' and 'listen'; speed: slow; tone: nurturing",
-              side: "right",
-              voice: "ash"
-            },
-            {
-              text: "Okay—today I'll try one pause every time I feel the old surge. If nothing else, I'll practice being kind to myself in the in-between.",
-              instructions: "quiet resolve; emotional range: resolved, calm; intonation: steady uplift at the end; speed: moderate; tone: sincere",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "Good. Start there. Healing keeps company with patience. Each small moment you offer to yourself is the greatest proof of love. Take one minute now—pause, breathe, name one feeling—and come back below to share what you noticed.",
-              instructions: "soft command, inviting; emotional range: warm encouragement; intonation: gentle crescendo toward CTA; speed: slow; tone: hopeful, present; whispering at the final phrase for intimacy",
-              side: "right",
-              voice: "ash"
-            }
-          ]
-        }
-      }}
+        story: storyData,
+      } satisfies z.infer<typeof storyProp> as unknown as ({ story: StoryMetadata; outroDurationInFrames: number; })}
       calculateMetadata={async ({ props }) => {
         const sounds = await Promise.all(props.story.dialog.map(async (line, i) => {
           const { slowDurationInSeconds } = await parseMedia({
@@ -169,7 +204,14 @@ export const RemotionRoot: React.FC = () =>
           }
         }))
 
-        const totalDuration = sounds.reduce((acc, sound) => acc + sound.durationInFrames, 0)
+        const { slowDurationInSeconds: outroSlowDurationInSeconds } = await parseMedia(({
+          src: staticFile('Outro.mp4'),
+          fields: { slowDurationInSeconds: true }
+        }))
+
+        const outroDurationInFrames = Math.floor(outroSlowDurationInSeconds * 30)
+
+        const totalDuration = sounds.reduce((acc, sound) => acc + sound.durationInFrames, 0) + outroDurationInFrames
 
         return {
           props: {
@@ -177,7 +219,8 @@ export const RemotionRoot: React.FC = () =>
             story: {
               topic: props.story.topic,
               dialog: sounds
-            }
+            },
+            outroDurationInFrames
           },
           durationInFrames: totalDuration
         }
@@ -191,7 +234,7 @@ export const RemotionRoot: React.FC = () =>
       width={1080}
       height={1920}
       defaultProps={{
-        video: 'The Power of Compassion.mp4'
+        video: 'Outro.mp4'
       }}
       calculateMetadata={async ({ props }) => {
         const { slowDurationInSeconds } = await parseMedia({
@@ -205,4 +248,3 @@ export const RemotionRoot: React.FC = () =>
       }}
     />
   </>
-

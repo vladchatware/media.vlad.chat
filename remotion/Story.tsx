@@ -1,120 +1,44 @@
-import { Audio, AbsoluteFill, Img, staticFile, Sequence, Series, useCurrentFrame, OffthreadVideo } from "remotion";
-import { loadFont } from '@remotion/google-fonts/NotoSans';
-const { fontFamily } = loadFont();
+import React from "react";
+import { Audio, AbsoluteFill, Img, staticFile, Series, OffthreadVideo } from "remotion";
 import { CameraMotionBlur } from '@remotion/motion-blur';
-import { createTikTokStyleCaptions, Caption } from '@remotion/captions';
-import { storySchema } from "./types";
-import { z } from "zod";
+import { Caption } from '@remotion/captions';
+import { Captions, styles } from './Captions';
 
-const styles = {
-  container: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  p: {
-    fontSize: 42,
-    fontWeight: 600,
-    fontFamily,
-    borderRadius: 16,
-    borderColor: 'white',
-    borderSize: 1,
-    borderStyle: 'solid',
-    background: 'white',
-    display: 'inline-block',
-    textAlign: 'center',
-    paddingInline: 10,
-    maxWidth: 800
-  },
-  main: {
-    position: 'absolute',
-    top: 100,
-    left: 50,
-    marginInline: 30,
-    zIndex: 2,
-  },
-  img: {
-    flex: 1,
-    position: 'absolute',
-    zIndex: 1,
-    top: -300,
-    height: '150%',
-    // width: '200%'
-  },
-  left: {
-    left: -200,
-  },
-  right: {
-    right: -150
-  }
-}
-
-const inFrame = (frame, from, to) => {
-  const frameFrom = Math.floor(from / (1000 / 30))
-  const frameTo = Math.floor(to / (1000 / 30))
-  return frameFrom <= frame && frame <= frameTo
-}
-
-const Captions = ({ captions, combineTokensWithinMilliseconds }) => {
-  const frame = useCurrentFrame()
-  const { pages } = createTikTokStyleCaptions({
-    captions,
-    combineTokensWithinMilliseconds,
-  });
-
-  return <Series>
-    {pages.map((caption, j) => {
-      const durationInFrames = Math.floor((caption.durationMs / 1000) * 30)
-      return <Series.Sequence
-        key={j}
-        premountFor={1}
-        postmountFor={1}
-        durationInFrames={durationInFrames}
-      >
-        <main style={styles.main}>
-          <p style={styles.p}>
-            {caption.tokens.map((token, i) =>
-              <span
-                key={i}
-                style={inFrame(frame, token.fromMs, token.toMs) ? { color: 'red' } : { color: 'black' }}
-              >
-                {token.text}
-              </span>)}
-          </p>
-        </main>
-      </Series.Sequence>
-    }
-    )}
-  </Series>
-}
-
-type StoryMetadata = {
+export type StoryMetadata = {
+  topic: string,
   dialog: {
     text: string
     instructions: string
     side: 'left' | 'right',
+    shot: 'two-shot' | 'closeup' | 'medium'
     voice: 'onyx' | 'ash',
     durationInFrames: number,
     sound: string,
-    captions: Caption[]
+    captions: Caption[],
+    narration?: string,
+    mood?: string,
+    seconds?: number
   }[]
 }
 
 export const Story = ({ story }: { story: StoryMetadata }) => {
   return (<CameraMotionBlur shutterAngle={280} samples={1}>
-    <AbsoluteFill style={styles.container}>
-      <Series>
-        {story.dialog.map((line, i) =>
-          <Series.Sequence key={i} premountFor={30} durationInFrames={line.durationInFrames}>
-            <AbsoluteFill>
-              <Img src={staticFile('shadow.png')} fit="cover" style={{ ...styles.img, ...styles[line.side] }} />
-              <Audio src={staticFile(line.sound)} />
-              <Captions captions={line.captions} combineTokensWithinMilliseconds={1200} />
-            </AbsoluteFill>
-          </Series.Sequence>
-        )}
-      </Series>
-    </AbsoluteFill>
+    <OffthreadVideo src={staticFile('1939477514.mp4')} volume={0.1} style={{ visibility: 'hidden' }} showInTimeline={false} />
+    <Series>
+      {story.dialog.map((line, i) => {
+        const image = `${line.shot}-${line.side}.jpeg`
+        return <Series.Sequence key={i} premountFor={30} durationInFrames={line.durationInFrames || 10}>
+          <Img src={staticFile('the-need-to-be-right.jpeg')} style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
+          <AbsoluteFill style={styles.container}>
+            <Audio src={staticFile(line.sound)} />
+            <Captions
+              captions={line.captions}
+              captionPosition={`${line.side}-${line.shot}`}
+              combineTokensWithinMilliseconds={1200} />
+          </AbsoluteFill>
+        </Series.Sequence>
+      })}
+    </Series>
   </CameraMotionBlur>
   );
 };
