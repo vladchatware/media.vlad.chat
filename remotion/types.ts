@@ -22,9 +22,16 @@ export const storyProp = z.object({
       instructions: z.string(),
       side: z.enum(['left', 'right']),
       voice: z.enum(['onyx', 'ash']),
-      shot: z.enum(['two-shot', 'medium', 'closeup']).default('two-shot')
+      shot: z.enum(['two-shot', 'medium', 'closeup']).default('two-shot'),
+      narration: z.string().optional(),
+      mood: z.string().optional(),
+      seconds: z.number().optional()
     }).array()
   })
+})
+
+export const carouselSchema = z.object({
+  story: storySchema
 })
 
 export const tweetSchema = z.object({
