@@ -53,11 +53,11 @@ const renderStory = async (story) => {
   })
 }
 
-const story = await generateStory(`The Judgment Spiral
+const story = await generateStory(system, `The Judgment Spiral
 He mentally tears someone apart for cutting him off.
 Higher self: “Notice the judge, not the judged.”
 He watches the thoughts instead of feeding them — they dissolve into stillness.
-Caption: “I stopped trying to fix them and fixed my focus instead.”`, system)
+Caption: “I stopped trying to fix them and fixed my focus instead.”`)
 
 console.log(story.topic)
 // const story = await readStory('127-Impatience in Traffic')
