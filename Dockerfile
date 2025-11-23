@@ -26,4 +26,4 @@ RUN npm i --legacy-peer-deps
 # Install Chrome
 RUN npx remotion browser ensure
 # Run your application
-CMD ["npx", "remotion", "studio"]
+CMD ["npx", "remotion", "studio", "--timeout", "100000"]

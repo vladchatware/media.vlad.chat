@@ -15,7 +15,6 @@ export type StoryMetadata = {
     durationInFrames: number,
     sound: string,
     captions: Caption[],
-    // Extra fields present in defaultProps
     narration?: string,
     mood?: string,
     seconds?: number
@@ -26,9 +25,10 @@ export const Story = ({ story }: { story: StoryMetadata }) => {
   return (<CameraMotionBlur shutterAngle={280} samples={1}>
     <OffthreadVideo src={staticFile('1939477514.mp4')} volume={0.1} style={{ visibility: 'hidden' }} showInTimeline={false} />
     <Series>
-      {story.dialog.map((line, i) =>
-        <Series.Sequence key={i} premountFor={30} durationInFrames={line.durationInFrames || 10}>
-          <Img src={staticFile(`${story.topic}.png`)} style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
+      {story.dialog.map((line, i) => {
+        const image = `${line.shot}-${line.side}.jpeg`
+        return <Series.Sequence key={i} premountFor={30} durationInFrames={line.durationInFrames || 10}>
+          <Img src={staticFile('the-need-to-be-right.jpeg')} style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
           <AbsoluteFill style={styles.container}>
             <Audio src={staticFile(line.sound)} />
             <Captions
@@ -37,7 +37,7 @@ export const Story = ({ story }: { story: StoryMetadata }) => {
               combineTokensWithinMilliseconds={1200} />
           </AbsoluteFill>
         </Series.Sequence>
-      )}
+      })}
     </Series>
   </CameraMotionBlur>
   );

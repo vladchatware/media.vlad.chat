@@ -1,4 +1,4 @@
-import { Series, staticFile } from "remotion"
+import { Series } from "remotion"
 import { StoryMetadata } from "./Story"
 import { Slide } from "./Slide"
 

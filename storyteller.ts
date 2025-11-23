@@ -53,21 +53,24 @@ const renderStory = async (story) => {
   })
 }
 
-const story = await readStory('1-The Tantrum of Mineness')
-await generateVideo(story)
+const story = await generateStory(`The Judgment Spiral
+He mentally tears someone apart for cutting him off.
+Higher self: “Notice the judge, not the judged.”
+He watches the thoughts instead of feeding them — they dissolve into stillness.
+Caption: “I stopped trying to fix them and fixed my focus instead.”`, system)
+
+console.log(story.topic)
+// const story = await readStory('127-Impatience in Traffic')
+// await produceStory(story)
+// await renderStory(story)
 
 const stories = [
-  prompt
-  // "The Tantrum of Mineness",
-  // "Impatience in Traffic",
-  // "The God-Complex of Cleanliness",
-  // "Boredom's Muddy Lens",
-  // "Arrogance of Ownership",
-  // "The Victim of Interruptions",
-  // "Forgetting the Heartbeat",
-  // "Judging the Mango",
-  // "The Ego's Credit Claim",
-  // "The Child's Awe Returns"
+  // prompt
+  // "Naive to Wise Innocence",
+  // "Forgetting the Child",
+  // "Ego's Loud Excuses",
+  // "Resistance to Surrender",
+  // "The Sage's Innocence"
 ]
 
 for (const prompt of stories) {

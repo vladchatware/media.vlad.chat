@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ai-sdk/gateway": "^2.0.12",
     "@ai-sdk/openai": "^2.0.23",
     "@remotion/captions": "4.0.357",
     "@remotion/cli": "4.0.357",
@@ -22,15 +23,15 @@
     "@remotion/openai-whisper": "4.0.357",
     "@remotion/player": "4.0.357",
     "@remotion/transitions": "4.0.357",
-    "@remotion/zod-types": "4.0.357",
-    "ai": "^5.0.28",
+    "@remotion/zod-types": "4.0.377",
+    "ai": "^5.0.97",
     "next": "16.0.1",
     "openai": "^6.3.0",
-    "react": "^19.1.1",
+    "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "remotion": "4.0.357",
     "workflow": "^4.0.1-beta.13",
-    "zod": "^4.0.0"
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@remotion/renderer": "4.0.357",
