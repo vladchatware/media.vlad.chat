@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import { readdirSync, createReadStream } from 'node:fs'
+import { readdirSync, createReadStream, writeFileSync } from 'fs'
 import { z } from 'zod'
 import { generateObject } from 'ai'
 const openai = new OpenAI()
@@ -38,14 +38,15 @@ export const storySchema = z.object({
 export type Story = z.infer<typeof storySchema>
 
 export const readStory = async (name: string | undefined): Promise<Story> => {
+  "use step"
   let story: Bun.BunFile | null = null
   if (name) {
-    story = Bun.file(`${__dirname}/../stories/${name}.json`, { type: 'application/json' })
+    story = Bun.file(`${process.cwd()}/stories/${name}.json`, { type: 'application/json' })
   } else {
-    const stories = readdirSync(`${__dirname}/../stories`)
+    const stories = readdirSync(`${process.cwd()}/stories`)
     const lastStory = stories.length - 1
 
-    story = Bun.file(`${__dirname}/../stories/${stories[lastStory]}`, { type: 'application/json' })
+    story = Bun.file(`${process.cwd()}/stories/${stories[lastStory]}`, { type: 'application/json' })
   }
 
   if (!story) {
@@ -58,6 +59,8 @@ export const readStory = async (name: string | undefined): Promise<Story> => {
 }
 
 export const generateStory = async (system: string, prompt: string) => {
+  "use step"
+  
   const {object} = await generateObject({
     model: 'openai/gpt-5-mini',
     system,
@@ -67,24 +70,16 @@ export const generateStory = async (system: string, prompt: string) => {
 
   const story = storySchema.parse(object)
 
-  // const response = await openai.responses.parse({
-  //   model: gateway.textEmbeddingModel('openai/gpt-5-mini'),
-  //   input: [{ role: 'system', content: system }, { role: 'user', content: prompt }],
-  //   text: {
-  //     format: zodTextFormat(storySchema, 'json_object')
-  //   }
-  // })
+  const counter = readdirSync(`${process.cwd()}/stories`).length
 
-  // const story = storySchema.parse(response.output_parsed)
-
-  const counter = readdirSync(`${__dirname}/../stories`).length
-
-  await Bun.write(`${__dirname}/../stories/${counter}-${story.topic}.json`, JSON.stringify(story, null, 2))
+  writeFileSync(`${process.cwd()}/stories/${counter}-${story.topic}.json`, JSON.stringify(story, null, 2))
 
   return story
 }
 
 export const generateSound = async (input: string, instructions = '', voice: 'ash' | 'onyx', name = 'speech.mp3') => {
+  "use step"
+
   const audio = await openai.audio.speech.create({
     model: 'gpt-4o-mini-tts',
     voice,
@@ -92,36 +87,42 @@ export const generateSound = async (input: string, instructions = '', voice: 'as
     instructions
   })
 
-  await Bun.write(`${__dirname}/../public/${name}`, Buffer.from(await audio.arrayBuffer()))
+  writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(await audio.arrayBuffer()))
 
   return name
 }
 
 export const generateText = async (input: string, name: string) => {
+  "use step"
+
   const transcription = await openai.audio.transcriptions.create({
-    file: createReadStream(`${__dirname}/../public/${input}`),
+    file: createReadStream(`${process.cwd()}/public/${input}`),
     model: 'whisper-1',
     response_format: 'verbose_json',
     timestamp_granularities: ['word']
   })
 
-  await Bun.write(`${__dirname}/../public/${name}`, JSON.stringify(transcription, null, 2))
+  writeFileSync(`${process.cwd()}/public/${name}`, JSON.stringify(transcription, null, 2))
 
   return name
 }
 
 export const listVideos = async () => {
+  "use step"
   const res = await openai.videos.list()
 
   return res.data
 }
 
 export const downloadVideo = async (id, name) => {
+  "use step"
   const res = await openai.videos.downloadContent(id)
-  await Bun.write(`${__dirname}/../public/${name}`, Buffer.from(await res.arrayBuffer()))
+  writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(await res.arrayBuffer()))
 }
 
 export const generateVideo = async ({ text, narration, mood, instructions, shot, seconds }, reference, name = 'video.mp4') => {
+  "use step"
+  
   const prompt = `
 ${narration}
 
@@ -135,7 +136,7 @@ ${instructions}
 Dialogue:
 ${text}
 `
-  const input_reference = Bun.file(`${__dirname}/../public/${reference}`)
+  const input_reference = Bun.file(`${process.cwd()}/public/${reference}`)
   const job = await openai.videos.create({
     prompt,
     input_reference,
@@ -165,10 +166,11 @@ ${text}
   })
 
   const res = await openai.videos.downloadContent(job.id)
-  await Bun.write(`${__dirname}/../public/${name}`, Buffer.from(await res.arrayBuffer()))
+  writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(await res.arrayBuffer()))
 }
 
 export const generateSlide = async (options: z.infer<typeof imageSchema>, name = 'slide.png') => {
+  "use step"
   const prompt = `
   ${options.medium_format}
   ${options.subject_action}
@@ -186,15 +188,14 @@ export const generateSlide = async (options: z.infer<typeof imageSchema>, name =
   const image = await openai.images.generate({
     model: 'gpt-image-1',
     prompt,
-    size: '1024x1536',
-    response_format: 'b64_json'
+    size: '1024x1536'
   })
 
   if (!image.data || image.data.length === 0 || !image.data[0].b64_json) {
     throw new Error('Image generation failed: No image data returned from OpenAI.')
   }
 
-  await Bun.write(`${__dirname}/../public/${name}`, Buffer.from(image.data[0].b64_json, 'base64'))
+  writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(image.data[0].b64_json, 'base64'))
 
   return name
 }

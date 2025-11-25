@@ -1,12 +1,13 @@
 {
-  "name": "clownz-army",
+  "name": "media.vlad.chat",
   "type": "module",
   "version": "1.0.0",
-  "description": "Clownz Army",
+  "description": "Content generation engine.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "serve:render": "bun run renderer.ts",
     "studio": "remotion studio"
   },
   "keywords": [],
@@ -30,7 +31,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "remotion": "4.0.357",
-    "workflow": "^4.0.1-beta.13",
+    "workflow": "^4.0.1-beta.21",
     "zod": "^4.1.12"
   },
   "devDependencies": {
