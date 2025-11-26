@@ -4,7 +4,7 @@ import { loadFont } from '@remotion/google-fonts/Roboto';
 const { fontFamily } = loadFont(); // "Titan One"
 import { CameraMotionBlur } from '@remotion/motion-blur';
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   container: {
     display: 'flex',
     justifyContent: 'center',

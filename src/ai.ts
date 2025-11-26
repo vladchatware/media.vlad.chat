@@ -114,13 +114,13 @@ export const listVideos = async () => {
   return res.data
 }
 
-export const downloadVideo = async (id, name) => {
+export const downloadVideo = async (id: string, name: string) => {
   "use step"
   const res = await openai.videos.downloadContent(id)
   writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(await res.arrayBuffer()))
 }
 
-export const generateVideo = async ({ text, narration, mood, instructions, shot, seconds }, reference, name = 'video.mp4') => {
+export const generateVideo = async ({ text, narration, mood, instructions, shot, seconds = 8 }: { text: string; narration: string; mood: string; instructions: string; shot: string; seconds?: 4 | 8 | 12 | number }, reference: string, name = 'video.mp4') => {
   "use step"
   
   const prompt = `
@@ -141,7 +141,7 @@ ${text}
     prompt,
     input_reference,
     model: 'sora-2',
-    seconds,
+    seconds: seconds as any,
     size: '720x1280'
   })
 
