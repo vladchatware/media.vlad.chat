@@ -26,6 +26,7 @@
     "@remotion/transitions": "4.0.357",
     "@remotion/zod-types": "4.0.377",
     "ai": "^5.0.97",
+    "mcp-handler": "^1.0.4",
     "next": "16.0.1",
     "openai": "^6.3.0",
     "react": "^19.2.0",
