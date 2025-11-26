@@ -1,12 +1,20 @@
 import { z } from "zod"
 import { createMcpHandler } from "mcp-handler"
 import { start, getRun } from "workflow/api"
+import { ConvexHttpClient } from "convex/browser"
+import { api } from "../../../convex/_generated/api"
+import type { Id } from "../../../convex/_generated/dataModel"
 import { story } from "../../../workflows/story"
 import { carousel } from "../../../workflows/carousel"
 import { tweet } from "../../../workflows/tweet"
 import { thread } from "../../../workflows/thread"
 import { video } from "../../../workflows/video"
 import type { ProgressEvent } from "../../../src/progress"
+import { estimateWorkflowCost } from "../../../src/pricing"
+import { CREDIT_PACKAGES } from "../../../src/stripe"
+
+// Initialize Convex client for billing queries
+const convex = new ConvexHttpClient(process.env.NEXT_PUBLIC_CONVEX_URL!)
 
 const handler = createMcpHandler(
   (server) => {
@@ -245,6 +253,198 @@ const handler = createMcpHandler(
         return {
           content: [{ type: "text", text: `❌ Failed to get workflow result: ${run_id}\n\nError: ${message}` }],
         }
+      }
+    })
+
+    // ============================================
+    // BILLING & USAGE TOOLS
+    // ============================================
+
+    server.registerTool("billing_balance", {
+      description: "Check the current credit balance for a user. Returns available credits and formatted amount.",
+      inputSchema: {
+        user_id: z.string().describe("The user ID to check balance for"),
+      },
+    }, async ({ user_id }) => {
+      try {
+        const balance = await convex.query(api.users.getBalance, { 
+          userId: user_id as Id<"users"> 
+        })
+
+        const formatted = `$${(balance / 100).toFixed(2)}`
+        
+        let message = `💰 Credit Balance\n\n`
+        message += `User: ${user_id}\n`
+        message += `Balance: ${balance} credits (${formatted})\n\n`
+        
+        if (balance < 100) {
+          message += `⚠️ Low balance! Consider purchasing more credits.`
+        }
+
+        return {
+          content: [{ type: "text", text: message }],
+        }
+      } catch (error) {
+        return {
+          content: [{ type: "text", text: `❌ Could not fetch balance for user: ${user_id}` }],
+        }
+      }
+    })
+
+    server.registerTool("billing_usage", {
+      description: "Get usage statistics and spending breakdown for a user over a time period.",
+      inputSchema: {
+        user_id: z.string().describe("The user ID to get usage for"),
+        period: z.enum(["day", "week", "month", "all"]).default("month").describe("Time period: day, week, month, or all"),
+      },
+    }, async ({ user_id, period }) => {
+      try {
+        const now = Date.now()
+        let since: number | undefined
+        switch (period) {
+          case "day":
+            since = now - 24 * 60 * 60 * 1000
+            break
+          case "week":
+            since = now - 7 * 24 * 60 * 60 * 1000
+            break
+          case "month":
+            since = now - 30 * 24 * 60 * 60 * 1000
+            break
+          default:
+            since = undefined
+        }
+
+        const [totalSpending, spendingByType, usageByModel] = await Promise.all([
+          convex.query(api.workflows.getTotalSpending, { 
+            userId: user_id as Id<"users">, 
+            since 
+          }),
+          convex.query(api.workflows.getSpendingByType, { 
+            userId: user_id as Id<"users">, 
+            since 
+          }),
+          convex.query(api.usage.getBreakdownByModel, { 
+            userId: user_id as Id<"users">, 
+            since 
+          }),
+        ])
+
+        let message = `📊 Usage Report (${period})\n\n`
+        message += `User: ${user_id}\n`
+        message += `Total Spent: $${(totalSpending / 100).toFixed(2)}\n\n`
+
+        if (Object.keys(spendingByType).length > 0) {
+          message += `📁 By Workflow Type:\n`
+          for (const [type, data] of Object.entries(spendingByType)) {
+            message += `  • ${type}: ${data.count} runs, $${(data.costCents / 100).toFixed(2)}\n`
+          }
+          message += `\n`
+        }
+
+        if (Object.keys(usageByModel).length > 0) {
+          message += `🤖 By AI Model:\n`
+          for (const [model, data] of Object.entries(usageByModel)) {
+            message += `  • ${model}: ${data.count} calls, $${(data.costCents / 100).toFixed(2)}\n`
+          }
+        }
+
+        return {
+          content: [{ type: "text", text: message }],
+        }
+      } catch (error) {
+        return {
+          content: [{ type: "text", text: `❌ Could not fetch usage for user: ${user_id}` }],
+        }
+      }
+    })
+
+    server.registerTool("billing_estimate", {
+      description: "Get a cost estimate for running a workflow before starting it.",
+      inputSchema: {
+        workflow_type: z.enum(["story", "carousel", "tweet", "thread", "video"]).describe("The type of workflow to estimate"),
+      },
+    }, async ({ workflow_type }) => {
+      const estimate = estimateWorkflowCost(workflow_type)
+
+      let message = `💵 Cost Estimate: ${workflow_type}\n\n`
+      message += `Estimated Range: $${(estimate.minCents / 100).toFixed(2)} - $${(estimate.maxCents / 100).toFixed(2)}\n\n`
+      message += `Breakdown:\n`
+      for (const item of estimate.breakdown) {
+        message += `  • ${item}\n`
+      }
+      message += `\n⚠️ Actual costs may vary based on content length and complexity.`
+
+      return {
+        content: [{ type: "text", text: message }],
+      }
+    })
+
+    server.registerTool("billing_history", {
+      description: "Get recent workflow history with costs for a user.",
+      inputSchema: {
+        user_id: z.string().describe("The user ID to get history for"),
+        limit: z.number().min(1).max(50).default(10).describe("Number of recent workflows to show"),
+      },
+    }, async ({ user_id, limit }) => {
+      try {
+        const workflows = await convex.query(api.workflows.listByUser, {
+          userId: user_id as Id<"users">,
+          limit,
+        })
+
+        if (workflows.length === 0) {
+          return {
+            content: [{ type: "text", text: `📜 No workflow history found for user: ${user_id}` }],
+          }
+        }
+
+        const statusEmoji: Record<string, string> = {
+          'running': '🔄',
+          'completed': '✅',
+          'failed': '❌',
+          'cancelled': '⏹️',
+          'pending': '⏳',
+        }
+
+        let message = `📜 Workflow History (${workflows.length} most recent)\n\n`
+        
+        for (const w of workflows) {
+          const emoji = statusEmoji[w.status] || '❓'
+          const date = new Date(w.startedAt).toLocaleDateString()
+          const cost = `$${(w.totalCostCents / 100).toFixed(2)}`
+          message += `${emoji} ${w.workflowType} | ${cost} | ${date}\n`
+          message += `   Run ID: ${w.runId}\n\n`
+        }
+
+        return {
+          content: [{ type: "text", text: message }],
+        }
+      } catch (error) {
+        return {
+          content: [{ type: "text", text: `❌ Could not fetch history for user: ${user_id}` }],
+        }
+      }
+    })
+
+    server.registerTool("billing_packages", {
+      description: "List available credit packages for purchase.",
+      inputSchema: {},
+    }, async () => {
+      let message = `🛒 Credit Packages\n\n`
+      
+      for (const pkg of CREDIT_PACKAGES) {
+        const priceFormatted = `$${(pkg.priceCents / 100).toFixed(2)}`
+        const valuePerDollar = Math.round(pkg.credits / (pkg.priceCents / 100))
+        message += `📦 ${pkg.name}\n`
+        message += `   ${pkg.credits} credits for ${priceFormatted}\n`
+        message += `   Value: ${valuePerDollar} credits per dollar\n\n`
+      }
+
+      message += `💡 Higher packages offer better value per credit!`
+
+      return {
+        content: [{ type: "text", text: message }],
       }
     })
   },
