@@ -1,0 +1,184 @@
+.container {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.title {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.settingsBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-default);
+}
+
+.settingsBtn:hover {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.settings {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settingRow {
+  margin-bottom: var(--space-md);
+}
+
+.settingRow:last-child {
+  margin-bottom: 0;
+}
+
+.settingLabel {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin-bottom: var(--space-xs);
+}
+
+.info {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.infoRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs) 0;
+}
+
+.infoLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.infoValue {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.actions {
+  padding: var(--space-md);
+}
+
+.renderProgress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.progressHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.progressHeader svg {
+  color: var(--accent-primary);
+}
+
+.progressPercent {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-primary);
+}
+
+.progressBar {
+  height: 6px;
+  background: var(--bg-tertiary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-tertiary), var(--accent-primary));
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.result.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--success);
+}
+
+.result.success svg {
+  color: var(--success);
+}
+
+.result.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: var(--error);
+}
+
+.result.error svg {
+  color: var(--error);
+}
+
+.errorContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.errorMessage {
+  font-size: 11px;
+  color: var(--text-muted);
+  max-width: 200px;
+  word-break: break-word;
+}

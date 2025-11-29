@@ -1,0 +1,263 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+}
+
+.fps {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 2px 6px;
+  background: var(--bg-primary);
+  border-radius: var(--radius-sm);
+}
+
+.zoomControls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.zoomBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-default);
+}
+
+.zoomBtn:hover {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.zoomLevel {
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 40px;
+  text-align: center;
+}
+
+.ruler {
+  position: relative;
+  height: 24px;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.rulerMark {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 8px;
+  background: var(--border-default);
+  transform: translateX(-50%);
+}
+
+.majorMark {
+  height: 12px;
+  background: var(--border-strong);
+}
+
+.rulerLabel {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.tracks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 120px;
+}
+
+.track {
+  display: flex;
+  border-bottom: 1px solid var(--border-subtle);
+  min-height: 40px;
+}
+
+.track:last-child {
+  border-bottom: none;
+}
+
+.trackLabel {
+  width: 80px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-sm);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border-right: 1px solid var(--border-subtle);
+}
+
+.trackContent {
+  flex: 1;
+  position: relative;
+  background: var(--timeline-track);
+}
+
+.mainTrack {
+  cursor: pointer;
+}
+
+.mainTrack:hover .trackContent {
+  background: var(--bg-tertiary);
+}
+
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-soft), var(--accent-glow));
+  pointer-events: none;
+}
+
+.playhead {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.playheadHead {
+  width: 12px;
+  height: 12px;
+  background: var(--timeline-playhead);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  margin-left: -6px;
+  left: 50%;
+  position: relative;
+  box-shadow: 0 0 10px var(--timeline-playhead);
+}
+
+.playheadLine {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  width: 2px;
+  height: calc(40px * 3);
+  background: var(--timeline-playhead);
+  transform: translateX(-50%);
+  box-shadow: 0 0 8px var(--timeline-playhead);
+}
+
+.marker {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.marker:hover {
+  transform: translate(-50%, -50%) scale(1.3);
+}
+
+.sequence {
+  position: absolute;
+  top: 4px;
+  height: calc(100% - 8px);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-sm);
+  overflow: hidden;
+  opacity: 0.8;
+  transition: opacity var(--transition-default);
+}
+
+.sequence:hover {
+  opacity: 1;
+}
+
+.sequenceLabel {
+  font-size: 10px;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.audioTrack {
+  overflow: hidden;
+}
+
+.waveform {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 2px;
+  padding: 4px;
+}
+
+.waveformBar {
+  flex: 1;
+  background: var(--accent-tertiary);
+  border-radius: 1px;
+  transition: opacity var(--transition-fast);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--bg-tertiary);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.frameInfo,
+.durationInfo {
+  font-size: 10px;
+  color: var(--text-muted);
+}

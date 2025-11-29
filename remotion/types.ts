@@ -30,6 +30,13 @@ export const storyProp = z.object({
   })
 })
 
+export const slideSchema = z.object({
+  image: z.string(),
+  text: z.string(),
+  side: z.enum(['left', 'right']),
+  shot: z.enum(['two-shot', 'medium', 'closeup'])
+})
+
 export const carouselSchema = z.object({
   story: storySchema
 })

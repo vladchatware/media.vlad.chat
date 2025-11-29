@@ -165,12 +165,12 @@ export const RemotionRoot: React.FC = () =>
       height={1920}
       // schema={carouselSchema}
       defaultProps={{
-        story: storyData,
+        story: storyData as any,
         image: '146.jpeg'
       }}
       calculateMetadata={async ({ props }) => {
         return {
-          durationInFrames: props.story.dialog.reduce((acc, line) => acc + 1, 0)
+          durationInFrames: props.story.dialog.reduce((acc: number, _line: any) => acc + 1, 0)
         }
       }}
     />
@@ -182,8 +182,8 @@ export const RemotionRoot: React.FC = () =>
       height={1920}
       schema={storyProp}
       defaultProps={{
-        story: storyData,
-      } satisfies z.infer<typeof storyProp> as unknown as ({ story: StoryMetadata; outroDurationInFrames: number; })}
+        story: storyData as any,
+      } as any}
       calculateMetadata={async ({ props }) => {
         const sounds = await Promise.all(props.story.dialog.map(async (line, i) => {
           const { slowDurationInSeconds } = await parseMedia({

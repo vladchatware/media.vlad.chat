@@ -16,6 +16,7 @@
   "dependencies": {
     "@ai-sdk/gateway": "^2.0.12",
     "@ai-sdk/openai": "^2.0.23",
+    "@modelcontextprotocol/sdk": "^1.23.0",
     "@remotion/captions": "4.0.357",
     "@remotion/cli": "4.0.357",
     "@remotion/google-fonts": "4.0.357",
@@ -37,10 +38,10 @@
   },
   "devDependencies": {
     "@remotion/renderer": "4.0.357",
-    "prettier": "^3.6.2",
-    "typescript": "^5",
+    "@types/bun": "^1.2.21",
     "@types/node": "^20",
     "@types/react": "^19",
-    "@types/bun": "^1.2.21"
+    "prettier": "^3.6.2",
+    "typescript": "^5"
   }
 }

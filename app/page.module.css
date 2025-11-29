@@ -1,0 +1,256 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 var(--space-lg);
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.headerLeft,
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex: 1;
+}
+
+.headerRight {
+  justify-content: flex-end;
+}
+
+.headerCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.logoText {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.compositionName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.compositionMeta {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.docsLink {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-default);
+}
+
+.docsLink:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+/* Main content */
+.main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 280px 1fr 300px;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Sidebars */
+.sidebarLeft,
+.sidebarRight {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  overflow: hidden;
+}
+
+.sidebarLeft {
+  min-width: 280px;
+}
+
+.sidebarRight {
+  min-width: 300px;
+}
+
+.propertiesArea {
+  flex: 1;
+  overflow: hidden;
+}
+
+.renderArea {
+  flex-shrink: 0;
+}
+
+/* Center area */
+.center {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  min-width: 0;
+  min-height: 0;
+}
+
+.playerArea {
+  flex: 1;
+  min-height: 0;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.timelineArea {
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.playerLoading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: var(--space-md);
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-default);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 36px;
+  padding: 0 var(--space-lg);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+
+.footerLeft,
+.footerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.footerText {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.footerText kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin: 0 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+  .main {
+    grid-template-columns: 260px 1fr 280px;
+  }
+  
+  .sidebarLeft {
+    min-width: 260px;
+  }
+  
+  .sidebarRight {
+    min-width: 280px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .main {
+    grid-template-columns: 240px 1fr 260px;
+  }
+  
+  .sidebarLeft {
+    min-width: 240px;
+  }
+  
+  .sidebarRight {
+    min-width: 260px;
+  }
+  
+  .timelineArea {
+    height: 160px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    overflow-y: auto;
+  }
+  
+  .sidebarLeft,
+  .sidebarRight {
+    min-width: 0;
+  }
+  
+  .sidebarLeft {
+    max-height: 200px;
+  }
+  
+  .playerArea {
+    min-height: 300px;
+  }
+  
+  .timelineArea {
+    height: 140px;
+  }
+}
