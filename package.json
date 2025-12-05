@@ -32,7 +32,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "remotion": "4.0.357",
-    "workflow": "^4.0.1-beta.21",
+    "workflow": "^4.0.1-beta.27",
     "zod": "^4.1.12"
   },
   "devDependencies": {
