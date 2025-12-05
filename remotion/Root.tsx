@@ -11,6 +11,7 @@ import { openAiWhisperApiToCaptions } from '@remotion/openai-whisper'
 import { Carousel } from './Carousel'
 import { Outro } from './Outro'
 import { storyData } from './data'
+import { YearInReview } from './YearInReview/Main'
 
 const sampleStory = {
   "topic": "Waiting for the Weekend — An invitation to The Inner Work",
@@ -104,6 +105,14 @@ const calculateMetadata = async ({ props }) => {
 
 export const RemotionRoot: React.FC = () =>
   <>
+    <Composition
+      id="Poster"
+      component={YearInReview}
+      durationInFrames={490}
+      fps={30}
+      width={1080}
+      height={1920}
+    />
     <Composition
       id="Thread"
       component={Thread}
