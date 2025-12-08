@@ -6,13 +6,13 @@ const server = Bun.serve({
     if (req.method === 'POST' && url.pathname === '/api/render') {
       try {
         const body = await req.json().catch(() => ({}))
-        const { id, inputProps } = body
+        const { id, inputProps, type = 'video' } = body
 
         if (!id) {
-            return new Response(JSON.stringify({ success: false, error: 'Missing composition ID' }), {
-                status: 400,
-                headers: { 'Content-Type': 'application/json' }
-            })
+          return new Response(JSON.stringify({ success: false, error: 'Missing composition ID' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' }
+          })
         }
 
         console.log(`Main: Delegating render for ${id} to worker...`)
@@ -21,7 +21,7 @@ const server = Bun.serve({
         const worker = new Worker(new URL('./render-worker.ts', import.meta.url).href)
 
         // Send data to the worker
-        worker.postMessage({ id, inputProps })
+        worker.postMessage({ id, inputProps, type })
 
         // Wait for the worker to finish
         const result = await new Promise((resolve) => {
@@ -37,12 +37,12 @@ const server = Bun.serve({
 
         // @ts-ignore
         if (result.success) {
-             // @ts-ignore
+          // @ts-ignore
           return new Response(JSON.stringify(result), {
             headers: { 'Content-Type': 'application/json' }
           })
         } else {
-             // @ts-ignore
+          // @ts-ignore
           return new Response(JSON.stringify(result), {
             status: 500,
             headers: { 'Content-Type': 'application/json' }
@@ -52,8 +52,8 @@ const server = Bun.serve({
       } catch (err) {
         console.error('Main Error:', err)
         return new Response(JSON.stringify({ success: false, error: String(err) }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' }
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
         })
       }
     }
