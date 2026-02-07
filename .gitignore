@@ -2,3 +2,10 @@ node_modules
 .env
 out
 finished
+
+build
+.next
+.DS_Store
+stories/*.json
+public/speech-*.mp3
+public/captions-*.json
