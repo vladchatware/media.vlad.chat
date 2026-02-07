@@ -1,5 +1,5 @@
 import React from "react";
-import { Audio, AbsoluteFill, Img, OffthreadVideo, Sequence, staticFile } from "remotion";
+import { Audio, AbsoluteFill, Img, Sequence, staticFile } from "remotion";
 import { CameraMotionBlur } from '@remotion/motion-blur';
 import { Caption } from '@remotion/captions';
 import { Captions, styles } from './Captions';
@@ -37,18 +37,7 @@ export const Story = ({ story, sound = '1939477514.mp4' }: { story: StoryMetadat
   })
 
   return (<>
-    <OffthreadVideo
-      src={staticFile(sound)}
-      volume={0.1}
-      style={{
-        position: 'absolute',
-        width: 1,
-        height: 1,
-        opacity: 0,
-        pointerEvents: 'none',
-      }}
-      showInTimeline={false}
-    />
+    <Audio src={staticFile(sound)} volume={0.1} />
     {timeline.map((line, i) => (
       <Sequence key={`audio-${i}`} from={line.start} durationInFrames={line.durationInFrames}>
         <Audio src={staticFile(line.sound)} volume={1} />
