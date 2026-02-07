@@ -24,7 +24,7 @@ const styles = {
   },
   header: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'row' as const,
     alignItems: 'center',
     // backgroundColor: 'rgba(255, 0, 0, 0.1)'
   },
@@ -76,32 +76,35 @@ const theme = {
 
 export const Thread = ({ image, username, content, sound, mode }: { image: string, username: string, content: string, sound: string, mode: 'dark' | 'light' }) => {
   const _theme = theme[mode]
-  return (<CameraMotionBlur shutterAngle={280} samples={1}>
-    <AbsoluteFill>
-      {/* <AbsoluteFill> */}
-      {/*   <Img src={staticFile('threads-dark.JPG')} style={{}} /> */}
-      {/* </AbsoluteFill> */}
-      <AbsoluteFill style={{ ...styles.container, backgroundColor: _theme.fill }}>
-        <div style={{ ...styles.content, backgroundColor: _theme.background }}>
-          <div style={styles.innerContaner}>
-            <header style={styles.header}>
-              <Img src={staticFile(image)} width={88} height={88} style={styles.pic} />
-              <p style={{ ...styles.headerTitle, color: _theme.color }}>{username}</p>
-            </header>
-            <main style={styles.main}>
-              <p style={{...styles.text, color: _theme.color}}>{content}</p>
-              {/* <p style={{...styles.mainP, paddingTop: 14}}>Work hard 🫏</p> */}
-            </main>
-          </div>
-        </div>
-      </AbsoluteFill>
-      {/* <AbsoluteFill> */}
-      {/*   <Img src={staticFile('threads-dark.JPG')} style={{}} /> */}
-      {/* </AbsoluteFill> */}
-    </AbsoluteFill>
-    <Sequence from={10}>
-      <Audio src={staticFile(sound)} />
+  const speech = sound || 'speech-0.mp3'
+  return (<>
+    <Sequence from={0}>
+      <Audio src={staticFile(speech)} />
     </Sequence>
-  </CameraMotionBlur>
+    <CameraMotionBlur shutterAngle={280} samples={1}>
+      <AbsoluteFill>
+        {/* <AbsoluteFill> */}
+        {/*   <Img src={staticFile('threads-dark.JPG')} style={{}} /> */}
+        {/* </AbsoluteFill> */}
+        <AbsoluteFill style={{ ...styles.container, backgroundColor: _theme.fill }}>
+          <div style={{ ...styles.content, backgroundColor: _theme.background }}>
+            <div style={styles.innerContaner}>
+              <header style={styles.header}>
+                <Img src={staticFile(image)} width={88} height={88} style={styles.pic} />
+                <p style={{ ...styles.headerTitle, color: _theme.color }}>{username}</p>
+              </header>
+              <main style={styles.main}>
+                <p style={{...styles.text, color: _theme.color}}>{content}</p>
+                {/* <p style={{...styles.mainP, paddingTop: 14}}>Work hard 🫏</p> */}
+              </main>
+            </div>
+          </div>
+        </AbsoluteFill>
+        {/* <AbsoluteFill> */}
+        {/*   <Img src={staticFile('threads-dark.JPG')} style={{}} /> */}
+        {/* </AbsoluteFill> */}
+      </AbsoluteFill>
+    </CameraMotionBlur>
+  </>
   );
 };
