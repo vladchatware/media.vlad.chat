@@ -1,5 +1,4 @@
-import { start } from "workflow/api"
-import { generateSlide, generateSound, generateStory, generateText } from '../src/ai'
+import { generateSlide, generateSound, generateStory, generateText, readStory } from '../src/ai'
 import type { Story } from '../src/ai'
 import { system } from '../src/prompt'
 import { video } from './render'
@@ -25,9 +24,8 @@ export const story = async (prompt: string) => {
   "use workflow"
 
   const story = await generateStory(system, prompt)
-  await start(produceStory, [story])
-  await start(video, ['Story', story])
+  await produceStory(story)
+  await video('Story', story)
 
   return story
 }
-

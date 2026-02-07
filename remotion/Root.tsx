@@ -28,6 +28,21 @@ const getMediaDurationInFrames = async (src: string, paddingFrames = 0) => {
 }
 
 const calculateStoryMetadata = async ({ props }: { props: z.infer<typeof storyProp> }) => {
+  const loadCaptions = async (index: number) => {
+    try {
+      const captionsPath = staticFile(`captions-${index}.json`)
+      const captionsRes = await fetch(captionsPath)
+      if (!captionsRes.ok) {
+        return []
+      }
+      const transcription = await captionsRes.json()
+      const { captions } = openAiWhisperApiToCaptions({ transcription })
+      return captions
+    } catch {
+      return []
+    }
+  }
+
   const dialog = await Promise.all(
     props.story.dialog.map(async (line, i) => {
       const sound = line.sound ?? `speech-${i}.mp3`
@@ -37,10 +52,7 @@ const calculateStoryMetadata = async ({ props }: { props: z.infer<typeof storyPr
         fields: { slowDurationInSeconds: true },
       })
 
-      const captionsPath = staticFile(`captions-${i}.json`)
-      const captionsRes = await fetch(captionsPath)
-      const transcription = await captionsRes.json()
-      const { captions } = openAiWhisperApiToCaptions({ transcription })
+      const captions = await loadCaptions(i)
 
       return {
         ...line,
