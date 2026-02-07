@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "studio": "bunx remotion studio remotion/index.ts --port=4097 --no-open --ipv4",
+    "tunnel:studio": "cloudflared tunnel --url http://127.0.0.1:4097"
   },
   "keywords": [],
   "author": "",
