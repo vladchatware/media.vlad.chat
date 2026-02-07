@@ -1,26 +1,43 @@
-import React from 'react'
-import { Composition, staticFile } from 'remotion'
-import { parseMedia } from '@remotion/media-parser'
-import { Story } from './Story'
-import { Thread } from './Thread'
-import { Tweet } from './Tweet'
-import { storySchema, threadSchema, tweetSchema } from './types'
-import { openAiWhisperApiToCaptions } from '@remotion/openai-whisper'
-import { Main } from './Main'
-import { Outro } from './Outro'
+import React from "react";
+import { Composition, staticFile } from "remotion";
+import { parseMedia } from "@remotion/media-parser";
+import { Story } from "./Story";
+import { Thread } from "./Thread";
+import { Tweet } from "./Tweet";
+import { storyProp, storySchema, threadSchema, tweetSchema } from "./types";
+import { openAiWhisperApiToCaptions } from "@remotion/openai-whisper";
+import { Main } from "./Main";
+import { Outro } from "./Outro";
+import { resolveAssetSrc } from "./asset-src";
+import { getStudioInputPropsForComposition } from "./studio-session";
 
-const calculateMetadata = async ({ props }) => {
-  const { slowDurationInSeconds } = await parseMedia({
-    src: staticFile(props.sound as string),
-    fields: { slowDurationInSeconds: true }
-  })
+const mergeStudioInputProps = async (
+  compositionId: string,
+  fallbackProps: any,
+) => {
+  const studioProps = await getStudioInputPropsForComposition(compositionId);
+  if (!studioProps) {
+    return fallbackProps;
+  }
 
   return {
-    durationInFrames: Math.floor(slowDurationInSeconds * 30) + 10
-  }
-}
+    ...fallbackProps,
+    ...studioProps,
+  };
+};
 
-export const RemotionRoot: React.FC = () =>
+const calculateMetadata = async ({ props }: { props: any }) => {
+  const { slowDurationInSeconds } = await parseMedia({
+    src: staticFile(props.sound as string),
+    fields: { slowDurationInSeconds: true },
+  });
+
+  return {
+    durationInFrames: Math.floor(slowDurationInSeconds * 30) + 10,
+  };
+};
+
+export const RemotionRoot: React.FC = () => (
   <>
     <Composition
       id="Story"
@@ -28,106 +45,133 @@ export const RemotionRoot: React.FC = () =>
       fps={30}
       width={1080}
       height={1920}
-      schema={storySchema}
-      defaultProps={{
-        story: {
-          topic: "A Moment of Patience - healing the shadow through inner work",
-          dialog: [
-            {
-              text: "Why does healing take so long? I try to be patient but every time I think I'm improving, the old anger and shame come back—what am I doing wrong?",
-              instructions: "voice: breathy youth; emotional range: anxious to hopeful; intonation: rising at the end; speed: slightly quick; tone: earnest, vulnerable",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "You are not doing anything 'wrong.' Healing is not a race; it's learning to be with what you once fled from. Patience here is a practice, not a timetable.",
-              instructions: "warm, low, steady; emotional range: calm, compassionate; intonation: even; speed: slow; tone: reassuring",
-              side: "right",
-              voice: "ash"
-            },
-            {
-              text: "But my shadow feels huge—like it swallows the progress I make. How do I stop being afraid of it?",
-              instructions: "soft, fragile; emotional range: fearful to curious; intonation: pleading; speed: moderate; tone: small and open",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "Imagine a garden that floods each spring. If you fight the water with your hands you'll tire quickly. If you plant differently—deeper roots, stones to guide the flow—the same water becomes life. Your shadow is part of the season; learn its language and it will stop wrecking the house.",
-              instructions: "metaphoric, steady; emotional range: patient wisdom; intonation: rising then softening; speed: measured; tone: vivid and calm",
-              side: "right",
-              voice: "ash"
-            },
-            {
-              text: "That sounds poetic, but in a moment of panic I can't remember metaphors. I just react.",
-              instructions: "rushed, honest; emotional range: frustrated; intonation: clipped; speed: quick; tone: candid",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "Then begin with one small thing: the pause. When a trigger flares, take a single held breath—notice the sensation, name the feeling silently, and say, 'I see you.' Not to fix it, only to welcome it. That tiny pause interrupts the old loop and teaches your nervous system another way.",
-              instructions: "gentle, instructional; emotional range: encouraging; intonation: calm crescendos on key phrases; speed: slow; tone: guiding",
-              side: "right",
-              voice: "ash"
-            },
-            {
-              text: "A single held breath. I can try that. It feels almost too small to matter.",
-              instructions: "hesitant then a little lighter; emotional range: doubtful to tentative hope; intonation: falling then hopeful; speed: moderate; tone: soft",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "Small is everything. Each patient pause is a stitch—over time they mend the fabric. Your shadow isn't an enemy to defeat; it's a story to listen to. When you listen with steady patience, the story changes.",
-              instructions: "warm, resonant; emotional range: confident compassion; intonation: emphatic on 'small' and 'listen'; speed: slow; tone: nurturing",
-              side: "right",
-              voice: "ash"
-            },
-            {
-              text: "Okay—today I'll try one pause every time I feel the old surge. If nothing else, I'll practice being kind to myself in the in-between.",
-              instructions: "quiet resolve; emotional range: resolved, calm; intonation: steady uplift at the end; speed: moderate; tone: sincere",
-              side: "left",
-              voice: "onyx"
-            },
-            {
-              text: "Good. Start there. Healing keeps company with patience. Each small moment you offer to yourself is the greatest proof of love. Take one minute now—pause, breathe, name one feeling—and come back below to share what you noticed.",
-              instructions: "soft command, inviting; emotional range: warm encouragement; intonation: gentle crescendo toward CTA; speed: slow; tone: hopeful, present; whispering at the final phrase for intimacy",
-              side: "right",
-              voice: "ash"
-            }
-          ]
-        }
-      }}
-      calculateMetadata={async ({ props }) => {
-        const sounds = await Promise.all(props.story.dialog.map(async (line, i) => {
-          const { slowDurationInSeconds } = await parseMedia({
-            src: staticFile(`speech-${i}.mp3`),
-            fields: { slowDurationInSeconds: true }
-          })
+      schema={storyProp}
+      defaultProps={
+        {
+          story: {
+            topic: "Mindless Chatter",
+            dialog: [
+              {
+                text: "Why won't my mind ever quiet down? I'm exhausted by the constant noise—what if this is all I'll ever be?",
+                narration:
+                  "A young person sits on the edge of a rooftop at dusk, legs dangling. City lights shimmer below like a distant galaxy. Their jacket is ordinary, hair tousled from wind. A long shadow stretches from their shoulder across the concrete and up the brick wall—taller, steadier, almost alive. The air smells of rain and possibility.",
+                instructions:
+                  "Breathy, vulnerable, quick inhale before lines, rising intonation at the end; honest, a touch of fear.",
+                side: "left",
+                shot: "medium",
+                mood: "questioning",
+                voice: "onyx",
+                seconds: 4,
+              },
+              {
+                text: "Because you keep treating the noise like it defines you. The chatter learned to protect you; it learned how to get attention. This is the invitation to the Inner Work: stop feeding the story and listen for what the story is hiding.",
+                narration:
+                  "The shadow's voice seems to come from the wall itself. Up close you notice its edges ripple like smoke; it wears no clothes but carries an ancient calm. The skyline frames the shadow as if it's an elder at a campfire telling a truth. Night air is still, the city's hum receding.",
+                instructions:
+                  "Low, steady, compassionate; slow cadence with gentle emphasis on 'invitation' and 'listen'; confident and loving.",
+                side: "right",
+                shot: "closeup",
+                mood: "wise",
+                voice: "ash",
+                seconds: 8,
+              },
+              {
+                text: "But how do I stop believing it? The mind says, 'You're not enough,' 'You need more,' 'What if it all falls apart.' I don't know which part of me to trust.",
+                narration:
+                  "The person presses their palms to their temples as the words tumble out. The shadow remains still, an unblinking presence on the brick. The wind tugs a loose thread from the person's sleeve; small details feel huge in the quiet. Vulnerability is raw but honest.",
+                instructions:
+                  "Urgent, a little shaky, quickening pace when listing the thoughts; ends with a softer, questioning tone.",
+                side: "left",
+                shot: "medium",
+                mood: "conflicted",
+                voice: "onyx",
+                seconds: 12,
+              },
+              {
+                text: "Those phrases are themes of consciousness—wounds trying to keep you safe by repeating themselves. First, name them. Then feel them without fighting. Witness the pattern: wounding, seeking, reacting. When you stop identifying with the chatter, it loses its power. Tear off the veils and open the mystery of yourself; the hero's journey is inside you.",
+                narration:
+                  "The shadow leans forward slightly, voice like warm stone. As it speaks, faint images flicker across the wall—childhood echoes, a closed door, a horizon—then dissolve. The city breathes with them. It's as if the rooftop becomes a small theater for inner truth. The sky is a deep indigo, stars pricking awake.",
+                instructions:
+                  "Reassuring, deliberate, slightly resonant; pause after 'name them' and 'witness the pattern' to let each idea land. Soft crescendo on 'hero's journey'.",
+                side: "right",
+                shot: "closeup",
+                mood: "soothing",
+                voice: "ash",
+                seconds: 12,
+              },
+              {
+                text: "Start with one minute: breathe, notice one recurring thought, and ask, 'Is this true right now?' If it isn't, breathe it out. Do this daily. Reflect: where is your mindless chatter keeping you from love, peace, or joy? Your Inner Work begins when you choose to look. Will you begin today?",
+                narration:
+                  "The camera pulls back into a two-shot: the person and their shadow on the wall together, framed by city lights and an open sky. The atmosphere is quiet but charged with possibility. The person's shoulders drop a fraction; a small, hopeful smile appears. The shadow's form is less sharp now—softer, as if relaxed.",
+                instructions:
+                  "Warm, invitational, gentle encouragement; slower pace for the practical steps, then a clear, slightly rising tone on the closing question to invite action.",
+                side: "right",
+                shot: "two-shot",
+                mood: "inspirational",
+                voice: "ash",
+                seconds: 8,
+              },
+            ],
+          },
+        } as any
+      }
+      calculateMetadata={async ({ props }: { props: any }) => {
+        const resolvedProps = await mergeStudioInputProps("Story", props);
 
-          const captionsPath = staticFile(`captions-${i}.json`)
-          const captionsRes = await fetch(captionsPath)
-          const transcription = await captionsRes.json()
-          const { captions } = openAiWhisperApiToCaptions({ transcription })
+        const sounds = await Promise.all(
+          resolvedProps.story.dialog.map(async (line: any, i: number) => {
+            const lineSound =
+              (line as { sound?: string }).sound ?? `speech-${i}.mp3`;
+            const { slowDurationInSeconds } = await parseMedia({
+              src: resolveAssetSrc(lineSound),
+              fields: { slowDurationInSeconds: true },
+            });
 
-          return {
-            ...line,
-            durationInFrames: Math.floor(slowDurationInSeconds * 30),
-            sound: `speech-${i}.mp3`,
-            captions
-          }
-        }))
+            const providedCaptions = (line as { captions?: unknown[] })
+              .captions;
+            const captions = Array.isArray(providedCaptions)
+              ? providedCaptions
+              : await (async () => {
+                  const captionsPath = staticFile(`captions-${i}.json`);
+                  const captionsRes = await fetch(captionsPath);
+                  const transcription = await captionsRes.json();
+                  return openAiWhisperApiToCaptions({ transcription }).captions;
+                })();
 
-        const totalDuration = sounds.reduce((acc, sound) => acc + sound.durationInFrames, 0)
+            return {
+              ...line,
+              durationInFrames: Math.floor(slowDurationInSeconds * 30),
+              sound: lineSound,
+              captions,
+            };
+          }),
+        );
+
+        const { slowDurationInSeconds: outroSlowDurationInSeconds } =
+          await parseMedia({
+            src: staticFile("Outro.mp4"),
+            fields: { slowDurationInSeconds: true },
+          });
+
+        const outroDurationInFrames = Math.floor(
+          outroSlowDurationInSeconds * 30,
+        );
+
+        const totalDuration =
+          sounds.reduce((acc, sound) => acc + sound.durationInFrames, 0) +
+          outroDurationInFrames;
 
         return {
           props: {
-            ...props,
+            ...resolvedProps,
             story: {
-              topic: props.story.topic,
-              dialog: sounds
-            }
+              topic: resolvedProps.story.topic,
+              dialog: sounds,
+            },
+            outroDurationInFrames,
           },
-          durationInFrames: totalDuration
-        }
+          durationInFrames: totalDuration,
+        };
       }}
     />
     <Composition
@@ -138,17 +182,18 @@ export const RemotionRoot: React.FC = () =>
       width={1080}
       height={1920}
       defaultProps={{
-        video: 'The Power of Compassion.mp4'
+        video: "The Power of Compassion.mp4",
       }}
       calculateMetadata={async ({ props }) => {
+        const resolvedProps = await mergeStudioInputProps("Outro", props);
         const { slowDurationInSeconds } = await parseMedia({
-          src: staticFile(props.video),
-          fields: { slowDurationInSeconds: true }
-        })
+          src: resolveAssetSrc(resolvedProps.video),
+          fields: { slowDurationInSeconds: true },
+        });
         return {
-          props,
-          durationInFrames: Math.floor(slowDurationInSeconds * 30)
-        }
+          props: resolvedProps,
+          durationInFrames: Math.floor(slowDurationInSeconds * 30),
+        };
       }}
     />
     <Composition
@@ -160,21 +205,24 @@ export const RemotionRoot: React.FC = () =>
       height={2282}
       schema={threadSchema}
       defaultProps={{
-        image: 'pic.jpeg',
-        username: 'vlad.chat',
-        content: "Most people aren't afraid to fail. They're afraid to succeed because that would require them to change. It would require them to become the person who was capable of success. It would require them to let go of the pleasures they are silently addicted to",
-        sound: 'speech-0.mp3',
-        mode: 'light'
+        image: "pic.jpeg",
+        username: "vlad.chat",
+        content:
+          "Most people aren't afraid to fail. They're afraid to succeed because that would require them to change. It would require them to become the person who was capable of success. It would require them to let go of the pleasures they are silently addicted to",
+        sound: "speech-0.mp3",
+        mode: "light",
       }}
       calculateMetadata={async ({ props }) => {
+        const resolvedProps = await mergeStudioInputProps("Thread", props);
         const { slowDurationInSeconds } = await parseMedia({
-          src: staticFile(props.sound as string),
-          fields: { slowDurationInSeconds: true }
-        })
+          src: resolveAssetSrc(resolvedProps.sound as string),
+          fields: { slowDurationInSeconds: true },
+        });
 
         return {
-          durationInFrames: Math.floor(slowDurationInSeconds * 30) + 10
-        }
+          props: resolvedProps,
+          durationInFrames: Math.floor(slowDurationInSeconds * 30) + 10,
+        };
       }}
     />
     <Composition
@@ -186,23 +234,26 @@ export const RemotionRoot: React.FC = () =>
       height={2282}
       schema={tweetSchema}
       defaultProps={{
-        image: 'pic.jpeg',
-        username: 'vlad.chat',
-        handle: '@vladchatware',
-        content: "i'm pissed man. i might go full innawoods and disconnect. fuck corporations",
-        sound: 'speech-0.mp3',
-        mode: 'dark'
+        image: "pic.jpeg",
+        username: "vlad.chat",
+        handle: "@vladchatware",
+        content:
+          "i'm pissed man. i might go full innawoods and disconnect. fuck corporations",
+        sound: "speech-0.mp3",
+        mode: "dark",
       }}
       calculateMetadata={async ({ props }) => {
+        const resolvedProps = await mergeStudioInputProps("Tweet", props);
         const { slowDurationInSeconds } = await parseMedia({
-          src: staticFile(props.sound as string),
-          fields: { slowDurationInSeconds: true }
-        })
+          src: resolveAssetSrc(resolvedProps.sound as string),
+          fields: { slowDurationInSeconds: true },
+        });
 
         return {
-          durationInFrames: Math.floor(slowDurationInSeconds * 30) + 10
-        }
+          props: resolvedProps,
+          durationInFrames: Math.floor(slowDurationInSeconds * 30) + 10,
+        };
       }}
     />
   </>
-
+);
