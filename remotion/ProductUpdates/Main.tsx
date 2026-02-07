@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AbsoluteFill, Sequence, OffthreadVideo, staticFile } from 'remotion';
+import { AbsoluteFill, Audio, Sequence, staticFile } from 'remotion';
 import { SereneBackground } from './SereneBackground';
 import { Intro } from './Intro';
 import { ProductSection } from './ProductSection';
@@ -17,7 +17,7 @@ export const Main: React.FC = () => {
     return (
         <AudioProvider>
             <AbsoluteFill style={{ backgroundColor: '#dcdcdc' }}>
-                <OffthreadVideo
+                <Audio
                     src={staticFile(SOUND_FILE)}
                     trimBefore={SOUND_OFFSET}
                 />
