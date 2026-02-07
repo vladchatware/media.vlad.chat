@@ -38,15 +38,11 @@ export const Story = ({ story, sound = '1939477514.mp4' }: { story: StoryMetadat
 
   return (<>
     <Audio src={staticFile(sound)} volume={0.1} />
-    {timeline.map((line, i) => (
-      <Sequence key={`audio-${i}`} from={line.start} durationInFrames={line.durationInFrames}>
-        <Audio src={staticFile(line.sound)} volume={1} />
-      </Sequence>
-    ))}
-    <CameraMotionBlur shutterAngle={280} samples={1}>
-      <AbsoluteFill>
-        {timeline.map((line, i) => {
-          return <Sequence key={i} from={line.start} durationInFrames={line.durationInFrames}>
+    <AbsoluteFill>
+      {timeline.map((line, i) => {
+        return <Sequence key={i} from={line.start} durationInFrames={line.durationInFrames}>
+          <Audio src={staticFile(line.sound)} volume={1} />
+          <CameraMotionBlur shutterAngle={280} samples={1}>
             <Img src={staticFile('the-need-to-be-right.jpeg')} style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
             <AbsoluteFill style={styles.container}>
               <Captions
@@ -54,10 +50,10 @@ export const Story = ({ story, sound = '1939477514.mp4' }: { story: StoryMetadat
                 captionPosition={`${line.side}-${line.shot}`}
                 combineTokensWithinMilliseconds={1200} />
             </AbsoluteFill>
-          </Sequence>
-        })}
-      </AbsoluteFill>
-    </CameraMotionBlur>
+          </CameraMotionBlur>
+        </Sequence>
+      })}
+    </AbsoluteFill>
   </>
   );
 };
