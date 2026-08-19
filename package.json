@@ -5,7 +5,8 @@
   "description": "Content generation engine.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/build-studio.mjs && next build",
+    "build:app": "next build",
     "start": "next start",
     "serve:render": "bun run renderer.ts",
     "studio": "remotion studio",

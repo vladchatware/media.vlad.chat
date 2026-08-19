@@ -14,3 +14,12 @@ build
 *.tsbuildinfo
 .vercel
 .env*
+
+# Remotion studio bundle built into public/ by scripts/build-studio.mjs
+public/index.html
+public/bundle.js
+public/bundle.js.map
+public/*.bundle.js
+public/*.bundle.js.map
+public/favicon.ico
+public/source-map-helper.wasm
