@@ -11,6 +11,22 @@ const secret = process.env.RENDERER_SECRET
 
 mkdirSync('out', { recursive: true })
 
+interface Job {
+  id: string
+  status: 'pending' | 'running' | 'done' | 'error'
+  result?: { success: boolean; path?: string; error?: string }
+}
+
+const jobs = new Map<string, Job>()
+let jobCounter = 0
+
+const createJob = (): Job => {
+  const id = `${Date.now()}-${++jobCounter}`
+  const job: Job = { id, status: 'pending' }
+  jobs.set(id, job)
+  return job
+}
+
 const server = Bun.serve({
   port: Number.parseInt(process.env.PORT || '3001', 10),
   async fetch(req) {
@@ -62,39 +78,34 @@ const server = Bun.serve({
           })
         }
 
-        console.log(`Main: Delegating render for ${id} to worker...`)
+        const job = createJob()
+        job.status = 'running'
 
-        // Create a new worker instance
+        console.log(`Main: Delegating render for ${id} to worker (job ${job.id})...`)
+
         const worker = new Worker(new URL('./render-worker.ts', import.meta.url).href)
 
-        // Send data to the worker
+        worker.onmessage = (event) => {
+          job.result = event.data
+          job.status = event.data.success ? 'done' : 'error'
+          console.log(`Main: Job ${job.id} finished (${job.status})`)
+          worker.terminate()
+        }
+
+        worker.onerror = (err) => {
+          job.result = { success: false, error: String(err) }
+          job.status = 'error'
+          console.log(`Main: Job ${job.id} errored`)
+          worker.terminate()
+        }
+
         worker.postMessage({ id, inputProps, type })
 
-        // Wait for the worker to finish
-        const result = await new Promise((resolve) => {
-          worker.onmessage = (event) => {
-            resolve(event.data)
-            worker.terminate() // Clean up the worker
-          }
-          worker.onerror = (err) => {
-            resolve({ success: false, error: String(err) })
-            worker.terminate()
-          }
+        // Return immediately with the job id; the workflow polls for the result.
+        return new Response(JSON.stringify({ success: true, jobId: job.id }), {
+          status: 202,
+          headers: { 'Content-Type': 'application/json' }
         })
-
-        // @ts-ignore
-        if (result.success) {
-          // @ts-ignore
-          return new Response(JSON.stringify(result), {
-            headers: { 'Content-Type': 'application/json' }
-          })
-        } else {
-          // @ts-ignore
-          return new Response(JSON.stringify(result), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' }
-          })
-        }
 
       } catch (err) {
         console.error('Main Error:', err)
@@ -103,6 +114,31 @@ const server = Bun.serve({
           headers: { 'Content-Type': 'application/json' }
         })
       }
+    }
+
+    const renderJobMatch = url.pathname.match(/^\/api\/render\/([^/]+)$/)
+    if (req.method === 'GET' && renderJobMatch) {
+      if (secret && req.headers.get('authorization') !== `Bearer ${secret}`) {
+        return unauthorized()
+      }
+
+      const job = jobs.get(renderJobMatch[1])
+      if (!job) {
+        return new Response(JSON.stringify({ success: false, error: 'Job not found' }), {
+          status: 404,
+          headers: { 'Content-Type': 'application/json' }
+        })
+      }
+
+      return new Response(
+        JSON.stringify({
+          success: job.status === 'done' || job.status === 'error',
+          jobId: job.id,
+          status: job.status,
+          ...(job.result ?? {}),
+        }),
+        { headers: { 'Content-Type': 'application/json' } }
+      )
     }
 
     return new Response('Not Found', { status: 404 })

@@ -1,4 +1,4 @@
-import { fetch as fetchWorkflow } from 'workflow'
+import { fetch as fetchWorkflow, sleep } from 'workflow'
 import { put } from '@vercel/blob'
 import { basename } from 'path'
 
@@ -37,7 +37,7 @@ const uploadToBlob = async (path: string) => {
 const render = async (id: string, inputProps: Record<string, any>, type: string) => {
     "use step"
 
-    const result = await fetchWorkflow(`${rendererUrl}/api/render`, {
+    const submitted = await fetchWorkflow(`${rendererUrl}/api/render`, {
         method: 'POST',
         headers: authHeaders(),
         body: JSON.stringify({
@@ -47,16 +47,29 @@ const render = async (id: string, inputProps: Record<string, any>, type: string)
         })
     }).then(res => res.json())
 
-    if (!result.success) {
-        throw new Error(result.error || 'Render failed')
+    if (!submitted.success || !submitted.jobId) {
+        throw new Error(submitted.error || 'Render submission failed')
     }
 
-    if (result.path) {
-        const url = await uploadToBlob(result.path)
-        return { success: true, url, path: result.path }
+    // Poll the renderer until the job finishes.
+    let result = null
+    for (let attempt = 0; attempt < 120; attempt++) {
+        await sleep(5000)
+
+        result = await fetchWorkflow(`${rendererUrl}/api/render/${submitted.jobId}`, {
+            headers: authHeaders()
+        }).then(res => res.json())
+
+        if (result.status === 'done') {
+            const url = await uploadToBlob(result.path)
+            return { success: true, url, path: result.path, jobId: submitted.jobId }
+        }
+        if (result.status === 'error') {
+            throw new Error(result.error || 'Render failed')
+        }
     }
 
-    return result
+    throw new Error(`Render timed out: ${submitted.jobId}`)
 }
 
 // composition, content
