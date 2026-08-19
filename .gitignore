@@ -12,3 +12,5 @@ stories
 prompt/innerwork.md
 build
 *.tsbuildinfo
+.vercel
+.env*

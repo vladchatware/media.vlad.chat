@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame, interpolate, spring, useVideoConfig, staticFile, random } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, interpolate, spring, useVideoConfig, random } from 'remotion';
 import { AudioProvider, useAudio } from './AudioProvider';
 
 export const Intro: React.FC = () => {

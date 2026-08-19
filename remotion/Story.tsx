@@ -1,8 +1,9 @@
 import React from "react";
-import { Audio, AbsoluteFill, Img, Sequence, staticFile } from "remotion";
+import { Audio, AbsoluteFill, Img, Sequence } from "remotion";
 import { CameraMotionBlur } from '@remotion/motion-blur';
 import { Caption } from '@remotion/captions';
 import { Captions, styles } from './Captions';
+import { staticUrl } from './assets';
 
 export type StoryMetadata = {
   topic: string,
@@ -14,6 +15,7 @@ export type StoryMetadata = {
     voice: 'onyx' | 'ash',
     durationInFrames?: number,
     sound?: string,
+    captionsSrc?: string,
     captions?: Caption[],
     narration?: string,
     mood?: string,
@@ -37,13 +39,13 @@ export const Story = ({ story, sound = '1939477514.mp4' }: { story: StoryMetadat
   })
 
   return (<>
-    <Audio src={staticFile(sound)} volume={0.1} />
+    <Audio src={staticUrl(sound)} volume={0.1} />
     <AbsoluteFill>
       {timeline.map((line, i) => {
         return <Sequence key={i} from={line.start} durationInFrames={line.durationInFrames}>
-          <Audio src={staticFile(line.sound)} volume={1} />
+          <Audio src={staticUrl(line.sound)} volume={1} />
           <CameraMotionBlur shutterAngle={280} samples={1}>
-            <Img src={staticFile('the-need-to-be-right.jpeg')} style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
+            <Img src={staticUrl('the-need-to-be-right.jpeg')} style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
             <AbsoluteFill style={styles.container}>
               <Captions
                 captions={line.captions}

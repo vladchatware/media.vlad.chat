@@ -2,7 +2,14 @@ import OpenAI from 'openai'
 import { readdirSync, createReadStream, writeFileSync, readFileSync } from 'fs'
 import { z } from 'zod'
 import { generateObject } from 'ai'
+import { put } from '@vercel/blob'
 const openai = new OpenAI()
+
+const putToBlob = async (filePath: string, blobPath: string) => {
+  const buffer = readFileSync(filePath)
+  const blob = await put(blobPath, buffer, { access: 'public', addRandomSuffix: true })
+  return blob.url
+}
 
 const imageSchema = z.object({
   medium_format: z.string().describe('Specifies the type and style of the photographic medium, such as the camera format and resolution. Example: Full-frame DSLR portrait for high-resolution editorial photography.'),
@@ -85,9 +92,10 @@ export const generateSound = async (input: string, instructions = '', voice: 'as
     instructions
   })
 
-  writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(await audio.arrayBuffer()))
+  const local = `${process.cwd()}/public/${name}`
+  writeFileSync(local, Buffer.from(await audio.arrayBuffer()))
 
-  return name
+  return putToBlob(local, `renders/audio/${name}`)
 }
 
 export const generateText = async (input: string, name: string) => {
@@ -100,9 +108,10 @@ export const generateText = async (input: string, name: string) => {
     timestamp_granularities: ['word']
   })
 
-  writeFileSync(`${process.cwd()}/public/${name}`, JSON.stringify(transcription, null, 2))
+  const local = `${process.cwd()}/public/${name}`
+  writeFileSync(local, JSON.stringify(transcription, null, 2))
 
-  return name
+  return putToBlob(local, `renders/captions/${name}`)
 }
 
 export const listVideos = async () => {
@@ -134,7 +143,13 @@ ${instructions}
 Dialogue:
 ${text}
 `
-  const input_reference = Bun.file(`${process.cwd()}/public/${reference}`)
+  const input_reference = await (async () => {
+    if (/^https?:\/\//.test(reference)) {
+      const res = await fetch(reference)
+      return new Blob([await res.arrayBuffer()])
+    }
+    return Bun.file(`${process.cwd()}/public/${reference}`)
+  })()
   const job = await openai.videos.create({
     prompt,
     input_reference,
@@ -164,7 +179,10 @@ ${text}
   })
 
   const res = await openai.videos.downloadContent(job.id)
-  writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(await res.arrayBuffer()))
+  const local = `${process.cwd()}/public/${name}`
+  writeFileSync(local, Buffer.from(await res.arrayBuffer()))
+
+  return putToBlob(local, `renders/videos/${name}`)
 }
 
 export const generateSlide = async (options: z.infer<typeof imageSchema>, name = 'slide.png') => {
@@ -193,7 +211,8 @@ export const generateSlide = async (options: z.infer<typeof imageSchema>, name =
     throw new Error('Image generation failed: No image data returned from OpenAI.')
   }
 
-  writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(image.data[0].b64_json, 'base64'))
+  const local = `${process.cwd()}/public/${name}`
+  writeFileSync(local, Buffer.from(image.data[0].b64_json, 'base64'))
 
-  return name
+  return putToBlob(local, `renders/images/${name}`)
 }

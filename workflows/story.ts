@@ -5,27 +5,32 @@ import { video } from './render'
 
 const produceStory = async (story: Story) => {
   "use workflow"
-  await generateSlide(story.image, `slide-0.png`)
-  
+  const image = await generateSlide(story.image, `slide-0.png`)
+
+  const dialog = []
   for (const [index, section] of story.dialog.entries()) {
     console.log(`${section.voice}: ${section.text}`)
-    
-    await generateSound(
+
+    const sound = await generateSound(
       section.text,
       section.instructions,
       section.voice,
       `speech-${index}.mp3`
     )
-    await generateText(`speech-${index}.mp3`, `captions-${index}.json`)
+    const captionsSrc = await generateText(`speech-${index}.mp3`, `captions-${index}.json`)
+
+    dialog.push({ ...section, sound, captionsSrc })
   }
+
+  return { topic: story.topic, dialog, image }
 }
 
 export const story = async (prompt: string) => {
   "use workflow"
 
   const story = await generateStory(system, prompt)
-  await produceStory(story)
-  const render = await video('Story', story)
+  const media = await produceStory(story)
+  const render = await video('Story', media)
 
   return { story, video: render.url }
 }

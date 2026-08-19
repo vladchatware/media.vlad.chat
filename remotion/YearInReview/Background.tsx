@@ -1,6 +1,6 @@
 
 import React, { useMemo } from 'react';
-import { AbsoluteFill, useCurrentFrame, useVideoConfig, staticFile, interpolate, random } from 'remotion';
+import { AbsoluteFill, useCurrentFrame, useVideoConfig, interpolate, random } from 'remotion';
 import { useAudio } from '../ProductUpdates/AudioProvider';
 
 const LensFlare: React.FC<{ frame: number; seed: number; volume: number; bass: number }> = ({ frame, seed, volume, bass }) => {

@@ -1,8 +1,9 @@
 import React from 'react'
-import { Audio, AbsoluteFill, Img, staticFile, Sequence } from "remotion";
+import { Audio, AbsoluteFill, Img, Sequence } from "remotion";
 import { loadFont } from '@remotion/google-fonts/Roboto';
 const { fontFamily } = loadFont(); // "Titan One"
 import { CameraMotionBlur } from '@remotion/motion-blur';
+import { staticUrl } from './assets';
 
 const styles = {
   container: {
@@ -79,7 +80,7 @@ export const Thread = ({ image, username, content, sound, mode }: { image: strin
   const speech = sound || 'speech-0.mp3'
   return (<>
     <Sequence from={0}>
-      <Audio src={staticFile(speech)} />
+      <Audio src={staticUrl(speech)} />
     </Sequence>
     <CameraMotionBlur shutterAngle={280} samples={1}>
       <AbsoluteFill>
@@ -90,7 +91,7 @@ export const Thread = ({ image, username, content, sound, mode }: { image: strin
           <div style={{ ...styles.content, backgroundColor: _theme.background }}>
             <div style={styles.innerContaner}>
               <header style={styles.header}>
-                <Img src={staticFile(image)} width={88} height={88} style={styles.pic} />
+                <Img src={staticUrl(image)} width={88} height={88} style={styles.pic} />
                 <p style={{ ...styles.headerTitle, color: _theme.color }}>{username}</p>
               </header>
               <main style={styles.main}>
