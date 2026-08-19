@@ -6,7 +6,7 @@ const server = Bun.serve({
     if (req.method === 'POST' && url.pathname === '/api/render') {
       try {
         const body = await req.json().catch(() => ({}))
-        const { id, inputProps, type = 'video' } = body
+        const { id, inputProps, outputName, type = 'video' } = body
 
         if (!id) {
           return new Response(JSON.stringify({ success: false, error: 'Missing composition ID' }), {
@@ -21,7 +21,7 @@ const server = Bun.serve({
         const worker = new Worker(new URL('./render-worker.ts', import.meta.url).href)
 
         // Send data to the worker
-        worker.postMessage({ id, inputProps, type })
+        worker.postMessage({ id, inputProps, outputName, type })
 
         // Wait for the worker to finish
         const result = await new Promise((resolve) => {

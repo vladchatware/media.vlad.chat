@@ -6,6 +6,7 @@ import { carousel } from "../../../workflows/carousel"
 import { tweet } from "../../../workflows/tweet"
 import { thread } from "../../../workflows/thread"
 import { video } from "../../../workflows/video"
+import { transitionBatch } from "../../../workflows/transitions"
 
 const handler = createMcpHandler(
   (server) => {
@@ -62,6 +63,27 @@ const handler = createMcpHandler(
       const run = await start(video, [prompt])
       return {
         content: [{ type: "text", text: `✓ AI Video generation started!\n\nRun ID: ${run.runId}` }],
+      }
+    })
+
+    server.registerTool("render_track_transitions", {
+      description: "Render vertical transition-review videos for one outgoing SoundCloud track and one or more ranked candidate track IDs. Uses each pair's best live backroom transition window.",
+      inputSchema: {
+        outgoingTrackId: z.number().int().positive(),
+        candidateTrackIds: z.array(z.number().int().positive()).min(1).max(12),
+        energyArc: z.enum(["preserve", "build", "release", "reset"]).default("preserve"),
+      },
+    }, async ({ outgoingTrackId, candidateTrackIds, energyArc }) => {
+      const run = await start(transitionBatch, [
+        String(outgoingTrackId),
+        candidateTrackIds.map(String),
+        energyArc,
+      ])
+      return {
+        content: [{
+          type: "text",
+          text: `Transition batch started.\n\nRun ID: ${run.runId}\nCandidates: ${candidateTrackIds.join(", ")}`,
+        }],
       }
     })
   },

@@ -1,0 +1,113 @@
+{
+  "719940274": {
+    "source": {
+      "page": "https://music.vlad.chat/tracks/2260180544/backroom?with=719940274&arc=preserve"
+    },
+    "outgoing": {
+      "id": "2260180544",
+      "artist": "GLSxxqx",
+      "title": "ice - ZERTAL slowed (MP3)",
+      "durationSec": 151.59374149659865,
+      "audioFile": "live-2260180544.mp3",
+      "window": {
+        "startSec": 63.843265533447266,
+        "endSec": 72.7352
+      }
+    },
+    "incoming": {
+      "id": "719940274",
+      "artist": "Microsound",
+      "title": "The Book Of Love",
+      "durationSec": 208.22204081632654,
+      "audioFile": "live-719940274.mp3",
+      "window": {
+        "startSec": 73.35183715820312,
+        "endSec": 82.338
+      }
+    },
+    "transition": {
+      "score": 0.7575,
+      "blendSec": 8.8919,
+      "incomingPlaybackRate": 1.0106,
+      "reasons": [
+        "matched energy",
+        "clean vocal overlap",
+        "stable tempo lock"
+      ]
+    }
+  },
+  "1465496302": {
+    "source": {
+      "page": "https://music.vlad.chat/tracks/2260180544/backroom?with=1465496302&arc=preserve"
+    },
+    "outgoing": {
+      "id": "2260180544",
+      "artist": "GLSxxqx",
+      "title": "ice - ZERTAL slowed (MP3)",
+      "durationSec": 151.59374149659865,
+      "audioFile": "live-2260180544.mp3",
+      "window": {
+        "startSec": 63.843265533447266,
+        "endSec": 72.7539
+      }
+    },
+    "incoming": {
+      "id": "1465496302",
+      "artist": "janem",
+      "title": "Frutiger Aero",
+      "durationSec": 104.281,
+      "audioFile": "live-1465496302.mp3",
+      "window": {
+        "startSec": 42.72471618652344,
+        "endSec": 51.0951
+      }
+    },
+    "transition": {
+      "score": 0.7367,
+      "blendSec": 8.9107,
+      "incomingPlaybackRate": 0.9394,
+      "reasons": [
+        "matched energy",
+        "aligned movement",
+        "stable tempo lock"
+      ]
+    }
+  },
+  "719940358": {
+    "source": {
+      "page": "https://music.vlad.chat/tracks/2260180544/backroom?with=719940358&arc=preserve"
+    },
+    "outgoing": {
+      "id": "2260180544",
+      "artist": "GLSxxqx",
+      "title": "ice - ZERTAL slowed (MP3)",
+      "durationSec": 151.59374149659865,
+      "audioFile": "live-2260180544.mp3",
+      "window": {
+        "startSec": 63.843265533447266,
+        "endSec": 72.7539
+      }
+    },
+    "incoming": {
+      "id": "719940358",
+      "artist": "Microsound",
+      "title": "The Luckiest Guy On The Lower East Side",
+      "durationSec": 151.98,
+      "audioFile": "live-719940358.mp3",
+      "window": {
+        "startSec": 43.86249542236328,
+        "endSec": 52.0947
+      }
+    },
+    "transition": {
+      "score": 0.688,
+      "blendSec": 8.9107,
+      "incomingPlaybackRate": 0.9239,
+      "reasons": [
+        "matched rhythm",
+        "aligned movement",
+        "stable tempo lock"
+      ]
+    }
+  }
+}
