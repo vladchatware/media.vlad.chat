@@ -14,6 +14,12 @@ export const assets: Record<string, string> = {
   'sound.m4a': `${BLOB_BASE}/sound.m4a`,
   'sound03.m4a': `${BLOB_BASE}/sound03.m4a`,
   'the-need-to-be-right.jpeg': `${BLOB_BASE}/the-need-to-be-right.jpeg`,
+  'speech-0.mp3': `${BLOB_BASE}/speech-0.mp3`,
+  'speech-1.mp3': `${BLOB_BASE}/speech-1.mp3`,
+  'speech-2.mp3': `${BLOB_BASE}/speech-2.mp3`,
+  'speech-3.mp3': `${BLOB_BASE}/speech-3.mp3`,
+  'speech-4.mp3': `${BLOB_BASE}/speech-4.mp3`,
+  'speech-5.mp3': `${BLOB_BASE}/speech-5.mp3`,
 }
 
 // Resolve a static asset name (or an already-absolute URL) to its public URL.
