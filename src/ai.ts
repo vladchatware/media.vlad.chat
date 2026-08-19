@@ -83,13 +83,15 @@ export const generateStory = async (system: string, prompt: string) => {
 
   const story = storySchema.parse(object)
 
-  try {
-    const storiesDir = `${process.cwd()}/stories`
-    mkdirSync(storiesDir, { recursive: true })
-    const counter = readdirSync(storiesDir).length
-    writeFileSync(`${storiesDir}/${counter}-${story.topic}.json`, JSON.stringify(story, null, 2))
-  } catch (e) {
-    console.warn('Could not persist story locally:', e)
+  if (!process.env.VERCEL) {
+    try {
+      const storiesDir = `${process.cwd()}/stories`
+      mkdirSync(storiesDir, { recursive: true })
+      const counter = readdirSync(storiesDir).length
+      writeFileSync(`${storiesDir}/${counter}-${story.topic}.json`, JSON.stringify(story, null, 2))
+    } catch (e) {
+      console.warn('Could not persist story locally:', e)
+    }
   }
 
   return story
