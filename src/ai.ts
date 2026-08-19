@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import { readdirSync, createReadStream, writeFileSync, readFileSync } from 'fs'
+import { readdirSync, createReadStream, writeFileSync, readFileSync, mkdirSync } from 'fs'
 import { z } from 'zod'
 import { generateObject } from 'ai'
 import { put } from '@vercel/blob'
@@ -10,6 +10,13 @@ const putToBlob = async (filePath: string, blobPath: string) => {
   const buffer = readFileSync(filePath)
   const blob = await put(blobPath, buffer, { access: 'public', addRandomSuffix: true })
   return blob.url
+}
+
+// Staging dir for files that are uploaded to Blob. On serverless the
+// filesystem is read-only except /tmp, so stage there instead of public/.
+const stagingPath = (name: string) => {
+  const dir = process.env.VERCEL ? '/tmp' : `${process.cwd()}/public`
+  return `${dir}/${name}`
 }
 
 const imageSchema = z.object({
@@ -76,9 +83,14 @@ export const generateStory = async (system: string, prompt: string) => {
 
   const story = storySchema.parse(object)
 
-  const counter = readdirSync(`${process.cwd()}/stories`).length
-
-  writeFileSync(`${process.cwd()}/stories/${counter}-${story.topic}.json`, JSON.stringify(story, null, 2))
+  try {
+    const storiesDir = `${process.cwd()}/stories`
+    mkdirSync(storiesDir, { recursive: true })
+    const counter = readdirSync(storiesDir).length
+    writeFileSync(`${storiesDir}/${counter}-${story.topic}.json`, JSON.stringify(story, null, 2))
+  } catch (e) {
+    console.warn('Could not persist story locally:', e)
+  }
 
   return story
 }
@@ -93,7 +105,7 @@ export const generateSound = async (input: string, instructions = '', voice: 'as
     instructions
   })
 
-  const local = `${process.cwd()}/public/${name}`
+  const local = stagingPath(name)
   writeFileSync(local, Buffer.from(await audio.arrayBuffer()))
 
   return putToBlob(local, `renders/audio/${name}`)
@@ -102,14 +114,18 @@ export const generateSound = async (input: string, instructions = '', voice: 'as
 export const generateText = async (input: string, name: string) => {
   "use step"
 
+  const audioFile = /^https?:\/\//.test(input)
+    ? new File([await (await fetch(input)).arrayBuffer()], name.replace(/\.json$/, '.mp3'), { type: 'audio/mpeg' })
+    : createReadStream(stagingPath(input))
+
   const transcription = await getOpenAI().audio.transcriptions.create({
-    file: createReadStream(`${process.cwd()}/public/${input}`),
+    file: audioFile as any,
     model: 'whisper-1',
     response_format: 'verbose_json',
     timestamp_granularities: ['word']
   })
 
-  const local = `${process.cwd()}/public/${name}`
+  const local = stagingPath(name)
   writeFileSync(local, JSON.stringify(transcription, null, 2))
 
   return putToBlob(local, `renders/captions/${name}`)
@@ -180,7 +196,7 @@ ${text}
   })
 
   const res = await getOpenAI().videos.downloadContent(job.id)
-  const local = `${process.cwd()}/public/${name}`
+  const local = stagingPath(name)
   writeFileSync(local, Buffer.from(await res.arrayBuffer()))
 
   return putToBlob(local, `renders/videos/${name}`)
@@ -212,7 +228,7 @@ export const generateSlide = async (options: z.infer<typeof imageSchema>, name =
     throw new Error('Image generation failed: No image data returned from OpenAI.')
   }
 
-  const local = `${process.cwd()}/public/${name}`
+  const local = stagingPath(name)
   writeFileSync(local, Buffer.from(image.data[0].b64_json, 'base64'))
 
   return putToBlob(local, `renders/images/${name}`)

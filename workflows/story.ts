@@ -17,7 +17,7 @@ const produceStory = async (story: Story) => {
       section.voice,
       `speech-${index}.mp3`
     )
-    const captionsSrc = await generateText(`speech-${index}.mp3`, `captions-${index}.json`)
+    const captionsSrc = await generateText(sound, `captions-${index}.json`)
 
     dialog.push({ ...section, sound, captionsSrc })
   }

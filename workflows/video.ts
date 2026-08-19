@@ -19,7 +19,7 @@ export const video = async (prompt: string) => {
       section.voice,
       `speech-${index}.mp3`,
     )
-    const captionsSrc = await generateText(`speech-${index}.mp3`, `captions-${index}.json`)
+    const captionsSrc = await generateText(sound, `captions-${index}.json`)
     dialog.push({ ...section, sound, captionsSrc })
   }
 
