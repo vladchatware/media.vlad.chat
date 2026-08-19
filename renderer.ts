@@ -1,4 +1,11 @@
 import { mkdirSync } from 'fs'
+import { basename, join } from 'path'
+
+const unauthorized = () =>
+  new Response(JSON.stringify({ success: false, error: 'Unauthorized' }), {
+    status: 401,
+    headers: { 'Content-Type': 'application/json' }
+  })
 
 const secret = process.env.RENDERER_SECRET
 
@@ -15,12 +22,33 @@ const server = Bun.serve({
       })
     }
 
-    if (req.method === 'POST' && url.pathname === '/api/render') {
+    if (req.method === 'GET' && url.pathname === '/api/file') {
       if (secret && req.headers.get('authorization') !== `Bearer ${secret}`) {
-        return new Response(JSON.stringify({ success: false, error: 'Unauthorized' }), {
-          status: 401,
+        return unauthorized()
+      }
+
+      const name = url.searchParams.get('path') || url.searchParams.get('name')
+      if (!name) {
+        return new Response(JSON.stringify({ success: false, error: 'Missing file path' }), {
+          status: 400,
           headers: { 'Content-Type': 'application/json' }
         })
+      }
+
+      const file = Bun.file(join('out', basename(name)))
+      if (!(await file.exists())) {
+        return new Response(JSON.stringify({ success: false, error: 'File not found' }), {
+          status: 404,
+          headers: { 'Content-Type': 'application/json' }
+        })
+      }
+
+      return new Response(file)
+    }
+
+    if (req.method === 'POST' && url.pathname === '/api/render') {
+      if (secret && req.headers.get('authorization') !== `Bearer ${secret}`) {
+        return unauthorized()
       }
 
       try {

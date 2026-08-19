@@ -11,3 +11,4 @@ public/video-*.mp4
 stories
 prompt/innerwork.md
 build
+*.tsbuildinfo

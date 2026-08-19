@@ -147,6 +147,26 @@ All endpoints return JSON with a workflow run ID:
 }
 ```
 
+**6. Run Status** (`/api/status?runId=...`)
+Poll this endpoint to retrieve the workflow result, including the public URL of the rendered media (stored in Vercel Blob):
+
+```bash
+curl "http://localhost:3000/api/status?runId=wf_abc123xyz"
+```
+
+While the run is in progress, it returns `{ runId, status }`. Once completed, it returns the workflow's return value, e.g.:
+
+```json
+{
+  "runId": "wf_abc123xyz",
+  "status": "completed",
+  "result": {
+    "story": { ... },
+    "video": "https://xxxx.public.blob.vercel-storage.com/renders/Story-1724184000000-abc.mp4"
+  }
+}
+```
+
 **MCP Server Integration**
 
 This project includes an MCP (Model Context Protocol) server at `/api/mcp` that exposes content generation tools. This allows AI assistants like Claude Desktop to directly invoke content generation workflows.
@@ -216,6 +236,8 @@ The renderer spawns a `render-worker.ts` worker which bundles `remotion/index.ts
 5. **Render Request** - `workflows/render.ts` POSTs to renderer at `http://localhost:3001/api/render`
 6. **Remotion Bundling** - Renderer uses `@remotion/bundler` to bundle `remotion/index.ts`
 7. **Video Rendering** - `@remotion/renderer` renders the composition to MP4 in `out/` directory
+8. **Upload to Vercel Blob** - `workflows/render.ts` fetches the file from the renderer and uploads it to Vercel Blob (public access), returning a shareable URL
+9. **Result Delivery** - The workflow returns the blob URL; the user polls `/api/status?runId=...` to retrieve it
 
 **Key Files / Structure**
 
@@ -263,6 +285,9 @@ OPENAI_API_KEY=sk-...          # OpenAI API key for all AI generation features
 
 # Optional
 AI_GATEWAY_API_KEY=...         # For AI Gateway integration (if using @ai-sdk/gateway)
+BLOB_READ_WRITE_TOKEN=...      # Vercel Blob token (local dev / non-Vercel hosts only; OIDC auto-auths on Vercel)
+RENDERER_URL=...               # Renderer URL (defaults to http://localhost:3001)
+RENDERER_SECRET=...            # Shared secret for renderer auth
 ```
 
 **Required Features by API Key:**

@@ -8,5 +8,7 @@ export const carousel = async (prompt: string) => {
 
   const story = await generateStory(system, prompt)
   const image = await generateSlide(story.image, `${story.topic}.jpeg`)
-  await sequence('Carousel', { story, image })
+  const render = await sequence('Carousel', { story, image })
+
+  return { story, image, sequence: render.url }
 }

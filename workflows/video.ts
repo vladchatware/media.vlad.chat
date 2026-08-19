@@ -19,5 +19,7 @@ export const video = async (prompt: string) => {
     await generateText(`speech-${index}.mp3`, `captions-${index}.json`)
   }
 
-  await renderVideo('Video', { story })
+  const render = await renderVideo('Video', { story })
+
+  return { story, video: render.url }
 }

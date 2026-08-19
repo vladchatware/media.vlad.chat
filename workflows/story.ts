@@ -25,7 +25,7 @@ export const story = async (prompt: string) => {
 
   const story = await generateStory(system, prompt)
   await produceStory(story)
-  await video('Story', story)
+  const render = await video('Story', story)
 
-  return story
+  return { story, video: render.url }
 }
