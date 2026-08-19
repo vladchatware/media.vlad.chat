@@ -66,7 +66,9 @@ self.onmessage = async (event: MessageEvent) => {
         composition,
         serveUrl: bundled,
         outputLocation,
-        codec: 'h264'
+        codec: 'h264',
+        concurrency: 2,
+        timeoutInMilliseconds: 120000
       })
     }
 

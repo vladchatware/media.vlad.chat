@@ -8,7 +8,11 @@
     "build": "next build",
     "start": "next start",
     "serve:render": "bun run renderer.ts",
-    "studio": "remotion studio"
+    "studio": "remotion studio",
+    "render:infra:validate": "docker compose --env-file workers/renderer/.env -f workers/renderer/compose.yaml config --quiet",
+    "render:infra:up": "docker compose --env-file workers/renderer/.env -f workers/renderer/compose.yaml up -d --build",
+    "render:infra:logs": "docker compose --env-file workers/renderer/.env -f workers/renderer/compose.yaml logs -f renderer cloudflared",
+    "render:infra:down": "docker compose --env-file workers/renderer/.env -f workers/renderer/compose.yaml down"
   },
   "keywords": [],
   "author": "",

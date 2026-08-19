@@ -1,9 +1,28 @@
+import { mkdirSync } from 'fs'
+
+const secret = process.env.RENDERER_SECRET
+
+mkdirSync('out', { recursive: true })
+
 const server = Bun.serve({
-  port: 3001,
+  port: Number.parseInt(process.env.PORT || '3001', 10),
   async fetch(req) {
     const url = new URL(req.url)
 
+    if (req.method === 'GET' && url.pathname === '/health') {
+      return new Response(JSON.stringify({ ok: true }), {
+        headers: { 'Content-Type': 'application/json' }
+      })
+    }
+
     if (req.method === 'POST' && url.pathname === '/api/render') {
+      if (secret && req.headers.get('authorization') !== `Bearer ${secret}`) {
+        return new Response(JSON.stringify({ success: false, error: 'Unauthorized' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json' }
+        })
+      }
+
       try {
         const body = await req.json().catch(() => ({}))
         const { id, inputProps, type = 'video' } = body
@@ -63,3 +82,6 @@ const server = Bun.serve({
 })
 
 console.log(`Listening on http://localhost:${server.port} ...`)
+
+process.on('SIGTERM', () => server.stop(true))
+process.on('SIGINT', () => server.stop(true))

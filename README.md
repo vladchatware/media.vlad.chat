@@ -77,6 +77,24 @@ A content-generation engine that composes short-form social media content (image
 | `npm run start` | Start Next.js production server |
 | `npm run serve:render` | Start Bun-based renderer on port 3001 (requires Bun) |
 | `npm run studio` | Launch Remotion Studio for composition previews |
+| `npm run render:infra:up` | Build + start renderer & Cloudflare tunnel (Docker) |
+| `npm run render:infra:logs` | Tail renderer & tunnel logs |
+| `npm run render:infra:down` | Stop the renderer stack |
+| `npm run render:infra:validate` | Validate the renderer compose config |
+
+**Self-Hosted Renderer**
+
+The Remotion renderer (`renderer.ts` / `render-worker.ts`) can run as a Docker service behind a Cloudflare quick tunnel, mirroring the `music.vlad.chat` analysis-worker setup.
+
+1. Copy `workers/renderer/.env.example` to `workers/renderer/.env` and set `RENDERER_SECRET` (a shared secret; the app sends it as `Authorization: Bearer <secret>`).
+2. Start both containers (renderer + cloudflared):
+   ```bash
+   npm run render:infra:up
+   ```
+   Follow with `npm run render:infra:logs`; stop with `npm run render:infra:down`. The tunnel URL is printed in the cloudflared logs (a fresh `https://*.trycloudflare.com` on each start).
+3. Point the app at the renderer. `workflows/render.ts` reads `RENDERER_URL` (defaults to `http://localhost:3001`) and `RENDERER_SECRET`. For a Vercel-hosted app, run `scripts/setup-renderer-tunnel.ps1` (optionally with `-VercelToken`) to push the tunnel URL as `RENDERER_URL`.
+
+The renderer container includes FFmpeg, a headless Chrome shell for Remotion, and the `public/` assets. Rendering is tuned for this machine (concurrency 2, 120s frame timeout); adjust `render-worker.ts` if needed. Rendered output is written to `out/` inside the container.
 
 **API & Workflow Usage**
 
