@@ -3,7 +3,8 @@ import { readdirSync, createReadStream, writeFileSync, readFileSync } from 'fs'
 import { z } from 'zod'
 import { generateObject } from 'ai'
 import { put } from '@vercel/blob'
-const openai = new OpenAI()
+
+const getOpenAI = () => new OpenAI()
 
 const putToBlob = async (filePath: string, blobPath: string) => {
   const buffer = readFileSync(filePath)
@@ -85,7 +86,7 @@ export const generateStory = async (system: string, prompt: string) => {
 export const generateSound = async (input: string, instructions = '', voice: 'ash' | 'onyx', name = 'speech.mp3') => {
   "use step"
 
-  const audio = await openai.audio.speech.create({
+  const audio = await getOpenAI().audio.speech.create({
     model: 'gpt-4o-mini-tts',
     voice,
     input,
@@ -101,7 +102,7 @@ export const generateSound = async (input: string, instructions = '', voice: 'as
 export const generateText = async (input: string, name: string) => {
   "use step"
 
-  const transcription = await openai.audio.transcriptions.create({
+  const transcription = await getOpenAI().audio.transcriptions.create({
     file: createReadStream(`${process.cwd()}/public/${input}`),
     model: 'whisper-1',
     response_format: 'verbose_json',
@@ -116,14 +117,14 @@ export const generateText = async (input: string, name: string) => {
 
 export const listVideos = async () => {
   "use step"
-  const res = await openai.videos.list()
+  const res = await getOpenAI().videos.list()
 
   return res.data
 }
 
 export const downloadVideo = async (id, name) => {
   "use step"
-  const res = await openai.videos.downloadContent(id)
+  const res = await getOpenAI().videos.downloadContent(id)
   writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(await res.arrayBuffer()))
 }
 
@@ -150,7 +151,7 @@ ${text}
     }
     return Bun.file(`${process.cwd()}/public/${reference}`)
   })()
-  const job = await openai.videos.create({
+  const job = await getOpenAI().videos.create({
     prompt,
     input_reference,
     model: 'sora-2',
@@ -161,7 +162,7 @@ ${text}
   await new Promise((res, rej) => {
     const interval = setInterval(async () => {
       try {
-        const result = await openai.videos.retrieve(job.id)
+        const result = await getOpenAI().videos.retrieve(job.id)
         if (result.completed_at) {
           clearInterval(interval)
           return res(job)
@@ -178,7 +179,7 @@ ${text}
     }, 1000)
   })
 
-  const res = await openai.videos.downloadContent(job.id)
+  const res = await getOpenAI().videos.downloadContent(job.id)
   const local = `${process.cwd()}/public/${name}`
   writeFileSync(local, Buffer.from(await res.arrayBuffer()))
 
@@ -201,7 +202,7 @@ export const generateSlide = async (options: z.infer<typeof imageSchema>, name =
   ${options.special_qualities}
   `
 
-  const image = await openai.images.generate({
+  const image = await getOpenAI().images.generate({
     model: 'gpt-image-1',
     prompt,
     size: '1024x1536'
