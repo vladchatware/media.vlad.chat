@@ -1,7 +1,6 @@
 import { withWorkflow } from "workflow/next";
 import type { NextConfig } from "next";
-
-const BLOB_BASE = "https://7u68xtms1ss7pxli.public.blob.vercel-storage.com";
+import { BLOB_BASE } from "./remotion/assets";
 
 const nextConfig: NextConfig = {
   async rewrites() {
