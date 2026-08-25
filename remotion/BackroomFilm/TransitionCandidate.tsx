@@ -43,6 +43,10 @@ export type TransitionPayload = {
 
 const candidatePayloads = candidatePayloadsJson as Record<string, TransitionPayload>;
 const DEFAULT_CANDIDATE_TRACK_ID = '719940274';
+
+// Payloads carry absolute stream URLs; committed demo assets stay relative.
+const resolveAudioSrc = (audioFile: string) =>
+  /^https?:\/\//.test(audioFile) ? audioFile : staticFile(audioFile);
 const getCandidatePayload = (candidateTrackId = DEFAULT_CANDIDATE_TRACK_ID) =>
   candidatePayloads[candidateTrackId] ?? candidatePayloads[DEFAULT_CANDIDATE_TRACK_ID];
 
@@ -402,8 +406,8 @@ export const BackroomTransitionCandidate: React.FC<TransitionCandidateProps> = (
     [0, 1],
     clamp,
   );
-  const outgoingAudioSrc = staticFile(livePayload.outgoing.audioFile);
-  const incomingAudioSrc = staticFile(livePayload.incoming.audioFile);
+  const outgoingAudioSrc = resolveAudioSrc(livePayload.outgoing.audioFile);
+  const incomingAudioSrc = resolveAudioSrc(livePayload.incoming.audioFile);
   const outgoingAudioData = useAudioData(outgoingAudioSrc);
   const incomingAudioData = useAudioData(incomingAudioSrc);
   const outgoingWaveform = useMemo(

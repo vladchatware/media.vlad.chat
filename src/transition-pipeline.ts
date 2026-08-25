@@ -1,6 +1,3 @@
-import { mkdir, rename, stat, writeFile } from 'node:fs/promises';
-import { join } from 'node:path';
-
 import type { TransitionPayload } from '../remotion/BackroomFilm/TransitionCandidate';
 
 export type EnergyArc = 'preserve' | 'build' | 'release' | 'reset';
@@ -80,31 +77,9 @@ const readBestSuggestion = async (
   return { page, suggestion: suggestions[0] };
 };
 
-const ensureAudio = async (trackId: string) => {
-  const publicDirectory = join(
-    process.cwd(),
-    'remotion',
-    'BackroomFilm',
-    'public',
-  );
-  const audioFile = `live-${trackId}.mp3`;
-  const destination = join(publicDirectory, audioFile);
-  try {
-    if ((await stat(destination)).size > 1024) return audioFile;
-  } catch {
-    // Download below.
-  }
-
-  await mkdir(publicDirectory, { recursive: true });
-  const response = await fetch(`${MUSIC_ORIGIN}/api/tracks/${trackId}/stream`, {
-    redirect: 'follow',
-  });
-  if (!response.ok) throw new Error(`Audio request failed (${response.status}) for ${trackId}`);
-  const temporary = `${destination}.download`;
-  await writeFile(temporary, Buffer.from(await response.arrayBuffer()));
-  await rename(temporary, destination);
-  return audioFile;
-};
+// The renderer fetches audio over HTTP at render time, so any track served by
+// music.vlad.chat works without committing assets to the repo.
+const trackStreamUrl = (trackId: string) => `${MUSIC_ORIGIN}/api/tracks/${trackId}/stream`;
 
 export const resolveTransitionPayload = async ({
   outgoingTrackId,
@@ -115,14 +90,11 @@ export const resolveTransitionPayload = async ({
   candidateTrackId: string;
   energyArc: EnergyArc;
 }): Promise<TransitionPayload> => {
-  const [{ page, suggestion }, outgoing, incoming, outgoingAudioFile, incomingAudioFile] =
-    await Promise.all([
-      readBestSuggestion(outgoingTrackId, candidateTrackId, energyArc),
-      fetchJson<TrackMetadata>(`${MUSIC_ORIGIN}/api/tracks/${outgoingTrackId}`),
-      fetchJson<TrackMetadata>(`${MUSIC_ORIGIN}/api/tracks/${candidateTrackId}`),
-      ensureAudio(outgoingTrackId),
-      ensureAudio(candidateTrackId),
-    ]);
+  const [{ page, suggestion }, outgoing, incoming] = await Promise.all([
+    readBestSuggestion(outgoingTrackId, candidateTrackId, energyArc),
+    fetchJson<TrackMetadata>(`${MUSIC_ORIGIN}/api/tracks/${outgoingTrackId}`),
+    fetchJson<TrackMetadata>(`${MUSIC_ORIGIN}/api/tracks/${candidateTrackId}`),
+  ]);
 
   return {
     source: { page },
@@ -131,7 +103,7 @@ export const resolveTransitionPayload = async ({
       artist: outgoing.user?.full_name || outgoing.user?.username || 'Unknown',
       title: outgoing.title,
       durationSec: outgoing.duration / 1000,
-      audioFile: outgoingAudioFile,
+      audioFile: trackStreamUrl(outgoingTrackId),
       window: suggestion.outgoing,
     },
     incoming: {
@@ -139,7 +111,7 @@ export const resolveTransitionPayload = async ({
       artist: incoming.user?.full_name || incoming.user?.username || 'Unknown',
       title: incoming.title,
       durationSec: incoming.duration / 1000,
-      audioFile: incomingAudioFile,
+      audioFile: trackStreamUrl(candidateTrackId),
       window: suggestion.incoming,
     },
     transition: {
