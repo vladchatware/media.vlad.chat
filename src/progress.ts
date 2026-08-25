@@ -62,7 +62,17 @@ export async function emitError(message: string, metadata?: Record<string, unkno
  * Call from a workflow's catch block before rethrowing.
  */
 export async function emitFailure(scope: string, error: unknown) {
-  const message = error instanceof Error ? error.message : 'Unknown error'
+  let message: string
+  if (error instanceof Error) {
+    const cause = error.cause ? ` (caused by: ${error.cause})` : ''
+    message = `${error.message}${cause}`
+  } else {
+    try {
+      message = JSON.stringify(error) ?? String(error)
+    } catch {
+      message = String(error)
+    }
+  }
   await emitError(`${scope} failed: ${message}`, { error: message })
 }
 
