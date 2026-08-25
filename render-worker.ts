@@ -44,12 +44,14 @@ self.onmessage = async (event: MessageEvent) => {
         output: outputLocation,
       })
     } else if (type === 'sequence') {
-      outputLocation = `out/${id}-${Date.now()}`
+      const stamp = Date.now()
+      const dirName = `out/${id}-${stamp}`
+      outputLocation = dirName
 
       await renderFrames({
         composition,
         serveUrl: bundled,
-        outputDir: outputLocation,
+        outputDir: dirName,
         imageFormat: 'jpeg',
         inputProps: inputProps,
         onStart: function (data: OnStartData): void {
@@ -60,13 +62,22 @@ self.onmessage = async (event: MessageEvent) => {
         }
       })
 
+      const archive = `${dirName}.tar.gz`
+      const archiveResult = Bun.spawnSync(['tar', '-czf', archive, '-C', 'out', `${id}-${stamp}`])
+      if (archiveResult.exitCode !== 0) {
+        throw new Error(`Failed to archive frames: ${archiveResult.stderr.toString()}`)
+      }
+
+      outputLocation = archive
     } else {
       outputLocation = `out/${id}-${Date.now()}.mp4`
       await renderMedia({
         composition,
         serveUrl: bundled,
         outputLocation,
-        codec: 'h264'
+        codec: 'h264',
+        concurrency: 2,
+        timeoutInMilliseconds: 120000
       })
     }
 

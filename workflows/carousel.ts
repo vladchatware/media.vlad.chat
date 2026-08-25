@@ -17,9 +17,11 @@ export const carousel = async (prompt: string) => {
     const image = await generateSlide(story.image, `${story.topic}.jpeg`)
 
     await emitStep('render', 'Rendering carousel sequence...', 70)
-    await sequence('Carousel', { story, image })
+    const render = await sequence('Carousel', { story, image })
 
     await emitComplete(`Carousel "${story.topic}" completed!`, { topic: story.topic })
+
+    return { story, image, sequence: render.url }
   } catch (error) {
     await emitFailure('Carousel generation', error)
     throw error

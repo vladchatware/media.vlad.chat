@@ -1,7 +1,8 @@
 import React from "react";
-import { AbsoluteFill, Img, staticFile } from "remotion";
+import { AbsoluteFill, Img } from "remotion";
 import { CameraMotionBlur } from "@remotion/motion-blur";
 import { styles, captionPositionStyle } from "./Captions";
+import { staticUrl } from "./assets";
 
 const fontFamily =
   '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Roboto, Arial, sans-serif';
@@ -43,7 +44,7 @@ export const Slide = ({ image, text, side, shot }: SlideProps) => {
   return (
     <CameraMotionBlur shutterAngle={280} samples={1}>
       <Img
-        src={image.startsWith("http") ? image : staticFile(image)}
+        src={staticUrl(image)}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
       />
 

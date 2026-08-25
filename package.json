@@ -5,10 +5,15 @@
   "description": "Content generation engine.",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/build-studio.mjs && next build",
+    "build:app": "next build",
     "start": "next start",
     "serve:render": "bun run renderer.ts",
-    "studio": "remotion studio"
+    "studio": "remotion studio",
+    "render:infra:validate": "docker compose --env-file workers/renderer/.env -f workers/renderer/compose.yaml config --quiet",
+    "render:infra:up": "docker compose --env-file workers/renderer/.env -f workers/renderer/compose.yaml up -d --build",
+    "render:infra:logs": "docker compose --env-file workers/renderer/.env -f workers/renderer/compose.yaml logs -f renderer cloudflared",
+    "render:infra:down": "docker compose --env-file workers/renderer/.env -f workers/renderer/compose.yaml down"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +30,7 @@
     "@remotion/player": "4.0.357",
     "@remotion/transitions": "4.0.357",
     "@remotion/zod-types": "4.0.377",
+    "@vercel/blob": "^2.8.0",
     "ai": "^5.0.107",
     "mcp-handler": "^1.0.4",
     "next": "16.3.2",

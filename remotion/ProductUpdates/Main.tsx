@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { AbsoluteFill, Audio, Sequence, staticFile } from 'remotion';
+import { AbsoluteFill, Audio, Sequence } from 'remotion';
 import { SereneBackground } from './SereneBackground';
 import { Intro } from './Intro';
 import { ProductSection } from './ProductSection';
@@ -18,7 +18,7 @@ export const Main: React.FC = () => {
         <AudioProvider>
             <AbsoluteFill style={{ backgroundColor: '#dcdcdc' }}>
                 <Audio
-                    src={staticFile(SOUND_FILE)}
+                    src={SOUND_FILE}
                     trimBefore={SOUND_OFFSET}
                 />
                 <SereneBackground />

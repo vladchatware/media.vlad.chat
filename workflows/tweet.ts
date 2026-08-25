@@ -12,9 +12,11 @@ export const tweet = async (content: string, voice: 'ash' | 'onyx') => {
         const sound = await generateSound(content, '', voice, `speech-${voice}.mp3`)
 
         await emitStep('render', 'Rendering tweet video...', 70)
-        await video('Tweet', { sound, content })
+        const render = await video('Tweet', { sound, content })
 
         await emitComplete(`Tweet video completed!`, { voice })
+
+        return { content, voice, video: render.url }
     } catch (error) {
         await emitFailure('Tweet video generation', error)
         throw error

@@ -11,7 +11,7 @@ import type { ProgressEvent } from "../../../src/progress"
 const started = (kind: string, runId: string) => ({
   content: [{
     type: "text" as const,
-    text: `✓ ${kind} started!\n\nRun ID: ${runId}\n\nUse 'workflow_status' or 'workflow_progress' to track progress.`,
+    text: `✓ ${kind} started!\n\nRun ID: ${runId}\n\nUse 'workflow_status' or 'workflow_progress' to track progress, or poll /api/status?runId=${runId} for the result URL.`,
   }],
 })
 

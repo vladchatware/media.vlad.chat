@@ -1,25 +1,26 @@
 
 import React from 'react';
-import { AbsoluteFill, Audio, Sequence, staticFile } from 'remotion';
+import { AbsoluteFill, Audio, Sequence } from 'remotion';
 import { ShopBackground } from './ShopBackground';
 import { ShopIntro } from './ShopIntro';
 import { ProductSection } from '../ProductUpdates/ProductSection';
 import { ShopSummary } from './ShopSummary';
 import { shopWrappedData } from './shopData';
 import { AudioProvider } from '../ProductUpdates/AudioProvider';
+import { staticUrl } from '../assets';
 
 export const ShopMain: React.FC = () => {
     const INTRO_DURATION = 90;
     const PRODUCT_DURATION = 180;
     const SUMMARY_DURATION = 210; // Slightly longer for the summary stats
-    const SOUND_FILE = "sound-prev.m4a";
+    const SOUND_FILE = staticUrl("sound-prev.m4a");
     const SOUND_OFFSET = 800;
 
     return (
         <AudioProvider src={SOUND_FILE} offset={SOUND_OFFSET}>
             <AbsoluteFill style={{ backgroundColor: 'black' }}>
                 <Audio
-                    src={staticFile(SOUND_FILE)}
+                    src={SOUND_FILE}
                     trimBefore={SOUND_OFFSET}
                 />
                 <ShopBackground />

@@ -11,14 +11,15 @@ const produceStory = async (story: Story) => {
   let currentStep = 0
 
   await emitStep('slide', 'Generating slide image...', Math.round((currentStep / totalSteps) * 100))
-  await generateSlide(story.image, `slide-0.png`)
+  const image = await generateSlide(story.image, `slide-0.png`)
   currentStep++
 
+  const dialog = []
   for (const [index, section] of story.dialog.entries()) {
-    await emitStep('audio', `Generating audio for ${section.voice}: "${section.text.slice(0, 50)}..."`, Math.round((currentStep / totalSteps) * 100))
     console.log(`${section.voice}: ${section.text}`)
 
-    await generateSound(
+    await emitStep('audio', `Generating audio for ${section.voice}: "${section.text.slice(0, 50)}..."`, Math.round((currentStep / totalSteps) * 100))
+    const sound = await generateSound(
       section.text,
       section.instructions,
       section.voice,
@@ -27,9 +28,13 @@ const produceStory = async (story: Story) => {
     currentStep++
 
     await emitStep('captions', `Generating captions for section ${index + 1}...`, Math.round((currentStep / totalSteps) * 100))
-    await generateText(`speech-${index}.mp3`, `captions-${index}.json`)
+    const captionsSrc = await generateText(sound, `captions-${index}.json`)
     currentStep++
+
+    dialog.push({ ...section, sound, captionsSrc })
   }
+
+  return { topic: story.topic, dialog, image }
 }
 
 export const story = async (prompt: string) => {
@@ -42,14 +47,14 @@ export const story = async (prompt: string) => {
     const story = await generateStory(system, prompt)
 
     await emitStep('production', `Story "${story.topic}" created. Starting media production...`, 15, { topic: story.topic })
-    await produceStory(story)
+    const media = await produceStory(story)
 
     await emitStep('render', 'Rendering final video...', 90)
-    await video('Story', story)
+    const render = await video('Story', media)
 
     await emitComplete(`Story "${story.topic}" completed!`, { topic: story.topic })
 
-    return story
+    return { story, video: render.url }
   } catch (error) {
     await emitFailure('Story generation', error)
     throw error

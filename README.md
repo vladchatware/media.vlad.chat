@@ -77,6 +77,24 @@ A content-generation engine that composes short-form social media content (image
 | `npm run start` | Start Next.js production server |
 | `npm run serve:render` | Start Bun-based renderer on port 3001 (requires Bun) |
 | `npm run studio` | Launch Remotion Studio for composition previews |
+| `npm run render:infra:up` | Build + start renderer & Cloudflare tunnel (Docker) |
+| `npm run render:infra:logs` | Tail renderer & tunnel logs |
+| `npm run render:infra:down` | Stop the renderer stack |
+| `npm run render:infra:validate` | Validate the renderer compose config |
+
+**Self-Hosted Renderer**
+
+The Remotion renderer (`renderer.ts` / `render-worker.ts`) can run as a Docker service behind a Cloudflare quick tunnel, mirroring the `music.vlad.chat` analysis-worker setup.
+
+1. Copy `workers/renderer/.env.example` to `workers/renderer/.env` and set `RENDERER_SECRET` (a shared secret; the app sends it as `Authorization: Bearer <secret>`).
+2. Start both containers (renderer + cloudflared):
+   ```bash
+   npm run render:infra:up
+   ```
+   Follow with `npm run render:infra:logs`; stop with `npm run render:infra:down`. The tunnel URL is printed in the cloudflared logs (a fresh `https://*.trycloudflare.com` on each start).
+3. Point the app at the renderer. `workflows/render.ts` reads `RENDERER_URL` (defaults to `http://localhost:3001`) and `RENDERER_SECRET`. For a Vercel-hosted app, run `scripts/setup-renderer-tunnel.ps1` (optionally with `-VercelToken`) to push the tunnel URL as `RENDERER_URL`.
+
+The renderer container includes FFmpeg, a headless Chrome shell for Remotion, and the `public/` assets. Rendering is tuned for this machine (concurrency 2, 120s frame timeout); adjust `render-worker.ts` if needed. Rendered output is written to `out/` inside the container.
 
 **API & Workflow Usage**
 
@@ -126,6 +144,26 @@ All endpoints return JSON with a workflow run ID:
 ```json
 {
   "runId": "wf_abc123xyz"
+}
+```
+
+**6. Run Status** (`/api/status?runId=...`)
+Poll this endpoint to retrieve the workflow result, including the public URL of the rendered media (stored in Vercel Blob):
+
+```bash
+curl "http://localhost:3000/api/status?runId=wf_abc123xyz"
+```
+
+While the run is in progress, it returns `{ runId, status }`. Once completed, it returns the workflow's return value, e.g.:
+
+```json
+{
+  "runId": "wf_abc123xyz",
+  "status": "completed",
+  "result": {
+    "story": { ... },
+    "video": "https://xxxx.public.blob.vercel-storage.com/renders/Story-1724184000000-abc.mp4"
+  }
 }
 ```
 
@@ -198,6 +236,8 @@ The renderer spawns a `render-worker.ts` worker which bundles `remotion/index.ts
 5. **Render Request** - `workflows/render.ts` POSTs to renderer at `http://localhost:3001/api/render`
 6. **Remotion Bundling** - Renderer uses `@remotion/bundler` to bundle `remotion/index.ts`
 7. **Video Rendering** - `@remotion/renderer` renders the composition to MP4 in `out/` directory
+8. **Upload to Vercel Blob** - `workflows/render.ts` fetches the file from the renderer and uploads it to Vercel Blob (public access), returning a shareable URL
+9. **Result Delivery** - The workflow returns the blob URL; the user polls `/api/status?runId=...` to retrieve it
 
 **Key Files / Structure**
 
@@ -245,6 +285,9 @@ OPENAI_API_KEY=sk-...          # OpenAI API key for all AI generation features
 
 # Optional
 AI_GATEWAY_API_KEY=...         # For AI Gateway integration (if using @ai-sdk/gateway)
+BLOB_READ_WRITE_TOKEN=...      # Vercel Blob token (local dev / non-Vercel hosts only; OIDC auto-auths on Vercel)
+RENDERER_URL=...               # Renderer URL (defaults to http://localhost:3001)
+RENDERER_SECRET=...            # Shared secret for renderer auth
 ```
 
 **Required Features by API Key:**

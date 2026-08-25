@@ -1,8 +1,9 @@
 import React from 'react'
 import { z } from 'zod/v3'
-import { Composition, staticFile } from 'remotion'
+import { Composition } from 'remotion'
 import { parseMedia } from '@remotion/media-parser'
 import { openAiWhisperApiToCaptions } from '@remotion/openai-whisper'
+import { staticUrl } from './assets'
 
 import { YearInReview } from './YearInReview/Main'
 import { Main as MusicMain } from './ProductUpdates/Main'
@@ -20,7 +21,7 @@ import { carouselSchema, outroSchema, storyProp, threadSchema, tweetSchema } fro
 
 const getMediaDurationInFrames = async (src: string, paddingFrames = 0) => {
   const { slowDurationInSeconds } = await parseMedia({
-    src: staticFile(src),
+    src: staticUrl(src),
     fields: { slowDurationInSeconds: true },
   })
 
@@ -28,10 +29,12 @@ const getMediaDurationInFrames = async (src: string, paddingFrames = 0) => {
 }
 
 const calculateStoryMetadata = async ({ props }: { props: z.infer<typeof storyProp> }) => {
-  const loadCaptions = async (index: number) => {
+  const loadCaptions = async (captionsSrc: string | undefined) => {
     try {
-      const captionsPath = staticFile(`captions-${index}.json`)
-      const captionsRes = await fetch(captionsPath)
+      if (!captionsSrc) {
+        return []
+      }
+      const captionsRes = await fetch(staticUrl(captionsSrc))
       if (!captionsRes.ok) {
         return []
       }
@@ -48,11 +51,11 @@ const calculateStoryMetadata = async ({ props }: { props: z.infer<typeof storyPr
       const sound = line.sound ?? `speech-${i}.mp3`
 
       const { slowDurationInSeconds } = await parseMedia({
-        src: staticFile(sound),
+        src: staticUrl(sound),
         fields: { slowDurationInSeconds: true },
       })
 
-      const captions = await loadCaptions(i)
+      const captions = await loadCaptions(line.captionsSrc)
 
       return {
         ...line,

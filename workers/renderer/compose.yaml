@@ -1,0 +1,41 @@
+name: media-renderer
+
+services:
+  renderer:
+    build:
+      context: ../..
+      dockerfile: Dockerfile.worker
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: "3001"
+      RENDERER_SECRET: ${RENDERER_SECRET:?Set RENDERER_SECRET}
+    healthcheck:
+      test:
+        - CMD
+        - bun
+        - -e
+        - const r=await fetch("http://127.0.0.1:3001/health");if(!r.ok)process.exit(1)
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    stop_grace_period: 30s
+    networks: [renderer-net]
+
+  cloudflared:
+    image: ${CLOUDFLARED_IMAGE:-cloudflare/cloudflared:latest}
+    restart: unless-stopped
+    command:
+      - tunnel
+      - --no-autoupdate
+      - --url
+      - http://renderer:3001
+    depends_on:
+      renderer:
+        condition: service_healthy
+    networks: [renderer-net]
+
+networks:
+  renderer-net:
+    driver: bridge

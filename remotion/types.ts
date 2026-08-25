@@ -24,6 +24,7 @@ export const storyProp = z.object({
       voice: z.enum(['onyx', 'ash']),
       shot: z.enum(['two-shot', 'medium', 'closeup']).default('two-shot'),
       sound: z.string().optional(),
+      captionsSrc: z.string().optional(),
       narration: z.string().optional(),
       mood: z.string().optional(),
       seconds: z.number().optional()
