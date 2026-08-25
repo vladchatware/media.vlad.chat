@@ -2,10 +2,10 @@ import { sleep } from 'workflow'
 import { put } from '@vercel/blob'
 import { basename } from 'path'
 
-const rendererUrl = process.env.RENDERER_URL || 'http://localhost:3001'
+export const rendererUrl = process.env.RENDERER_URL || 'http://localhost:3001'
 const rendererSecret = process.env.RENDERER_SECRET
 
-const authHeaders = (): Record<string, string> => {
+export const authHeaders = (): Record<string, string> => {
     const headers: Record<string, string> = {
         'Content-Type': 'application/json'
     }

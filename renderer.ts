@@ -69,7 +69,7 @@ const server = Bun.serve({
 
       try {
         const body = await req.json().catch(() => ({}))
-        const { id, inputProps, type = 'video' } = body
+        const { id, inputProps, outputName, type = 'video' } = body
 
         if (!id) {
           return new Response(JSON.stringify({ success: false, error: 'Missing composition ID' }), {
@@ -99,7 +99,7 @@ const server = Bun.serve({
           worker.terminate()
         }
 
-        worker.postMessage({ id, inputProps, type })
+        worker.postMessage({ id, inputProps, outputName, type })
 
         // Return immediately with the job id; the workflow polls for the result.
         return new Response(JSON.stringify({ success: true, jobId: job.id }), {

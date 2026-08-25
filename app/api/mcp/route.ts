@@ -6,6 +6,7 @@ import { carousel } from "../../../workflows/carousel"
 import { tweet } from "../../../workflows/tweet"
 import { thread } from "../../../workflows/thread"
 import { video } from "../../../workflows/video"
+import { transitionBatch } from "../../../workflows/transitions"
 import type { ProgressEvent } from "../../../src/progress"
 
 const started = (kind: string, runId: string) => ({
@@ -262,6 +263,22 @@ const handler = createMcpHandler(
           content: [{ type: "text", text: `❌ Failed to get workflow result: ${run_id}\n\nError: ${message}` }],
         }
       }
+    })
+
+    server.registerTool("render_track_transitions", {
+      description: "Render vertical transition-review videos for one outgoing SoundCloud track and one or more ranked candidate track IDs. Uses each pair's best live backroom transition window.",
+      inputSchema: {
+        outgoingTrackId: z.number().int().positive(),
+        candidateTrackIds: z.array(z.number().int().positive()).min(1).max(12),
+        energyArc: z.enum(["preserve", "build", "release", "reset"]).default("preserve"),
+      },
+    }, async ({ outgoingTrackId, candidateTrackIds, energyArc }) => {
+      const run = await start(transitionBatch, [
+        String(outgoingTrackId),
+        candidateTrackIds.map(String),
+        energyArc,
+      ])
+      return started(`Transition batch for track ${outgoingTrackId} (${candidateTrackIds.length} candidates)`, run.runId)
     })
   },
   {

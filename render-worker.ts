@@ -7,6 +7,7 @@ import { join } from 'path'
 interface RenderRequest {
   id: string
   inputProps: Record<string, any>
+  outputName?: string
   type: 'video' | 'still' | 'sequence'
 }
 
@@ -19,13 +20,14 @@ const postMessage = (message: any) => {
 // Listen for messages from the main thread
 // @ts-ignore
 self.onmessage = async (event: MessageEvent) => {
-  const { id, inputProps, type } = event.data as RenderRequest
+  const { id, inputProps, outputName, type } = event.data as RenderRequest
 
   try {
     console.log(`Worker: Starting render for ${id} (${type})...`)
 
     const bundled = await bundle({
       entryPoint: join(process.cwd(), 'remotion/index.ts'),
+      publicDir: join(process.cwd(), 'remotion/BackroomFilm/public'),
     })
 
     const composition = await selectComposition({
@@ -70,12 +72,13 @@ self.onmessage = async (event: MessageEvent) => {
 
       outputLocation = archive
     } else {
-      outputLocation = `out/${id}-${Date.now()}.mp4`
+      outputLocation = `out/${outputName ?? `${id}-${Date.now()}.mp4`}`
       await renderMedia({
         composition,
         serveUrl: bundled,
         outputLocation,
         codec: 'h264',
+        inputProps,
         concurrency: 2,
         timeoutInMilliseconds: 120000
       })
@@ -88,4 +91,3 @@ self.onmessage = async (event: MessageEvent) => {
     postMessage({ success: false, error: String(err) })
   }
 }
-
