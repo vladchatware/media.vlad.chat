@@ -22,9 +22,11 @@ export async function GET(
     
     const sseStream = new ReadableStream({
       async start(controller) {
+        const signal = request.signal
         try {
           let index = startIndex ?? 0
           while (true) {
+            if (signal.aborted) break
             const { done, value } = await reader.read()
             if (done) break
             
@@ -32,15 +34,22 @@ export async function GET(
             controller.enqueue(encoder.encode(sseMessage))
             index++
           }
-          controller.enqueue(encoder.encode(`event: done\ndata: {}\n\n`))
+          if (!signal.aborted) {
+            controller.enqueue(encoder.encode(`event: done\ndata: {}\n\n`))
+          }
           controller.close()
         } catch (error) {
-          const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-          controller.enqueue(encoder.encode(`event: error\ndata: ${JSON.stringify({ error: errorMessage })}\n\n`))
+          if (!request.signal.aborted) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+            controller.enqueue(encoder.encode(`event: error\ndata: ${JSON.stringify({ error: errorMessage })}\n\n`))
+          }
           controller.close()
         } finally {
-          reader.releaseLock()
+          reader.cancel().catch(() => {})
         }
+      },
+      cancel() {
+        reader.cancel().catch(() => {})
       }
     })
 

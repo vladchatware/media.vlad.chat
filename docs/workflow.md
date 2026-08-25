@@ -27,8 +27,8 @@ The workflow system is built on [Vercel Workflow DevKit](https://useworkflow.dev
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
+```text
+┌─+────────────────────────────────────────────────────────────────┐
 │                         MCP Server                               │
 │                    /api/mcp/route.ts                            │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐              │
@@ -208,7 +208,7 @@ Check the current status of a workflow run.
 ```
 
 **Response:**
-```
+```text
 🔄 Workflow Status: RUNNING
 
 Run ID: abc123-def456
@@ -225,7 +225,7 @@ Get step-by-step progress updates from a running workflow.
 ```
 
 **Response:**
-```
+```text
 📊 Workflow Progress (4 events)
 
 Run ID: abc123-def456
@@ -271,7 +271,7 @@ Returns a Server-Sent Events (SSE) stream of progress events.
 
 **Response:** `text/event-stream`
 
-```
+```text
 id: 0
 event: progress
 data: {"type":"start","message":"Starting...","timestamp":1732627815000}
@@ -427,7 +427,7 @@ server.registerTool("my_workflow", {
 
 ## File Structure
 
-```
+```text
 media.vlad.chat/
 ├── app/api/
 │   ├── mcp/

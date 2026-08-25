@@ -6,8 +6,17 @@ export async function POST(
 ) {
   const { runId } = await params
 
+  let run
   try {
-    const run = getRun(runId)
+    run = getRun(runId)
+  } catch {
+    return Response.json(
+      { error: 'Workflow run not found', runId },
+      { status: 404 }
+    )
+  }
+
+  try {
     await run.cancel()
 
     return Response.json({
@@ -23,4 +32,3 @@ export async function POST(
     )
   }
 }
-

@@ -3,7 +3,7 @@ import { generateSlide, generateSound, generateStory, generateText } from '../sr
 import type { Story } from '../src/ai'
 import { system } from '../src/prompt'
 import { video } from './render'
-import { emitStart, emitStep, emitComplete, closeProgress } from '../src/progress'
+import { emitStart, emitStep, emitComplete, emitFailure, closeProgress } from '../src/progress'
 
 const produceStory = async (story: Story) => {
   "use workflow"
@@ -35,19 +35,25 @@ const produceStory = async (story: Story) => {
 export const story = async (prompt: string) => {
   "use workflow"
 
-  await emitStart(`Starting story generation for: "${prompt.slice(0, 100)}..."`, { prompt })
+  try {
+    await emitStart(`Starting story generation for: "${prompt.slice(0, 100)}..."`, { prompt })
 
-  await emitStep('story', 'Generating story structure with AI...', 5)
-  const storyData = await generateStory(system, prompt)
-  
-  await emitStep('production', `Story "${storyData.topic}" created. Starting media production...`, 15, { topic: storyData.topic })
-  await start(produceStory, [storyData])
-  
-  await emitStep('render', 'Rendering final video...', 90)
-  await start(video, ['Story', storyData])
+    await emitStep('story', 'Generating story structure with AI...', 5)
+    const storyData = await generateStory(system, prompt)
+    
+    await emitStep('production', `Story "${storyData.topic}" created. Starting media production...`, 15, { topic: storyData.topic })
+    await start(produceStory, [storyData])
+    
+    await emitStep('render', 'Rendering final video...', 90)
+    await start(video, ['Story', storyData])
 
-  await emitComplete(`Story "${storyData.topic}" completed!`, { topic: storyData.topic })
-  await closeProgress()
+    await emitComplete(`Story "${storyData.topic}" completed!`, { topic: storyData.topic })
 
-  return storyData
+    return storyData
+  } catch (error) {
+    await emitFailure('Story generation', error)
+    throw error
+  } finally {
+    await closeProgress()
+  }
 }

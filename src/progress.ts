@@ -58,6 +58,15 @@ export async function emitError(message: string, metadata?: Record<string, unkno
 }
 
 /**
+ * Emit an error event derived from a thrown value.
+ * Call from a workflow's catch block before rethrowing.
+ */
+export async function emitFailure(scope: string, error: unknown) {
+  const message = error instanceof Error ? error.message : 'Unknown error'
+  await emitError(`${scope} failed: ${message}`, { error: message })
+}
+
+/**
  * Close the progress stream
  */
 export async function closeProgress() {

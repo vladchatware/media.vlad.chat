@@ -8,6 +8,13 @@ import { thread } from "../../../workflows/thread"
 import { video } from "../../../workflows/video"
 import type { ProgressEvent } from "../../../src/progress"
 
+const started = (kind: string, runId: string) => ({
+  content: [{
+    type: "text" as const,
+    text: `✓ ${kind} started!\n\nRun ID: ${runId}\n\nUse 'workflow_status' or 'workflow_progress' to track progress.`,
+  }],
+})
+
 const handler = createMcpHandler(
   (server) => {
     // ============================================
@@ -19,9 +26,7 @@ const handler = createMcpHandler(
       inputSchema: { prompt: z.string().describe("The story prompt or theme to generate content about") },
     }, async ({ prompt }) => {
       const run = await start(story, [prompt])
-      return {
-        content: [{ type: "text", text: `✓ Story generation started!\n\nRun ID: ${run.runId}\n\nUse 'workflow_status' or 'workflow_progress' to track progress.` }],
-      }
+      return started("Story generation", run.runId)
     })
 
     server.registerTool("generate_carousel", {
@@ -29,9 +34,7 @@ const handler = createMcpHandler(
       inputSchema: { prompt: z.string().describe("The carousel prompt or theme") },
     }, async ({ prompt }) => {
       const run = await start(carousel, [prompt])
-      return {
-        content: [{ type: "text", text: `✓ Carousel generation started!\n\nRun ID: ${run.runId}\n\nUse 'workflow_status' or 'workflow_progress' to track progress.` }],
-      }
+      return started("Carousel generation", run.runId)
     })
 
     server.registerTool("generate_tweet", {
@@ -42,9 +45,7 @@ const handler = createMcpHandler(
       },
     }, async ({ content, voice }) => {
       const run = await start(tweet, [content, voice])
-      return {
-        content: [{ type: "text", text: `✓ Tweet video generation started!\n\nRun ID: ${run.runId}\n\nUse 'workflow_status' or 'workflow_progress' to track progress.` }],
-      }
+      return started("Tweet video generation", run.runId)
     })
 
     server.registerTool("generate_thread", {
@@ -55,9 +56,7 @@ const handler = createMcpHandler(
       },
     }, async ({ content, voice }) => {
       const run = await start(thread, [content, voice])
-      return {
-        content: [{ type: "text", text: `✓ Thread video generation started!\n\nRun ID: ${run.runId}\n\nUse 'workflow_status' or 'workflow_progress' to track progress.` }],
-      }
+      return started("Thread video generation", run.runId)
     })
 
     server.registerTool("generate_video", {
@@ -65,9 +64,7 @@ const handler = createMcpHandler(
       inputSchema: { prompt: z.string().describe("The video prompt or theme") },
     }, async ({ prompt }) => {
       const run = await start(video, [prompt])
-      return {
-        content: [{ type: "text", text: `✓ AI Video generation started!\n\nRun ID: ${run.runId}\n\nUse 'workflow_status' or 'workflow_progress' to track progress.` }],
-      }
+      return started("AI Video generation", run.runId)
     })
 
     // ============================================
@@ -103,11 +100,11 @@ const handler = createMcpHandler(
         message += `Run ID: ${run_id}\n`
         
         if (startedAt) {
-          message += `Started: ${startedAt.toLocaleString()}\n`
+          message += `Started: ${startedAt.toISOString()}\n`
         }
         
         if (completedAt) {
-          message += `Completed: ${completedAt.toLocaleString()}\n`
+          message += `Completed: ${completedAt.toISOString()}\n`
         }
 
         return {
@@ -133,23 +130,32 @@ const handler = createMcpHandler(
         
         const events: ProgressEvent[] = []
         
-        // Collect events with a timeout to avoid blocking
+        // Collect events with an overall deadline, keeping at most one read in flight
         const collectEvents = async () => {
           const timeoutMs = 2000
-          const startTime = Date.now()
-          
+          const deadline = Date.now() + timeoutMs
+
           try {
-            while (Date.now() - startTime < timeoutMs) {
-              const readPromise = reader.read()
-              const timeoutPromise = new Promise<{ done: true; value: undefined }>((resolve) => 
-                setTimeout(() => resolve({ done: true, value: undefined }), timeoutMs - (Date.now() - startTime))
-              )
-              
-              const { done, value } = await Promise.race([readPromise, timeoutPromise])
-              if (done) break
-              if (value) events.push(value)
+            let pending: ReturnType<typeof reader.read> | undefined
+            while (Date.now() < deadline) {
+              const remaining = deadline - Date.now()
+              if (remaining <= 0) break
+
+              pending ??= reader.read()
+              const result = await Promise.race([
+                pending,
+                new Promise<'timeout'>((resolve) =>
+                  setTimeout(() => resolve('timeout'), remaining)
+                ),
+              ])
+
+              if (result === 'timeout') break
+              pending = undefined
+              if (result.done) break
+              if (result.value) events.push(result.value)
             }
           } finally {
+            await reader.cancel().catch(() => {})
             reader.releaseLock()
           }
         }
@@ -230,6 +236,16 @@ const handler = createMcpHandler(
         const status = await run.status
 
         if (status !== 'completed') {
+          if (status === 'failed') {
+            return {
+              content: [{ type: "text", text: `❌ Workflow failed.\n\nRun ID: ${run_id}\n\nUse 'workflow_progress' to see error details.` }],
+            }
+          }
+          if (status === 'cancelled') {
+            return {
+              content: [{ type: "text", text: `⏹️ Workflow was cancelled.\n\nRun ID: ${run_id}` }],
+            }
+          }
           return {
             content: [{ type: "text", text: `⏳ Workflow is not yet complete.\n\nCurrent status: ${status}\n\nPlease wait for the workflow to finish or use 'workflow_progress' to check updates.` }],
           }
