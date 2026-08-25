@@ -11,6 +11,15 @@ await bundle({
   entryPoint: join(root, 'remotion/index.ts'),
   outDir,
   publicPath: '/',
+  webpackOverride: (config) => ({
+    ...config,
+    resolve: {
+      ...config.resolve,
+      // Some dependencies leak Node-only requires (e.g. source-map -> url)
+      // into the graph; they are never exercised at runtime.
+      fallback: { ...config.resolve?.fallback, url: false, fs: false, path: false },
+    },
+  }),
 });
 
 // Copy the studio bundle's static assets into Next.js public/ so they are

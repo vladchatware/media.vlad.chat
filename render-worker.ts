@@ -28,6 +28,15 @@ self.onmessage = async (event: MessageEvent) => {
     const bundled = await bundle({
       entryPoint: join(process.cwd(), 'remotion/index.ts'),
       publicDir: join(process.cwd(), 'remotion/BackroomFilm/public'),
+      webpackOverride: (config) => ({
+        ...config,
+        resolve: {
+          ...config.resolve,
+          // Some dependencies leak Node-only requires (e.g. source-map -> url)
+          // into the graph; they are never exercised at runtime.
+          fallback: { ...config.resolve?.fallback, url: false, fs: false, path: false },
+        },
+      }),
     })
 
     const composition = await selectComposition({
