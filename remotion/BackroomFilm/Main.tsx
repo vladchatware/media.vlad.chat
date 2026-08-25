@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AbsoluteFill,
   Audio,
+  continueRender,
+  delayRender,
   Easing,
   Sequence,
   interpolate,
@@ -12,15 +14,47 @@ import {
 } from 'remotion';
 
 import {
-  BEHAVIOR,
+  BEHAVIOR as FALLBACK_BEHAVIOR,
   COLORS,
   DURATION_IN_FRAMES,
-  INCOMING_ENERGY,
-  INCOMING_TRACK,
-  OUTGOING_ENERGY,
-  TAXONOMY,
-  TRACK,
+  INCOMING_ENERGY as FALLBACK_INCOMING_ENERGY,
+  INCOMING_TRACK as FALLBACK_INCOMING_TRACK,
+  OUTGOING_ENERGY as FALLBACK_OUTGOING_ENERGY,
+  TAXONOMY as FALLBACK_TAXONOMY,
+  TRACK as FALLBACK_TRACK,
 } from './data';
+import { fetchTrackDisplay, type TrackDisplay } from './payload';
+
+export type BackroomFilmProps = {
+  trackId?: string;
+  incomingTrackId?: string;
+};
+
+const MUSIC_ORIGIN = 'https://music.vlad.chat';
+
+// Live per-track display data fetched from music.vlad.chat; subcomponents read
+// through TD() so they render real analysis when available and fall back to
+// the committed demo constants otherwise.
+type LiveTrackData = {
+  TRACK: typeof FALLBACK_TRACK & Partial<TrackDisplay>;
+  INCOMING_TRACK: typeof FALLBACK_INCOMING_TRACK & Partial<TrackDisplay>;
+  BEHAVIOR: TrackDisplay['behavior'];
+  TAXONOMY: TrackDisplay['taxonomy'];
+  OUTGOING_ENERGY: number[];
+  INCOMING_ENERGY: number[];
+};
+
+let liveTrackData: LiveTrackData | null = null;
+
+const TD = (): LiveTrackData =>
+  liveTrackData ?? {
+    TRACK: FALLBACK_TRACK,
+    INCOMING_TRACK: FALLBACK_INCOMING_TRACK,
+    BEHAVIOR: FALLBACK_BEHAVIOR,
+    TAXONOMY: FALLBACK_TAXONOMY,
+    OUTGOING_ENERGY: FALLBACK_OUTGOING_ENERGY,
+    INCOMING_ENERGY: FALLBACK_INCOMING_ENERGY,
+  };
 
 const serif = 'Georgia, "Times New Roman", serif';
 const mono = '"Courier New", Courier, monospace';
@@ -188,7 +222,7 @@ const IntroScene: React.FC<{ duration: number }> = ({ duration }) => {
     config: { damping: 200 },
   });
   const typedLength = Math.floor(
-    interpolate(frame, [48, 78], [0, TRACK.id.length], clamp),
+    interpolate(frame, [48, 78], [0, TD().TRACK.id.length], clamp),
   );
   const buttonFill = interpolate(frame, [77, 96], [0, 1], clamp);
 
@@ -265,7 +299,7 @@ const IntroScene: React.FC<{ duration: number }> = ({ duration }) => {
               color: COLORS.muted,
             }}
           >
-            {TRACK.id.slice(0, typedLength)}
+            {TD().TRACK.id.slice(0, typedLength)}
             <span
               style={{
                 width: 2,
@@ -443,12 +477,12 @@ const AnalysisScene: React.FC<{ duration: number }> = ({ duration }) => {
         </div>
         <strong style={{ fontFamily: mono, fontSize: 26 }}>0:19</strong>
         <span style={{ fontFamily: mono, color: COLORS.muted, fontSize: 20 }}>
-          / {TRACK.duration}
+          / {TD().TRACK.duration}
         </span>
       </div>
       <div style={{ marginTop: 34 }}>
         <EnergyChart
-          values={OUTGOING_ENERGY}
+          values={TD().OUTGOING_ENERGY}
           color={COLORS.green}
           reveal={reveal}
           playhead={playhead}
@@ -497,13 +531,13 @@ const AnalysisScene: React.FC<{ duration: number }> = ({ duration }) => {
         <div>
           <small style={{ fontSize: 13, ...monoLabel }}>Mix in</small>
           <strong style={{ display: 'block', fontFamily: serif, fontSize: 67 }}>
-            {TRACK.mixIn}
+            {TD().TRACK.mixIn}
           </strong>
         </div>
         <div>
           <small style={{ fontSize: 13, ...monoLabel }}>Mix out</small>
           <strong style={{ display: 'block', fontFamily: serif, fontSize: 67 }}>
-            {TRACK.mixOut}
+            {TD().TRACK.mixOut}
           </strong>
         </div>
         <div style={{ paddingTop: 7 }}>
@@ -558,7 +592,7 @@ const BehaviorScene: React.FC<{ duration: number }> = ({ duration }) => {
           gap: 62,
         }}
       >
-        {BEHAVIOR.map((item, index) => {
+        {TD().BEHAVIOR.map((item, index) => {
           const progress = spring({
             frame: frame - 15 - index * 7,
             fps: 30,
@@ -635,7 +669,7 @@ const SemanticScene: React.FC<{ duration: number }> = ({ duration }) => {
           gap: '52px 34px',
         }}
       >
-        {TAXONOMY.map((group, groupIndex) => (
+        {TD().TAXONOMY.map((group, groupIndex) => (
           <section
             key={group.title}
             style={{
@@ -850,11 +884,11 @@ const MixScene: React.FC<{ duration: number }> = ({ duration }) => {
       </div>
       <Deck
         label="OUT"
-        artist={TRACK.artist}
-        title={TRACK.title}
+        artist={TD().TRACK.artist}
+        title={TD().TRACK.title}
         current="0:19"
-        duration={TRACK.duration}
-        values={OUTGOING_ENERGY}
+        duration={TD().TRACK.duration}
+        values={TD().OUTGOING_ENERGY}
         color={COLORS.green}
         reveal={reveal}
         window={{ left: outgoingLeft, width: 0.13 }}
@@ -873,11 +907,11 @@ const MixScene: React.FC<{ duration: number }> = ({ duration }) => {
       </div>
       <Deck
         label="IN"
-        artist={INCOMING_TRACK.artist}
-        title={INCOMING_TRACK.title}
-        current={INCOMING_TRACK.cue}
-        duration={INCOMING_TRACK.duration}
-        values={INCOMING_ENERGY}
+        artist={TD().INCOMING_TRACK.artist}
+        title={TD().INCOMING_TRACK.title}
+        current={TD().INCOMING_TRACK.cue}
+        duration={TD().INCOMING_TRACK.duration}
+        values={TD().INCOMING_ENERGY}
         color={COLORS.amber}
         reveal={reveal}
         window={{ left: incomingLeft, width: 0.13 }}
@@ -973,10 +1007,48 @@ const OutroScene: React.FC<{ duration: number }> = ({ duration }) => {
   );
 };
 
-export const BackroomFilm: React.FC = () => (
+export const BackroomFilm: React.FC<BackroomFilmProps> = ({
+  trackId = FALLBACK_TRACK.id,
+  incomingTrackId,
+}) => {
+  const [, forceRender] = useState(0);
+
+  useEffect(() => {
+    let alive = true;
+    const handle = delayRender(`Loading backroom analysis for ${trackId}`);
+    const done = () => {
+      if (alive) {
+        forceRender((n) => n + 1);
+        continueRender(handle);
+      }
+    };
+    fetchTrackDisplay(trackId)
+      .then((display) => {
+        if (!alive) return;
+        liveTrackData = { ...TD(), TRACK: display, BEHAVIOR: display.behavior, TAXONOMY: display.taxonomy, OUTGOING_ENERGY: display.energy };
+        done();
+      })
+      .catch(done);
+    if (incomingTrackId) {
+      fetchTrackDisplay(incomingTrackId)
+        .then((display) => {
+          if (!alive) return;
+          liveTrackData = { ...(liveTrackData ?? TD()), INCOMING_TRACK: display, INCOMING_ENERGY: display.energy };
+          done();
+        })
+        .catch(() => {
+          if (alive) continueRender(handle);
+        });
+    }
+    return () => {
+      alive = false;
+    };
+  }, [trackId, incomingTrackId]);
+
+  return (
   <AbsoluteFill style={{ backgroundColor: COLORS.paper, overflow: 'hidden' }}>
     <Audio
-      src={`https://music.vlad.chat/api/tracks/${TRACK.id}/stream`}
+      src={`https://music.vlad.chat/api/tracks/${TD().TRACK.id}/stream`}
       trimBefore={800}
       volume={(frame) =>
         Math.min(
@@ -1005,5 +1077,6 @@ export const BackroomFilm: React.FC = () => (
       <OutroScene duration={80} />
     </Sequence>
     <Chrome />
-  </AbsoluteFill>
-);
+    </AbsoluteFill>
+  );
+};

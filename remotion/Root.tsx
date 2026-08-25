@@ -122,6 +122,11 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1080}
         height={1920}
+        schema={z.object({
+          trackId: z.string(),
+          incomingTrackId: z.string().optional(),
+        })}
+        defaultProps={{ trackId: '2248709558' }}
       />
       <Composition
         id="BackroomTransitionCandidate"

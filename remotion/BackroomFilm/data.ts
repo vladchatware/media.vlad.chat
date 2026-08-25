@@ -38,7 +38,7 @@ export const BEHAVIOR = [
   { label: 'Vocal presence', value: 7 },
 ];
 
-export const TAXONOMY = [
+export const TAXONOMY: { title: string; labels: [string, number][] }[] = [
   {
     title: 'Mirex mood',
     labels: [
