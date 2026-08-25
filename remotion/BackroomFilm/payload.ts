@@ -157,8 +157,9 @@ export type TrackDisplay = {
   duration: string; // m:ss
   durationSec: number;
   mixIn: string;
-  mixOut: string;
   cue: string;
+  mixOut: string;
+  hasAnalysis: boolean;
   behavior: { label: string; value: number }[];
   taxonomy: { title: string; labels: [string, number][] }[];
   energy: number[]; // 120 samples, 0..1
@@ -212,17 +213,17 @@ const fetchSoundcloudMeta = async (trackId: string) => {
 
 export const deriveTrackDisplay = (
   trackId: string,
-  analysis: StoredAnalysis,
+  analysis: StoredAnalysis | undefined,
   meta?: { artist: string; title: string; durationSec: number },
 ): TrackDisplay => {
-  const segments = analysis.segments ?? [];
+  const segments = analysis?.segments ?? [];
 
   const behaviorValue = (key: string, fallback: number) =>
     Math.round((averageOf(segments, key) ?? fallback / 100) * 100);
 
-  const sections = analysis.structure?.sections ?? [];
+  const sections = analysis?.structure?.sections ?? [];
   const totalSec =
-    analysis.durationSec || sections[sections.length - 1]?.endTime || meta?.durationSec || 30;
+    analysis?.durationSec || sections[sections.length - 1]?.endTime || meta?.durationSec || 30;
 
   // Sample section energies into a fixed-length curve.
   const samples = Array.from({ length: 120 }, (_, index) => {
@@ -240,9 +241,9 @@ export const deriveTrackDisplay = (
     title: meta?.title ?? 'Unknown',
     durationSec: totalSec,
     duration: formatDuration(totalSec),
-    mixIn: formatDuration(analysis.cuePoints?.mixInSec ?? 0),
-    cue: formatDuration(analysis.cuePoints?.mixInSec ?? 0),
-    mixOut: formatDuration(analysis.cuePoints?.mixOutSec ?? totalSec),
+    mixIn: formatDuration(analysis?.cuePoints?.mixInSec ?? 0),
+    cue: formatDuration(analysis?.cuePoints?.mixInSec ?? 0),
+    mixOut: formatDuration(analysis?.cuePoints?.mixOutSec ?? totalSec),
     behavior: [
       { label: 'Danceability', value: behaviorValue('danceability', 50) },
       { label: 'Approachability', value: behaviorValue('approachability', 40) },
@@ -251,6 +252,7 @@ export const deriveTrackDisplay = (
       { label: 'Arousal', value: behaviorValue('arousal', 45) },
       { label: 'Vocal presence', value: behaviorValue('vocalProbability', 10) },
     ],
+    hasAnalysis: Boolean(analysis),
     taxonomy: [
       { title: 'Mirex mood', labels: topLabels(segments[0]?.mirexMood, 5) },
       { title: 'Mood / theme', labels: topLabels(segments[0]?.themes, 6) },
@@ -262,9 +264,11 @@ export const deriveTrackDisplay = (
 };
 
 export const fetchTrackDisplay = async (trackId: string): Promise<TrackDisplay> => {
+  // Analysis is optional: metadata still applies for tracks that were never
+  // analyzed, so any valid SoundCloud ID updates the composition.
   const [analysis, meta] = await Promise.all([
-    fetchTrackAnalysis(trackId),
-    fetchSoundcloudMeta(trackId).catch(() => undefined),
+    fetchTrackAnalysis(trackId).catch(() => undefined),
+    fetchSoundcloudMeta(trackId),
   ]);
   return deriveTrackDisplay(trackId, analysis, meta);
 };

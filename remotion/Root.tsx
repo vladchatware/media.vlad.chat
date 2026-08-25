@@ -126,7 +126,7 @@ export const RemotionRoot: React.FC = () => {
           trackId: z.string(),
           incomingTrackId: z.string().optional(),
         })}
-        defaultProps={{ trackId: '2248709558' }}
+        defaultProps={{ trackId: '2248709558', incomingTrackId: '2355356972' }}
       />
       <Composition
         id="BackroomTransitionCandidate"

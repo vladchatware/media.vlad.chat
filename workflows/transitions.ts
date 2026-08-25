@@ -1,4 +1,5 @@
 import { sleep } from 'workflow';
+import { head, put } from '@vercel/blob';
 
 import {
     rendererUrl,
@@ -6,8 +7,52 @@ import {
 } from './render';
 import {
     type EnergyArc,
+    MUSIC_ORIGIN,
+    type TransitionPayload,
     resolveTransitionPayload,
-} from '../src/transition-pipeline';
+} from '../remotion/BackroomFilm/payload';
+
+// Materialize a track's audio as a composition-owned Blob asset so renders
+// never depend on the shared stream route (dedup per track ID).
+const materializeAudio = async (trackId: string) => {
+    'use step';
+
+    const pathname = `backroom-audio/${trackId}.mp3`;
+    try {
+        const existing = await head(pathname);
+        return existing.downloadUrl ?? existing.url;
+    } catch {
+        // Not stored yet — fetch and upload below.
+    }
+
+    const response = await fetch(`${MUSIC_ORIGIN}/api/tracks/${trackId}/stream`, {
+        redirect: 'follow',
+    });
+    if (!response.ok || !response.body) {
+        throw new Error(`Audio request failed (${response.status}) for ${trackId}`);
+    }
+
+    const blob = await put(pathname, response.body, {
+        access: 'public',
+        contentType: 'audio/mpeg',
+        addRandomSuffix: false,
+    });
+    return blob.url;
+};
+
+const withMaterializedAudio = async (
+    payload: TransitionPayload,
+): Promise<TransitionPayload> => {
+    const [outgoingAudioFile, incomingAudioFile] = await Promise.all([
+        materializeAudio(payload.outgoing.id),
+        materializeAudio(payload.incoming.id),
+    ]);
+    return {
+        ...payload,
+        outgoing: { ...payload.outgoing, audioFile: outgoingAudioFile },
+        incoming: { ...payload.incoming, audioFile: incomingAudioFile },
+    };
+};
 
 const submitTransitionRender = async (id: string, payload: unknown, outputName: string) => {
     'use step';
@@ -55,11 +100,12 @@ export const transitionBatch = async (
 
     const outputs = [];
     for (const candidateTrackId of candidateTrackIds) {
-        const payload = await resolveTransitionPayload({
+        const resolved = await resolveTransitionPayload({
             outgoingTrackId,
             candidateTrackId,
             energyArc,
         });
+        const payload = await withMaterializedAudio(resolved);
 
         const outputName = `transition-${outgoingTrackId}-to-${candidateTrackId}-${energyArc}.mp4`;
         const jobId = await submitTransitionRender('BackroomTransitionOnly', payload, outputName);

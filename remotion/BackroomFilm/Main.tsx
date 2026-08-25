@@ -1012,7 +1012,8 @@ export const BackroomFilm: React.FC<BackroomFilmProps> = ({
   incomingTrackId,
 }) => {
   const [, forceRender] = useState(0);
-
+  const [loaded, setLoaded] = useState(false);
+  const [hasAnalysis, setHasAnalysis] = useState(false);
   useEffect(() => {
     let alive = true;
     const handle = delayRender(`Loading backroom analysis for ${trackId}`);
@@ -1026,6 +1027,8 @@ export const BackroomFilm: React.FC<BackroomFilmProps> = ({
       .then((display) => {
         if (!alive) return;
         liveTrackData = { ...TD(), TRACK: display, BEHAVIOR: display.behavior, TAXONOMY: display.taxonomy, OUTGOING_ENERGY: display.energy };
+        setLoaded(true);
+        setHasAnalysis(display.hasAnalysis);
         done();
       })
       .catch(done);
@@ -1077,6 +1080,25 @@ export const BackroomFilm: React.FC<BackroomFilmProps> = ({
       <OutroScene duration={80} />
     </Sequence>
     <Chrome />
+    {loaded && !hasAnalysis && (
+      <div
+        style={{
+          position: 'absolute',
+          top: 24,
+          right: 24,
+          background: COLORS.amber,
+          color: '#191b16',
+          fontFamily: mono,
+          fontSize: 15,
+          padding: '8px 14px',
+          borderRadius: 6,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+        }}
+      >
+        No analysis — demo data
+      </div>
+    )}
     </AbsoluteFill>
   );
 };
