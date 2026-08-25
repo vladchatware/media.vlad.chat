@@ -118,9 +118,10 @@ export const downloadVideo = async (id, name) => {
   writeFileSync(`${process.cwd()}/public/${name}`, Buffer.from(await res.arrayBuffer()))
 }
 
-export const generateVideo = async ({ text, narration, mood, instructions, shot, seconds }, reference, name = 'video.mp4') => {
+export const generateVideo = async ({ text, narration, mood, instructions, shot, seconds = 8 }: { text: string, narration: string, mood: string, instructions: string, shot: string, seconds?: 4 | 8 | 12 }, reference: string, name = 'video.mp4') => {
   "use step"
-  
+
+  const secondsStr = String(seconds) as '4' | '8' | '12'
   const prompt = `
 ${narration}
 
@@ -139,7 +140,7 @@ ${text}
     prompt,
     input_reference,
     model: 'sora-2',
-    seconds,
+    seconds: secondsStr,
     size: '720x1280'
   })
 
