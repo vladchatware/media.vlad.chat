@@ -11,7 +11,7 @@
     "durationSec": 151.59374149659865,
     "bpm": 107.73617553710938,
     "camelotKey": "7A",
-    "audioFile": "live-2260180544.mp3",
+    "audioFile": "https://music.vlad.chat/api/tracks/2260180544/stream",
     "window": {
       "startSec": 63.843265533447266,
       "endSec": 72.7352
@@ -24,7 +24,7 @@
     "durationSec": 208.22204081632654,
     "bpm": 106.60645294189453,
     "camelotKey": "9B",
-    "audioFile": "live-719940274.mp3",
+    "audioFile": "https://music.vlad.chat/api/tracks/719940274/stream",
     "window": {
       "startSec": 73.35183715820312,
       "endSec": 82.338

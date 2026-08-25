@@ -11,14 +11,6 @@ import { ShopMain } from './YearInReview/ShopMain'
 import { BackroomFilm } from './BackroomFilm/Main'
 import { DURATION_IN_FRAMES as BACKROOM_DURATION } from './BackroomFilm/data'
 import {
-  BackroomFilmHorizontal,
-  HORIZONTAL_DURATION_IN_FRAMES,
-} from './BackroomFilm/Horizontal'
-import {
-  BackroomNarratedExplainer,
-  EXPLAINER_DURATION_IN_FRAMES,
-} from './BackroomFilm/Explainer'
-import {
   BackroomTransitionCandidate,
   getTransitionCandidateDurationInFrames,
   TRANSITION_CANDIDATE_DEFAULT_PROPS,
@@ -130,22 +122,6 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1080}
         height={1920}
-      />
-      <Composition
-        id="BackroomFilmHorizontal"
-        component={BackroomFilmHorizontal}
-        durationInFrames={HORIZONTAL_DURATION_IN_FRAMES}
-        fps={30}
-        width={1920}
-        height={1080}
-      />
-      <Composition
-        id="BackroomNarratedExplainer"
-        component={BackroomNarratedExplainer}
-        durationInFrames={EXPLAINER_DURATION_IN_FRAMES}
-        fps={30}
-        width={1920}
-        height={1080}
       />
       <Composition
         id="BackroomTransitionCandidate"

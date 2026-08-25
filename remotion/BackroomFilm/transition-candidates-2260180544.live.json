@@ -8,7 +8,7 @@
       "artist": "GLSxxqx",
       "title": "ice - ZERTAL slowed (MP3)",
       "durationSec": 151.59374149659865,
-      "audioFile": "live-2260180544.mp3",
+      "audioFile": "https://music.vlad.chat/api/tracks/2260180544/stream",
       "window": {
         "startSec": 63.843265533447266,
         "endSec": 72.7352
@@ -19,7 +19,7 @@
       "artist": "Microsound",
       "title": "The Book Of Love",
       "durationSec": 208.22204081632654,
-      "audioFile": "live-719940274.mp3",
+      "audioFile": "https://music.vlad.chat/api/tracks/719940274/stream",
       "window": {
         "startSec": 73.35183715820312,
         "endSec": 82.338
@@ -45,7 +45,7 @@
       "artist": "GLSxxqx",
       "title": "ice - ZERTAL slowed (MP3)",
       "durationSec": 151.59374149659865,
-      "audioFile": "live-2260180544.mp3",
+      "audioFile": "https://music.vlad.chat/api/tracks/2260180544/stream",
       "window": {
         "startSec": 63.843265533447266,
         "endSec": 72.7539
@@ -56,7 +56,7 @@
       "artist": "janem",
       "title": "Frutiger Aero",
       "durationSec": 104.281,
-      "audioFile": "live-1465496302.mp3",
+      "audioFile": "https://music.vlad.chat/api/tracks/1465496302/stream",
       "window": {
         "startSec": 42.72471618652344,
         "endSec": 51.0951
@@ -82,7 +82,7 @@
       "artist": "GLSxxqx",
       "title": "ice - ZERTAL slowed (MP3)",
       "durationSec": 151.59374149659865,
-      "audioFile": "live-2260180544.mp3",
+      "audioFile": "https://music.vlad.chat/api/tracks/2260180544/stream",
       "window": {
         "startSec": 63.843265533447266,
         "endSec": 72.7539
@@ -93,7 +93,7 @@
       "artist": "Microsound",
       "title": "The Luckiest Guy On The Lower East Side",
       "durationSec": 151.98,
-      "audioFile": "live-719940358.mp3",
+      "audioFile": "https://music.vlad.chat/api/tracks/719940358/stream",
       "window": {
         "startSec": 43.86249542236328,
         "endSec": 52.0947

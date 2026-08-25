@@ -976,7 +976,7 @@ const OutroScene: React.FC<{ duration: number }> = ({ duration }) => {
 export const BackroomFilm: React.FC = () => (
   <AbsoluteFill style={{ backgroundColor: COLORS.paper, overflow: 'hidden' }}>
     <Audio
-      src={staticFile('sound.m4a')}
+      src={`https://music.vlad.chat/api/tracks/${TRACK.id}/stream`}
       trimBefore={800}
       volume={(frame) =>
         Math.min(

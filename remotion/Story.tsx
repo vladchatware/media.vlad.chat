@@ -1,5 +1,5 @@
-import React from "react";
-import { Audio, AbsoluteFill, Img, Sequence } from "remotion";
+import React, { useEffect, useState } from "react";
+import { Audio, AbsoluteFill, Img, Sequence, continueRender, delayRender } from "remotion";
 import { CameraMotionBlur } from '@remotion/motion-blur';
 import { Caption } from '@remotion/captions';
 import { Captions, styles } from './Captions';
@@ -21,6 +21,43 @@ export type StoryMetadata = {
     mood?: string,
     seconds?: number
   }[]
+}
+
+// Whisper verbose_json words are in seconds; Captions expects milliseconds.
+const whisperToCaptions = (data: any): Caption[] =>
+  (data?.words ?? []).map((w: any) => ({
+    text: w.word,
+    start: Math.round(w.start * 1000),
+    end: Math.round(w.end * 1000),
+  }))
+
+const DialogCaptions: React.FC<{
+  captionsSrc?: string;
+  captions?: Caption[];
+  captionPosition: string;
+  combineTokensWithinMilliseconds: number;
+}> = ({ captionsSrc, captions, ...rest }) => {
+  const [resolved, setResolved] = useState<Caption[] | null>(captions ?? null)
+
+  useEffect(() => {
+    if (!captionsSrc || captions) return
+    let alive = true
+    const handle = delayRender(`Fetching captions from ${captionsSrc}`)
+    fetch(captionsSrc)
+      .then((res) => res.json())
+      .then((data) => {
+        if (!alive) return
+        setResolved(whisperToCaptions(data))
+        continueRender(handle)
+      })
+      .catch(() => {
+        if (alive) continueRender(handle)
+      })
+    return () => { alive = false }
+  }, [captionsSrc])
+
+  if (!resolved) return null
+  return <Captions captions={resolved} {...rest} />
 }
 
 export const Story = ({ story, sound = '1939477514.mp4' }: { story: StoryMetadata; sound?: string }) => {
@@ -47,7 +84,8 @@ export const Story = ({ story, sound = '1939477514.mp4' }: { story: StoryMetadat
           <CameraMotionBlur shutterAngle={280} samples={1}>
             <Img src={staticUrl('the-need-to-be-right.jpeg')} style={{ width: '100%', height: '100%', objectFit: 'cover'}} />
             <AbsoluteFill style={styles.container}>
-              <Captions
+              <DialogCaptions
+                captionsSrc={line.captionsSrc}
                 captions={line.captions}
                 captionPosition={`${line.side}-${line.shot}`}
                 combineTokensWithinMilliseconds={1200} />

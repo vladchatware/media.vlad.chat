@@ -23,3 +23,4 @@ public/*.bundle.js
 public/*.bundle.js.map
 public/favicon.ico
 public/source-map-helper.wasm
+/.swc
