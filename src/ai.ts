@@ -1,5 +1,5 @@
 import OpenAI from 'openai'
-import { readdirSync, createReadStream, writeFileSync } from 'fs'
+import { readdirSync, createReadStream, writeFileSync, readFileSync } from 'fs'
 import { z } from 'zod'
 import { generateObject } from 'ai'
 const openai = new OpenAI()
@@ -39,23 +39,21 @@ export type Story = z.infer<typeof storySchema>
 
 export const readStory = async (name: string | undefined): Promise<Story> => {
   "use step"
-  let story: Bun.BunFile | null = null
+  let story: string | null = null
   if (name) {
-    story = Bun.file(`${process.cwd()}/stories/${name}.json`, { type: 'application/json' })
+    story = readFileSync(`${process.cwd()}/stories/${name}.json`, 'utf-8')
   } else {
     const stories = readdirSync(`${process.cwd()}/stories`)
     const lastStory = stories.length - 1
 
-    story = Bun.file(`${process.cwd()}/stories/${stories[lastStory]}`, { type: 'application/json' })
+    story = readFileSync(`${process.cwd()}/stories/${stories[lastStory]}`, 'utf-8')
   }
 
   if (!story) {
     throw new Error('Story not found.')
   }
 
-  const data = await story.json()
-
-  return storySchema.parse(data)
+  return storySchema.parse(JSON.parse(story))
 }
 
 export const generateStory = async (system: string, prompt: string) => {

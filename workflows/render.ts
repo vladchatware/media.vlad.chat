@@ -9,7 +9,8 @@ export const still = async (id: string, inputProps: Record<string, any>) => {
         method: 'POST',
         body: JSON.stringify({
             id,
-            inputProps
+            inputProps,
+            type: 'still'
         })
     }).then(res => res.json())
 
@@ -25,7 +26,8 @@ export const sequence = async (id: string, inputProps: Record<string, any>) => {
         method: 'POST',
         body: JSON.stringify({
             id,
-            inputProps
+            inputProps,
+            type: 'sequence'
         })
     }).then(res => res.json())
 
@@ -41,7 +43,8 @@ export const video = async (id: string, inputProps: Record<string, any>) => {
         method: 'POST',
         body: JSON.stringify({
             id,
-            inputProps
+            inputProps,
+            type: 'video'
         })
     }).then(res => res.json())
 

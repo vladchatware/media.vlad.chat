@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v3';
 import { storyProp } from './types';
 
 export const storyData: z.infer<typeof storyProp>['story'] = {
@@ -56,4 +56,3 @@ export const storyData: z.infer<typeof storyProp>['story'] = {
     }
   ]
 };
-

@@ -1,50 +1,100 @@
-import React from 'react';
-import { AbsoluteFill, Audio, Img, staticFile } from 'remotion';
-import { CameraMotionBlur } from '@remotion/motion-blur';
-import { loadFont } from '@remotion/google-fonts/NotoSans';
-import { Caption } from '@remotion/captions';
-import { styles, captionPositionStyle } from './Captions';
+import React from "react";
+import { AbsoluteFill, Img, staticFile } from "remotion";
+import { CameraMotionBlur } from "@remotion/motion-blur";
+import { styles, captionPositionStyle } from "./Captions";
 
-const { fontFamily } = loadFont();
+const fontFamily =
+  '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Roboto, Arial, sans-serif';
 
 export type SlideProps = {
   image: string;
   text: string;
-  side: 'left' | 'right';
-  shot: 'two-shot' | 'closeup' | 'medium';
+  side: "left" | "right";
+  shot: "two-shot" | "closeup" | "medium";
 };
 
 const slideStyles = {
   text: {
-    fontSize: 50,
-    fontWeight: 600,
+    fontSize: 52,
+    fontWeight: 500,
     fontFamily,
-    color: 'white',
-    textAlign: 'center' as const,
-    lineHeight: 1.2,
+    textAlign: "center" as const,
+    lineHeight: 1.4,
+    letterSpacing: "-0.01em",
   },
   textContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    backdropFilter: 'blur(5px)',
-    padding: 30,
-    borderRadius: 20,
-    maxWidth: '80%',
-    boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
-  }
+    maxWidth: "88%",
+    display: "flex",
+    justifyContent: "center",
+    textAlign: "center" as const,
+    position: "relative" as const,
+    zIndex: 10,
+  },
+  span: {
+    padding: "12px 28px",
+    borderRadius: "20px",
+    boxDecorationBreak: "clone" as const,
+    WebkitBoxDecorationBreak: "clone" as const,
+    display: "inline",
+  },
 };
 
 export const Slide = ({ image, text, side, shot }: SlideProps) => {
   return (
     <CameraMotionBlur shutterAngle={280} samples={1}>
-      <Img src={image.startsWith('http') ? image : staticFile(image)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-      <AbsoluteFill style={{ ...styles.container, ...captionPositionStyle[`${side}-${shot}`] }}>
+      <Img
+        src={image.startsWith("http") ? image : staticFile(image)}
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      />
+
+      <AbsoluteFill
+        style={{
+          ...styles.container,
+          ...captionPositionStyle[`${side}-${shot}`],
+        }}
+      >
         <div style={slideStyles.textContainer}>
-          <div style={slideStyles.text}>
-            {text}
+          {/* Background Layer */}
+          <div
+            style={{
+              ...slideStyles.text,
+              position: "absolute",
+              zIndex: 0,
+              width: "100%",
+            }}
+          >
+            <span
+              style={{
+                ...slideStyles.span,
+                backgroundColor: "white",
+                color: "transparent",
+              }}
+            >
+              {text}
+            </span>
+          </div>
+
+          {/* Sharp Text Layer on Top */}
+          <div
+            style={{
+              ...slideStyles.text,
+              position: "relative",
+              zIndex: 1,
+              width: "100%",
+            }}
+          >
+            <span
+              style={{
+                ...slideStyles.span,
+                backgroundColor: "transparent",
+                color: "black",
+              }}
+            >
+              {text}
+            </span>
           </div>
         </div>
       </AbsoluteFill>
     </CameraMotionBlur>
   );
 };
-
