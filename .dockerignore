@@ -1,0 +1,9 @@
+node_modules
+.next
+.git
+out
+finished
+stories
+.env
+.env.local
+*.log

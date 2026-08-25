@@ -1,8 +1,9 @@
 
 import React, { createContext, useContext, useMemo } from 'react';
-import { useCurrentFrame, useVideoConfig, staticFile } from 'remotion';
+import { useCurrentFrame, useVideoConfig } from 'remotion';
 import { useAudioData, visualizeAudio } from '@remotion/media-utils';
 import { SOUND_FILE, SOUND_OFFSET } from './Constants';
+import { staticUrl } from '../assets';
 
 const AudioContext = createContext<{
     volume: number;
@@ -23,7 +24,7 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({
 }) => {
     const frame = useCurrentFrame();
     const { fps } = useVideoConfig();
-    const audioData = useAudioData(staticFile(src));
+    const audioData = useAudioData(staticUrl(src));
 
     const value = useMemo(() => {
         if (!audioData) {
