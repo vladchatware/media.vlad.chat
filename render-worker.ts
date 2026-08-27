@@ -27,7 +27,7 @@ self.onmessage = async (event: MessageEvent) => {
 
     const bundled = await bundle({
       entryPoint: join(process.cwd(), 'remotion/index.ts'),
-      publicDir: join(process.cwd(), 'remotion/BackroomFilm/public'),
+      publicDir: join(process.cwd(), 'remotion/public'),
       webpackOverride: (config) => ({
         ...config,
         resolve: {

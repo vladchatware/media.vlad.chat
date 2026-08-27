@@ -8,14 +8,14 @@ import { staticUrl } from './assets'
 import { YearInReview } from './YearInReview/Main'
 import { Main as MusicMain } from './ProductUpdates/Main'
 import { ShopMain } from './YearInReview/ShopMain'
-import { BackroomFilm } from './BackroomFilm/Main'
-import { DURATION_IN_FRAMES as BACKROOM_DURATION } from './BackroomFilm/data'
+import { Backroom, backroomDurationInFrames, type BackroomProps } from './Backroom/Main'
 import {
-  BackroomTransitionCandidate,
-  getTransitionCandidateDurationInFrames,
-  TRANSITION_CANDIDATE_DEFAULT_PROPS,
-  TRANSITION_ONLY_DEFAULT_PROPS,
-} from './BackroomFilm/TransitionCandidate'
+  TransitionCandidate,
+  transitionDurationInFrames,
+  type TransitionCandidateProps,
+} from './Backroom/TransitionCandidate'
+import { SAMPLE_PAYLOAD } from './Backroom/sample'
+import { BackroomSchema, TransitionCandidateSchema } from './Backroom/schema'
 
 import { Story, StoryMetadata } from './Story'
 import { Video } from './Video'
@@ -116,46 +116,32 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
       />
       <Composition
-        id="BackroomFilm"
-        component={BackroomFilm}
-        durationInFrames={BACKROOM_DURATION}
+        id="Backroom"
+        component={Backroom}
+        durationInFrames={backroomDurationInFrames({ payload: SAMPLE_PAYLOAD }, 30)}
         fps={30}
         width={1080}
         height={1920}
-        schema={z.object({
-          trackId: z.string(),
-          incomingTrackId: z.string().optional(),
+        schema={BackroomSchema}
+        defaultProps={{ payload: SAMPLE_PAYLOAD } satisfies BackroomProps}
+        calculateMetadata={({ props }) => ({
+          durationInFrames: backroomDurationInFrames(props, 30),
         })}
-        defaultProps={{ trackId: '2248709558', incomingTrackId: '2355356972' }}
       />
       <Composition
-        id="BackroomTransitionCandidate"
-        component={BackroomTransitionCandidate}
-        durationInFrames={getTransitionCandidateDurationInFrames(
-          TRANSITION_CANDIDATE_DEFAULT_PROPS,
+        id="TransitionCandidate"
+        component={TransitionCandidate}
+        durationInFrames={transitionDurationInFrames(
+          { payload: SAMPLE_PAYLOAD },
           30,
         )}
         fps={30}
         width={1080}
         height={1920}
-        defaultProps={TRANSITION_CANDIDATE_DEFAULT_PROPS}
+        schema={TransitionCandidateSchema}
+        defaultProps={{ payload: SAMPLE_PAYLOAD } satisfies TransitionCandidateProps}
         calculateMetadata={({ props }) => ({
-          durationInFrames: getTransitionCandidateDurationInFrames(props, 30),
-        })}
-      />
-      <Composition
-        id="BackroomTransitionOnly"
-        component={BackroomTransitionCandidate}
-        durationInFrames={getTransitionCandidateDurationInFrames(
-          TRANSITION_ONLY_DEFAULT_PROPS,
-          30,
-        )}
-        fps={30}
-        width={1080}
-        height={1920}
-        defaultProps={TRANSITION_ONLY_DEFAULT_PROPS}
-        calculateMetadata={({ props }) => ({
-          durationInFrames: getTransitionCandidateDurationInFrames(props, 30),
+          durationInFrames: transitionDurationInFrames(props, 30),
         })}
       />
 

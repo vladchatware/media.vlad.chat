@@ -6,7 +6,7 @@ import { carousel } from "../../../workflows/carousel"
 import { tweet } from "../../../workflows/tweet"
 import { thread } from "../../../workflows/thread"
 import { video } from "../../../workflows/video"
-import { transitionBatch } from "../../../workflows/transitions"
+import { transitionBatch, backroomFilm, backroomForTrack } from "../../../workflows/transitions"
 import type { ProgressEvent } from "../../../src/progress"
 
 const started = (kind: string, runId: string) => ({
@@ -266,7 +266,7 @@ const handler = createMcpHandler(
     })
 
     server.registerTool("render_track_transitions", {
-      description: "Render vertical transition-review videos for one outgoing SoundCloud track and one or more ranked candidate track IDs. Uses each pair's best live backroom transition window.",
+      description: "Render vertical transition-review videos for one outgoing SoundCloud track and one or more ranked candidate track IDs. One composition per pair covering the whole transition (approach, audio crossfade blend, post-roll), timed to each pair's best backroom transition window. Missing track analyses are scheduled and awaited automatically.",
       inputSchema: {
         outgoingTrackId: z.number().int().positive(),
         candidateTrackIds: z.array(z.number().int().positive()).min(1).max(12),
@@ -279,6 +279,33 @@ const handler = createMcpHandler(
         energyArc,
       ])
       return started(`Transition batch for track ${outgoingTrackId} (${candidateTrackIds.length} candidates)`, run.runId)
+    })
+
+    server.registerTool("render_backroom_for_track", {
+      description: "Render the full Backroom film for one outgoing SoundCloud track: discovers the best analyzed candidate, schedules any missing analyses, then renders intro, the analysis desk synced to the outgoing track's audio, the audio-matched transition, and outro.",
+      inputSchema: {
+        outgoingTrackId: z.number().int().positive(),
+        energyArc: z.enum(["preserve", "build", "release", "reset"]).default("preserve"),
+      },
+    }, async ({ outgoingTrackId, energyArc }) => {
+      const run = await start(backroomForTrack, [String(outgoingTrackId), energyArc])
+      return started(`Backroom film for track ${outgoingTrackId} (best candidate auto-selected)`, run.runId)
+    })
+
+    server.registerTool("render_backroom_film", {
+      description: "Render the full Backroom film for one outgoing track and one candidate: intro, the track analysis desk synced to the outgoing track's audio, the audio-matched transition, and outro. Missing track analyses are scheduled and awaited automatically.",
+      inputSchema: {
+        outgoingTrackId: z.number().int().positive(),
+        candidateTrackId: z.number().int().positive(),
+        energyArc: z.enum(["preserve", "build", "release", "reset"]).default("preserve"),
+      },
+    }, async ({ outgoingTrackId, candidateTrackId, energyArc }) => {
+      const run = await start(backroomFilm, [
+        String(outgoingTrackId),
+        String(candidateTrackId),
+        energyArc,
+      ])
+      return started(`Backroom film for track ${outgoingTrackId} → ${candidateTrackId}`, run.runId)
     })
   },
   {
