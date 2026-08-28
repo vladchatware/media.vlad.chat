@@ -8,47 +8,37 @@ import {
 import {
     type EnergyArc,
     type TransitionPayload,
-    enqueueAnalysis,
     fetchFullAudioBytes,
     fetchRankedCandidates,
-    missingAnalyses,
     resolveTransitionPayload,
 } from '../remotion/Backroom/payload';
 
 // --- Analysis ---------------------------------------------------------------
-// Tracks must have a stored analysis (essentia-dj-v8) before a transition can
-// be resolved. Missing analyses are enqueued the same way the backroom desk's
-// enqueue button does, then polled via the public analysis API.
+// Never polled. Missing analyses are enqueued once with a callbackUrl; the
+// worker POSTs that URL when the analysis completes (or dies), and the
+// callback endpoint re-runs this workflow. One enqueue call per run — no
+// repeated Convex reads.
 
-const getMissingAnalyses = async (trackIds: string[]) => {
+const MEDIA_ORIGIN = process.env.MEDIA_ORIGIN || 'https://media.vlad.chat';
+const CALLBACK_SECRET = process.env.ANALYSIS_SERVICE_SECRET || '';
+const CONVEX_SITE_URL = (process.env.CONVEX_SITE_URL || '').replace(/\/+$/, '').replace(/\/api$/, '');
+const SERVICE_SECRET = process.env.ANALYSIS_SERVICE_SECRET || '';
+
+const ensureScheduled = async (trackIds: string[], callbackUrl: string) => {
     'use step';
-    return missingAnalyses(trackIds);
-};
-
-const enqueueTrackAnalysis = async (trackId: string) => {
-    'use step';
-    await enqueueAnalysis(trackId);
-    return { trackId, enqueued: true as const };
-};
-
-const ensureAnalyses = async (trackIds: string[]) => {
-    'use workflow';
-
-    let missing = await getMissingAnalyses(trackIds);
-    if (missing.length === 0) return { scheduled: false };
-
-    for (const trackId of missing) {
-        await enqueueTrackAnalysis(trackId);
+    if (!CONVEX_SITE_URL || !SERVICE_SECRET) {
+        throw new Error('CONVEX_SITE_URL / ANALYSIS_SERVICE_SECRET not configured');
     }
-
-    // Analysis decodes up to 10 minutes of audio per track; poll up to ~15 min.
-    for (let attempt = 0; attempt < 90; attempt++) {
-        await sleep(10_000);
-        missing = await getMissingAnalyses(trackIds);
-        if (missing.length === 0) return { scheduled: true };
-    }
-
-    throw new Error(`Analysis not ready after timeout for tracks: ${missing.join(', ')}`);
+    const res = await fetch(`${CONVEX_SITE_URL}/analysis/enqueue`, {
+        method: 'POST',
+        headers: { authorization: `Bearer ${SERVICE_SECRET}`, 'content-type': 'application/json' },
+        body: JSON.stringify({ trackIds, callbackUrl }),
+        signal: AbortSignal.timeout(15_000),
+    });
+    if (!res.ok) throw new Error(`Analysis enqueue failed (${res.status})`);
+    const result = await res.json() as { enqueued: number; existing: number };
+    // enqueued > 0 or existing > 0 → at least one analysis is not ready yet.
+    return { ready: result.enqueued === 0 && result.existing === 0 };
 };
 
 // --- Payload ----------------------------------------------------------------
@@ -166,7 +156,11 @@ export const transitionBatch = async (
 ) => {
     'use workflow';
 
-    await ensureAnalyses([outgoingTrackId, ...candidateTrackIds]);
+    const callbackUrl = `${MEDIA_ORIGIN}/api/analysis-callback?mode=batch&outgoingTrackId=${outgoingTrackId}&candidateTrackIds=${candidateTrackIds.join(',')}&arc=${energyArc}&key=${CALLBACK_SECRET}`;
+    const schedule = await ensureScheduled([outgoingTrackId, ...candidateTrackIds], callbackUrl);
+    if (!schedule.ready) {
+        return { status: 'scheduled' as const, message: 'Analyses enqueued — the render starts automatically when they complete', waitingOn: callbackUrl };
+    }
 
     const outputs = [];
     for (const candidateTrackId of candidateTrackIds) {
@@ -192,7 +186,11 @@ export const backroomFilm = async (
 ) => {
     'use workflow';
 
-    await ensureAnalyses([outgoingTrackId, candidateTrackId]);
+    const callbackUrl = `${MEDIA_ORIGIN}/api/analysis-callback?mode=film&outgoingTrackId=${outgoingTrackId}&candidateTrackId=${candidateTrackId}&arc=${energyArc}&key=${CALLBACK_SECRET}`;
+    const schedule = await ensureScheduled([outgoingTrackId, candidateTrackId], callbackUrl);
+    if (!schedule.ready) {
+        return { status: 'scheduled' as const, message: 'Analyses enqueued — the render starts automatically when they complete', waitingOn: callbackUrl };
+    }
 
     const resolved = await resolvePayload(outgoingTrackId, candidateTrackId, energyArc);
     const payload = await withMaterializedAudio(resolved);
@@ -217,9 +215,23 @@ const pickBestCandidate = async (outgoingTrackId: string, energyArc: EnergyArc) 
 export const backroomForTrack = async (outgoingTrackId: string, energyArc: EnergyArc = 'preserve') => {
     'use workflow';
 
+    const callbackUrl = `${MEDIA_ORIGIN}/api/analysis-callback?mode=film&outgoingTrackId=${outgoingTrackId}&arc=${energyArc}&key=${CALLBACK_SECRET}`;
+    const schedule = await ensureScheduled([outgoingTrackId], callbackUrl);
+    if (!schedule.ready) {
+        return { status: 'scheduled' as const, message: 'Outgoing analysis enqueued — candidate discovery and render start automatically when it completes' };
+    }
+
     const best = await pickBestCandidate(outgoingTrackId, energyArc);
     const candidateTrackId = best.trackId;
     console.log(`Best candidate for ${outgoingTrackId}: ${candidateTrackId} (score ${best.score.toFixed(3)})`);
+
+    const candidateSchedule = await ensureScheduled(
+        [outgoingTrackId, candidateTrackId],
+        `${MEDIA_ORIGIN}/api/analysis-callback?mode=film&outgoingTrackId=${outgoingTrackId}&candidateTrackId=${candidateTrackId}&arc=${energyArc}&key=${CALLBACK_SECRET}`,
+    );
+    if (!candidateSchedule.ready) {
+        return { status: 'scheduled' as const, message: `Candidate ${candidateTrackId} analysis enqueued — render starts automatically when it completes` };
+    }
 
     return backroomFilm(outgoingTrackId, candidateTrackId, energyArc);
 };
