@@ -136,7 +136,7 @@ export const RemotionRoot: React.FC = () => {
           candidateTrackId: '232803647',
         }}
         calculateMetadata={async ({ props }) => ({
-          durationInFrames: transitionDurationInFrames(props, 30),
+          durationInFrames: await transitionDurationInFrames(props, 30),
         })}
       />
 

@@ -48,13 +48,15 @@ export const transitionPayloadSchema = z.object({
   }),
 });
 
-export const BackroomSchema = z.object({
-  payload: transitionPayloadSchema,
+const trackIdsSchema = z.object({
+  outgoingTrackId: z.string().min(1),
+  candidateTrackId: z.string().min(1),
+  energyArc: z.enum(['preserve', 'build', 'release', 'reset']).optional(),
 });
 
-export const TransitionCandidateSchema = z.object({
-  payload: transitionPayloadSchema,
+export const BackroomSchema = trackIdsSchema;
+
+export const TransitionCandidateSchema = trackIdsSchema.extend({
   leadInSec: z.number().optional(),
   postSec: z.number().optional(),
-  embedded: z.boolean().optional(),
 });

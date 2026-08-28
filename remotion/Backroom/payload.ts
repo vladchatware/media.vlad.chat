@@ -1,6 +1,8 @@
-// Backroom payload: typed composition props plus a server-side resolver.
-// The resolver runs ONLY in workflow steps (Node) — compositions are pure
-// functions of the resolved payload, with no fetching at render time.
+// Backroom payload: typed composition props plus shared data resolvers.
+
+import { BLOB_BASE } from '../assets';
+// Metadata/payload reads work in workflows and delayRender. Full-audio
+// materialization below is server-only and never runs inside a composition.
 
 export type EnergyArc = 'preserve' | 'build' | 'release' | 'reset';
 
@@ -48,6 +50,20 @@ export const MUSIC_ORIGIN = 'https://music.vlad.chat';
 
 export const trackStreamUrl = (trackId: string) =>
   `${MUSIC_ORIGIN}/api/tracks/${trackId}/stream`;
+
+export const trackBlobAudioUrl = (trackId: string) =>
+  `${BLOB_BASE}/backroom-audio/${trackId}-full.mp3`;
+
+const resolveTrackAudioUrl = async (trackId: string): Promise<string> => {
+  const blobUrl = trackBlobAudioUrl(trackId);
+  try {
+    const response = await fetch(blobUrl, { method: 'HEAD' });
+    if (response.ok) return blobUrl;
+  } catch {
+    // Cache miss/network failure: workflow or renderer will materialize it.
+  }
+  return trackStreamUrl(trackId);
+};
 
 const fetchJson = async <T>(url: string): Promise<T> => {
   const response = await fetch(url);
@@ -181,7 +197,7 @@ export const deriveTrackPayload = (
 };
 
 // ---------------------------------------------------------------------------
-// Server-side resolver (workflow steps only)
+// Payload resolver (workflow steps or delayRender)
 // ---------------------------------------------------------------------------
 
 export const fetchStoredAnalysis = async (trackId: string): Promise<StoredAnalysis | null> => {
@@ -192,7 +208,7 @@ export const fetchStoredAnalysis = async (trackId: string): Promise<StoredAnalys
 };
 
 export const fetchTrackPayload = async (trackId: string): Promise<TrackPayload> => {
-  const [analysis, meta] = await Promise.all([
+  const [analysis, meta, audioFile] = await Promise.all([
     fetchStoredAnalysis(trackId).catch(() => null),
     fetchJson<{
       title: string;
@@ -202,8 +218,9 @@ export const fetchTrackPayload = async (trackId: string): Promise<TrackPayload> 
     }>(
       `${MUSIC_ORIGIN}/api/tracks/${trackId}`,
     ).catch(() => null),
+    resolveTrackAudioUrl(trackId),
   ]);
-  return deriveTrackPayload(trackId, analysis, meta);
+  return { ...deriveTrackPayload(trackId, analysis, meta), audioFile };
 };
 
 export type TransitionSuggestion = {
@@ -380,12 +397,54 @@ export const resolveFullAudio = async (trackId: string): Promise<FullAudio | nul
     const segments = playlist
       .split('\n')
       .map((line) => line.trim())
-      .filter((line) => line && !line.startsWith('#'));
+      .filter((line) => line && !line.startsWith('#'))
+      .map((line) => new URL(line, playlistRes.url).toString());
     if (segments.length === 0) return null;
     return { kind: 'hls', url: playlistRes.url, segments };
   }
 
   return null;
+};
+
+const fetchPublicFullAudioBytes = async (trackId: string): Promise<Buffer> => {
+  let response: Response | null = null;
+
+  for (let attempt = 0; attempt < 3; attempt++) {
+    response = await fetch(trackStreamUrl(trackId), {
+      redirect: 'follow',
+      signal: AbortSignal.timeout(30_000),
+    });
+    if (response.ok) break;
+    await response.body?.cancel();
+    if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 500 * (attempt + 1)));
+  }
+
+  if (!response?.ok) {
+    throw new Error(`Public audio request failed (${response?.status ?? 'no response'}) for ${trackId}`);
+  }
+
+  const contentType = response.headers.get('content-type') ?? '';
+  const isPlaylist = response.url.includes('.m3u8') || contentType.includes('mpegurl');
+  if (!isPlaylist) return Buffer.from(await response.arrayBuffer());
+
+  const playlistUrl = response.url;
+  const segments = (await response.text())
+    .split('\n')
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith('#'))
+    .map((line) => new URL(line, playlistUrl).toString());
+
+  if (segments.length === 0) throw new Error(`HLS playlist is empty for ${trackId}`);
+
+  const parts: Buffer[] = [];
+  for (const segment of segments) {
+    const segmentResponse = await fetch(segment, { signal: AbortSignal.timeout(30_000) });
+    if (!segmentResponse.ok) {
+      throw new Error(`HLS segment failed (${segmentResponse.status}) for ${trackId}`);
+    }
+    parts.push(Buffer.from(await segmentResponse.arrayBuffer()));
+  }
+  return Buffer.concat(parts);
 };
 
 // ---------------------------------------------------------------------------
@@ -417,7 +476,7 @@ export const fetchRankedCandidates = async (
 // Download the full audio as a Buffer (segments concatenated for HLS).
 export const fetchFullAudioBytes = async (trackId: string): Promise<Buffer> => {
   const audio = await resolveFullAudio(trackId);
-  if (!audio) throw new Error(`No full stream available for track ${trackId}`);
+  if (!audio) return fetchPublicFullAudioBytes(trackId);
 
   if (audio.kind === 'progressive') {
     const response = await fetch(audio.url, { redirect: 'follow' });

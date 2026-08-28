@@ -16,7 +16,12 @@ import {
 import { Chrome, Paper, PhoneCanvas, WaveformDeck } from './components';
 import { COLORS, MONO, SERIF, clamp, formatClock, monoLabel, resolveAudioSrc } from './theme';
 import { transitionClock, outClock } from './timeline';
-import { resolveTransitionPayload, type EnergyArc, type TransitionPayload } from './payload';
+import {
+  fetchBestSuggestion,
+  resolveTransitionPayload,
+  type EnergyArc,
+  type TransitionPayload,
+} from './payload';
 
 // One composition for the whole transition:
 //   approach (decks build, playheads run to their cue points)
@@ -43,10 +48,36 @@ const DEFAULT_LEAD_IN_SEC = 6;
 const DEFAULT_POST_SEC = 6;
 const PAGE_PADDING = 16;
 
-export const transitionDurationInFrames = (
-  { payload, leadInSec = DEFAULT_LEAD_IN_SEC, postSec = DEFAULT_POST_SEC }: TransitionCandidateProps,
+export const transitionDurationFromPayloadInFrames = (
+  payload: TransitionPayload,
+  leadInSec: number,
+  postSec: number,
   fps: number,
 ) => Math.ceil((leadInSec + payload.transition.blendSec + postSec) * fps);
+
+export const transitionDurationInFrames = async (
+  {
+    payload,
+    outgoingTrackId,
+    candidateTrackId,
+    energyArc,
+    leadInSec = DEFAULT_LEAD_IN_SEC,
+    postSec = DEFAULT_POST_SEC,
+  }: TransitionCandidateProps,
+  fps: number,
+) => {
+  const blendSec = payload
+    ? payload.transition.blendSec
+    : (
+        await fetchBestSuggestion(
+          outgoingTrackId,
+          candidateTrackId,
+          energyArc ?? 'preserve',
+        )
+      ).wallDurationSec;
+
+  return Math.ceil((leadInSec + blendSec + postSec) * fps);
+};
 
 const MetricCell: React.FC<{ label: string; value: string }> = ({ label, value }) => (
   <div style={{ padding: '7px 8px', borderRight: `1px solid ${COLORS.line}` }}>
@@ -289,7 +320,11 @@ const Desk: React.FC<{
   );
 };
 
-export const TransitionCandidate: React.FC<TransitionCandidateProps> = ({
+type ResolvedTransitionCandidateProps = Omit<TransitionCandidateProps, 'payload'> & {
+  payload: TransitionPayload;
+};
+
+const ResolvedTransitionCandidate: React.FC<ResolvedTransitionCandidateProps> = ({
   payload,
   leadInSec = DEFAULT_LEAD_IN_SEC,
   postSec = DEFAULT_POST_SEC,
@@ -375,4 +410,42 @@ export const TransitionCandidate: React.FC<TransitionCandidateProps> = ({
       />
     </AbsoluteFill>
   );
+};
+
+export const TransitionCandidate: React.FC<TransitionCandidateProps> = (props) => {
+  const [payload, setPayload] = useState<TransitionPayload | null>(props.payload ?? null);
+
+  useEffect(() => {
+    if (props.payload) {
+      setPayload(props.payload);
+      return;
+    }
+
+    let alive = true;
+    const handle = delayRender(
+      `Resolving transition payload for ${props.outgoingTrackId} → ${props.candidateTrackId}`,
+    );
+
+    resolveTransitionPayload({
+      outgoingTrackId: props.outgoingTrackId,
+      candidateTrackId: props.candidateTrackId,
+      energyArc: props.energyArc ?? 'preserve',
+    })
+      .then((resolved) => {
+        if (!alive) return;
+        setPayload(resolved);
+        continueRender(handle);
+      })
+      .catch((error) => cancelRender(error instanceof Error ? error : new Error(String(error))));
+
+    return () => {
+      alive = false;
+    };
+  }, [props.payload, props.outgoingTrackId, props.candidateTrackId, props.energyArc]);
+
+  if (!payload) {
+    return <AbsoluteFill style={{ backgroundColor: COLORS.paper }} />;
+  }
+
+  return <ResolvedTransitionCandidate {...props} payload={payload} />;
 };

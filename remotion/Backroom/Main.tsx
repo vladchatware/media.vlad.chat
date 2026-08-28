@@ -24,7 +24,10 @@ import {
   SectionRail,
   TagGrid,
 } from './components';
-import { TransitionCandidate, transitionDurationInFrames, type TransitionCandidateProps } from './TransitionCandidate';
+import {
+  TransitionCandidate,
+  transitionDurationFromPayloadInFrames,
+} from './TransitionCandidate';
 import { COLORS, MONO, SERIF, clamp, formatClock, monoLabel, resolveAudioSrc } from './theme';
 import { MASTER_VOLUME, transitionClock } from './timeline';
 import {
@@ -45,6 +48,8 @@ export type BackroomProps = {
   outgoingTrackId: string;
   candidateTrackId: string;
   energyArc?: EnergyArc;
+  /** Renderer-hydrated payload. External callers only pass track IDs. */
+  payload?: TransitionPayload;
 };
 
 // Scene timeline (seconds). The transition approach extends the runway.
@@ -66,17 +71,16 @@ export const leadInSec = SCENES_SEC + TRANSITION_LEAD_IN_SEC;
 // Sizing needs only the blend duration, so calculateMetadata fetches just the
 // suggestion; the composition resolves the full payload itself.
 export const backroomDurationInFrames = async (
-  { outgoingTrackId, candidateTrackId, energyArc }: BackroomProps,
+  { outgoingTrackId, candidateTrackId, energyArc, payload }: BackroomProps,
   fps: number,
 ) => {
-  const suggestion = await fetchBestSuggestion(
-    outgoingTrackId,
-    candidateTrackId,
-    energyArc ?? 'preserve',
-  );
+  const blendSec = payload
+    ? payload.transition.blendSec
+    : (await fetchBestSuggestion(outgoingTrackId, candidateTrackId, energyArc ?? 'preserve'))
+        .wallDurationSec;
   return (
     Math.round(SCENES_SEC * fps) +
-    Math.round((TRANSITION_LEAD_IN_SEC + suggestion.wallDurationSec + POST_SEC) * fps) +
+    Math.round((TRANSITION_LEAD_IN_SEC + blendSec + POST_SEC) * fps) +
     Math.round(OUTRO_SEC * fps)
   );
 };
@@ -421,8 +425,10 @@ const BackroomFilm: React.FC<{ payload: TransitionPayload }> = ({ payload }) => 
   const outStartFrame = Math.max(0, Math.round((runwaySec - payload.windows.outgoing.startSec) * fps));
   const outTrimBefore = Math.max(0, Math.round((payload.windows.outgoing.startSec - runwaySec) * fps));
 
-  const transitionCompDuration = transitionDurationInFrames(
-    { payload, leadInSec: TRANSITION_LEAD_IN_SEC, postSec: POST_SEC } as TransitionCandidateProps,
+  const transitionCompDuration = transitionDurationFromPayloadInFrames(
+    payload,
+    TRANSITION_LEAD_IN_SEC,
+    POST_SEC,
     fps,
   );
   const transitionStartFrame = Math.round(SCENES_SEC * fps);
@@ -494,9 +500,14 @@ const BackroomFilm: React.FC<{ payload: TransitionPayload }> = ({ payload }) => 
 };
 
 export const Backroom: React.FC<BackroomProps> = (props) => {
-  const [payload, setPayload] = useState<TransitionPayload | null>(null);
+  const [payload, setPayload] = useState<TransitionPayload | null>(props.payload ?? null);
 
   useEffect(() => {
+    if (props.payload) {
+      setPayload(props.payload);
+      return;
+    }
+
     let alive = true;
     const handle = delayRender(
       `Resolving backroom payload for ${props.outgoingTrackId} → ${props.candidateTrackId}`,
@@ -515,7 +526,7 @@ export const Backroom: React.FC<BackroomProps> = (props) => {
     return () => {
       alive = false;
     };
-  }, [props.outgoingTrackId, props.candidateTrackId, props.energyArc]);
+  }, [props.payload, props.outgoingTrackId, props.candidateTrackId, props.energyArc]);
 
   if (!payload) {
     return <AbsoluteFill style={{ backgroundColor: COLORS.paper }} />;

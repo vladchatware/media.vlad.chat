@@ -11,6 +11,7 @@ public/video-*.mp4
 stories
 prompt/innerwork.md
 build
+remotion/public/backroom-audio/
 *.tsbuildinfo
 .vercel
 .env*

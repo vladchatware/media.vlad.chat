@@ -86,7 +86,7 @@ A content-generation engine that composes short-form social media content (image
 
 The Remotion renderer (`renderer.ts` / `render-worker.ts`) can run as a Docker service behind a Cloudflare quick tunnel, mirroring the `music.vlad.chat` analysis-worker setup.
 
-1. Copy `workers/renderer/.env.example` to `workers/renderer/.env` and set `RENDERER_SECRET` (a shared secret; the app sends it as `Authorization: Bearer <secret>`).
+1. Copy `workers/renderer/.env.example` to `workers/renderer/.env` and set `RENDERER_SECRET` (a shared secret; the app sends it as `Authorization: Bearer <secret>`). For Backroom renders, also set `ANALYSIS_SERVICE_SECRET` and `CONVEX_SITE_URL` so the renderer can resolve and materialize SoundCloud's full-length HLS audio reliably.
 2. Start both containers (renderer + cloudflared):
    ```bash
    npm run render:infra:up
@@ -95,6 +95,8 @@ The Remotion renderer (`renderer.ts` / `render-worker.ts`) can run as a Docker s
 3. Point the app at the renderer. `workflows/render.ts` reads `RENDERER_URL` (defaults to `http://localhost:3001`) and `RENDERER_SECRET`. For a Vercel-hosted app, run `scripts/setup-renderer-tunnel.ps1` (optionally with `-VercelToken`) to push the tunnel URL as `RENDERER_URL`.
 
 The renderer container includes FFmpeg, a headless Chrome shell for Remotion, and the `public/` assets. Rendering is tuned for this machine (concurrency 2, 120s frame timeout); adjust `render-worker.ts` if needed. Rendered output is written to `out/` inside the container.
+
+Backroom workflows materialize SoundCloud HLS tracks into Vercel Blob before rendering. The renderer keeps a local materialization fallback for direct ID-only render requests. Finished Backroom videos are uploaded to Blob and exposed under `https://media.vlad.chat/public/renders/backroom/...`.
 
 **API & Workflow Usage**
 

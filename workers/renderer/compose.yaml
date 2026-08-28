@@ -10,6 +10,9 @@ services:
       NODE_ENV: production
       PORT: "3001"
       RENDERER_SECRET: ${RENDERER_SECRET:?Set RENDERER_SECRET}
+      ANALYSIS_SERVICE_SECRET: ${ANALYSIS_SERVICE_SECRET:-}
+      CONVEX_SITE_URL: ${CONVEX_SITE_URL:-}
+      SOUNDCLOUD_USER_ID: ${SOUNDCLOUD_USER_ID:-}
     healthcheck:
       test:
         - CMD

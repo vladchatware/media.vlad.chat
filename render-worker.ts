@@ -1,7 +1,14 @@
 // render-worker.ts
 import { bundle } from '@remotion/bundler'
 import { renderMedia, selectComposition, renderStill, renderFrames, OnStartData } from '@remotion/renderer'
+import { mkdir } from 'node:fs/promises'
 import { join } from 'path'
+import {
+  fetchFullAudioBytes,
+  resolveTransitionPayload,
+  type EnergyArc,
+  type TransitionPayload,
+} from './remotion/Backroom/payload'
 
 // Define the shape of the message received from the main thread
 interface RenderRequest {
@@ -17,6 +24,56 @@ const postMessage = (message: any) => {
   self.postMessage(message)
 }
 
+const backroomCompositionIds = new Set(['Backroom', 'TransitionCandidate'])
+
+const assertTrackId = (value: unknown, field: string): string => {
+  const trackId = String(value ?? '')
+  if (!/^\d+$/.test(trackId)) throw new Error(`${field} must be a numeric SoundCloud track ID`)
+  return trackId
+}
+
+const materializeTrackAudio = async (trackId: string): Promise<string> => {
+  const relativePath = `backroom-audio/${trackId}-full.mp3`
+  const absolutePath = join(process.cwd(), 'remotion', 'public', relativePath)
+  const existing = Bun.file(absolutePath)
+  if (await existing.exists() && existing.size > 1024) return relativePath
+
+  console.log(`Worker: Materializing full HLS audio for ${trackId}...`)
+  const bytes = await fetchFullAudioBytes(trackId)
+  await mkdir(join(process.cwd(), 'remotion', 'public', 'backroom-audio'), { recursive: true })
+  await Bun.write(absolutePath, bytes)
+  return relativePath
+}
+
+const prepareInputProps = async (
+  id: string,
+  inputProps: Record<string, any>,
+): Promise<Record<string, any>> => {
+  if (!backroomCompositionIds.has(id)) return inputProps
+  if (inputProps.payload) return inputProps
+
+  const outgoingTrackId = assertTrackId(inputProps.outgoingTrackId, 'outgoingTrackId')
+  const candidateTrackId = assertTrackId(inputProps.candidateTrackId, 'candidateTrackId')
+  const energyArc = (inputProps.energyArc ?? 'preserve') as EnergyArc
+  const resolved = await resolveTransitionPayload({ outgoingTrackId, candidateTrackId, energyArc })
+
+  // Resolve sequentially. SoundCloud refresh tokens are single-use; concurrent
+  // token rotations can invalidate each other when both cached tokens expire.
+  const outgoingAudioFile = resolved.outgoing.audioFile.includes('/backroom-audio/')
+    ? resolved.outgoing.audioFile
+    : await materializeTrackAudio(outgoingTrackId)
+  const incomingAudioFile = resolved.incoming.audioFile.includes('/backroom-audio/')
+    ? resolved.incoming.audioFile
+    : await materializeTrackAudio(candidateTrackId)
+  const payload: TransitionPayload = {
+    ...resolved,
+    outgoing: { ...resolved.outgoing, audioFile: outgoingAudioFile },
+    incoming: { ...resolved.incoming, audioFile: incomingAudioFile },
+  }
+
+  return { ...inputProps, payload }
+}
+
 // Listen for messages from the main thread
 // @ts-ignore
 self.onmessage = async (event: MessageEvent) => {
@@ -24,6 +81,8 @@ self.onmessage = async (event: MessageEvent) => {
 
   try {
     console.log(`Worker: Starting render for ${id} (${type})...`)
+
+    const preparedInputProps = await prepareInputProps(id, inputProps || {})
 
     const bundled = await bundle({
       entryPoint: join(process.cwd(), 'remotion/index.ts'),
@@ -42,7 +101,7 @@ self.onmessage = async (event: MessageEvent) => {
     const composition = await selectComposition({
       serveUrl: bundled,
       id,
-      inputProps: inputProps || {},
+      inputProps: preparedInputProps,
     })
 
     let outputLocation = ''
@@ -53,6 +112,7 @@ self.onmessage = async (event: MessageEvent) => {
         composition,
         serveUrl: bundled,
         output: outputLocation,
+        inputProps: preparedInputProps,
       })
     } else if (type === 'sequence') {
       const stamp = Date.now()
@@ -64,7 +124,7 @@ self.onmessage = async (event: MessageEvent) => {
         serveUrl: bundled,
         outputDir: dirName,
         imageFormat: 'jpeg',
-        inputProps: inputProps,
+        inputProps: preparedInputProps,
         onStart: function (data: OnStartData): void {
           console.log('Worker: Render started', data)
         },
@@ -87,7 +147,7 @@ self.onmessage = async (event: MessageEvent) => {
         serveUrl: bundled,
         outputLocation,
         codec: 'h264',
-        inputProps,
+        inputProps: preparedInputProps,
         concurrency: 2,
         timeoutInMilliseconds: 120000
       })
