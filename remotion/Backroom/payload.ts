@@ -206,18 +206,20 @@ export const fetchTrackPayload = async (trackId: string): Promise<TrackPayload> 
   return deriveTrackPayload(trackId, analysis, meta);
 };
 
+export type TransitionSuggestion = {
+  outgoing: { startSec: number; endSec: number };
+  incoming: { startSec: number; endSec: number };
+  wallDurationSec: number;
+  incomingPlaybackRate: number;
+  score: number;
+  reasons: string[];
+};
+
 type SuggestionsResponse = {
   outgoingTrackId: string;
   incomingTrackId: string;
   energyArc: EnergyArc;
-  suggestions: Array<{
-    outgoing: { startSec: number; endSec: number };
-    incoming: { startSec: number; endSec: number };
-    wallDurationSec: number;
-    incomingPlaybackRate: number;
-    score: number;
-    reasons: string[];
-  }>;
+  suggestions: Array<TransitionSuggestion>;
 };
 
 const readBestSuggestion = async (
@@ -233,6 +235,16 @@ const readBestSuggestion = async (
   const suggestion = data.suggestions[0];
   if (!suggestion) throw new Error(`No playable transition for ${candidateTrackId}`);
   return suggestion;
+};
+
+// Light-weight: only the best suggestion (used by calculateMetadata to size
+// the composition without resolving full payloads).
+export const fetchBestSuggestion = async (
+  outgoingTrackId: string,
+  candidateTrackId: string,
+  energyArc: EnergyArc = 'preserve',
+): Promise<TransitionSuggestion> => {
+  return readBestSuggestion(outgoingTrackId, candidateTrackId, energyArc);
 };
 
 export const resolveTransitionPayload = async ({

@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AbsoluteFill,
   Audio,
+  cancelRender,
+  continueRender,
+  delayRender,
   Sequence,
   interpolate,
   spring,
@@ -24,7 +27,12 @@ import {
 import { TransitionCandidate, transitionDurationInFrames, type TransitionCandidateProps } from './TransitionCandidate';
 import { COLORS, MONO, SERIF, clamp, formatClock, monoLabel, resolveAudioSrc } from './theme';
 import { MASTER_VOLUME, transitionClock } from './timeline';
-import type { TransitionPayload } from './payload';
+import {
+  fetchBestSuggestion,
+  resolveTransitionPayload,
+  type EnergyArc,
+  type TransitionPayload,
+} from './payload';
 
 // The Backroom film: one continuous piece of music.
 //   intro → track analysis (visuals synced to the outgoing track's clock)
@@ -34,7 +42,9 @@ import type { TransitionPayload } from './payload';
 // Scenes lay out at iPhone CSS scale (PhoneCanvas) to match the desk.
 
 export type BackroomProps = {
-  payload: TransitionPayload;
+  outgoingTrackId: string;
+  candidateTrackId: string;
+  energyArc?: EnergyArc;
 };
 
 // Scene timeline (seconds). The transition approach extends the runway.
@@ -53,16 +63,23 @@ const OUTRO_SEC = 4.5;
 // Total runway before the blend — the audio deadline anchor.
 export const leadInSec = SCENES_SEC + TRANSITION_LEAD_IN_SEC;
 
-export const backroomDurationInFrames = (
-  { payload }: BackroomProps,
+// Sizing needs only the blend duration, so calculateMetadata fetches just the
+// suggestion; the composition resolves the full payload itself.
+export const backroomDurationInFrames = async (
+  { outgoingTrackId, candidateTrackId, energyArc }: BackroomProps,
   fps: number,
-) =>
-  Math.round(SCENES_SEC * fps) +
-  transitionDurationInFrames(
-    { payload, leadInSec: TRANSITION_LEAD_IN_SEC, postSec: POST_SEC } as TransitionCandidateProps,
-    fps,
-  ) +
-  Math.round(OUTRO_SEC * fps);
+) => {
+  const suggestion = await fetchBestSuggestion(
+    outgoingTrackId,
+    candidateTrackId,
+    energyArc ?? 'preserve',
+  );
+  return (
+    Math.round(SCENES_SEC * fps) +
+    Math.round((TRANSITION_LEAD_IN_SEC + suggestion.wallDurationSec + POST_SEC) * fps) +
+    Math.round(OUTRO_SEC * fps)
+  );
+};
 
 const sceneAt = (frame: number, fps: number): string => {
   let elapsed = 0;
@@ -390,7 +407,7 @@ function IntroSceneName() {
 // Main composition
 // ---------------------------------------------------------------------------
 
-export const Backroom: React.FC<BackroomProps> = ({ payload }) => {
+const BackroomFilm: React.FC<{ payload: TransitionPayload }> = ({ payload }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames } = useVideoConfig();
 
@@ -456,7 +473,14 @@ export const Backroom: React.FC<BackroomProps> = ({ payload }) => {
         ))}
 
         <Sequence from={transitionStartFrame} durationInFrames={transitionCompDuration} premountFor={fps}>
-          <TransitionCandidate payload={payload} leadInSec={TRANSITION_LEAD_IN_SEC} postSec={POST_SEC} embedded />
+          <TransitionCandidate
+            payload={payload}
+            outgoingTrackId={payload.outgoing.id}
+            candidateTrackId={payload.incoming.id}
+            leadInSec={TRANSITION_LEAD_IN_SEC}
+            postSec={POST_SEC}
+            embedded
+          />
         </Sequence>
 
         <Sequence from={outroFrame} durationInFrames={Math.round(OUTRO_SEC * fps)} premountFor={30}>
@@ -467,4 +491,34 @@ export const Backroom: React.FC<BackroomProps> = ({ payload }) => {
       </PhoneCanvas>
     </AbsoluteFill>
   );
+};
+
+export const Backroom: React.FC<BackroomProps> = (props) => {
+  const [payload, setPayload] = useState<TransitionPayload | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    const handle = delayRender(
+      `Resolving backroom payload for ${props.outgoingTrackId} → ${props.candidateTrackId}`,
+    );
+    resolveTransitionPayload({
+      outgoingTrackId: props.outgoingTrackId,
+      candidateTrackId: props.candidateTrackId,
+      energyArc: props.energyArc ?? 'preserve',
+    })
+      .then((resolved) => {
+        if (!alive) return;
+        setPayload(resolved);
+        continueRender(handle);
+      })
+      .catch((error) => cancelRender(error instanceof Error ? error : new Error(String(error))));
+    return () => {
+      alive = false;
+    };
+  }, [props.outgoingTrackId, props.candidateTrackId, props.energyArc]);
+
+  if (!payload) {
+    return <AbsoluteFill style={{ backgroundColor: COLORS.paper }} />;
+  }
+  return <BackroomFilm payload={payload} />;
 };

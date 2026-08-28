@@ -5,13 +5,7 @@ import {
     rendererUrl,
     authHeaders,
 } from './render';
-import {
-    type EnergyArc,
-    type TransitionPayload,
-    fetchFullAudioBytes,
-    fetchRankedCandidates,
-    resolveTransitionPayload,
-} from '../remotion/Backroom/payload';
+import { type EnergyArc, fetchRankedCandidates } from '../remotion/Backroom/payload';
 
 // --- Analysis ---------------------------------------------------------------
 // Never polled. Missing analyses are enqueued once with a callbackUrl; the
@@ -41,67 +35,19 @@ const ensureScheduled = async (trackIds: string[], callbackUrl: string) => {
     return { ready: result.enqueued === 0 && result.existing === 0 };
 };
 
-// --- Payload ----------------------------------------------------------------
-
-const resolvePayload = async (
-    outgoingTrackId: string,
-    candidateTrackId: string,
-    energyArc: EnergyArc,
-) => {
-    'use step';
-    return resolveTransitionPayload({ outgoingTrackId, candidateTrackId, energyArc });
-};
-
-// Materialize a track's FULL audio as a composition-owned Blob asset so
-// renders never depend on the shared stream route (dedup per track ID).
-// Uses the service-credential flow (progressive or HLS-concatenated) — never
-// the 30s preview.
-const materializeAudio = async (trackId: string) => {
-    'use step';
-
-    const pathname = `backroom-audio/${trackId}-full.mp3`;
-    try {
-        const existing = await head(pathname);
-        return existing.downloadUrl ?? existing.url;
-    } catch {
-        // Not stored yet — fetch and upload below.
-    }
-
-    const bytes = await fetchFullAudioBytes(trackId);
-    const blob = await put(pathname, bytes, {
-        access: 'public',
-        contentType: 'audio/mpeg',
-        addRandomSuffix: false,
-    });
-    return blob.url;
-};
-
-const withMaterializedAudio = async (payload: TransitionPayload): Promise<TransitionPayload> => {
-    const [outgoingAudioFile, incomingAudioFile] = await Promise.all([
-        materializeAudio(payload.outgoing.id),
-        materializeAudio(payload.incoming.id),
-    ]);
-    return {
-        ...payload,
-        outgoing: { ...payload.outgoing, audioFile: outgoingAudioFile },
-        incoming: { ...payload.incoming, audioFile: incomingAudioFile },
-    };
-};
-
 // --- Render -----------------------------------------------------------------
 
-const submitRender = async (id: string, payload: unknown, outputName: string) => {
+const submitRender = async (
+    id: string,
+    inputProps: Record<string, unknown>,
+    outputName: string,
+) => {
     'use step';
 
     const response = await fetch(`${rendererUrl}/api/render`, {
         method: 'POST',
         headers: authHeaders(),
-        body: JSON.stringify({
-            id,
-            inputProps: { payload },
-            outputName,
-            type: 'video',
-        }),
+        body: JSON.stringify({ id, inputProps, outputName, type: 'video' }),
     });
     const submitted = await response.json() as { success: boolean; jobId?: string; error?: string };
 
@@ -164,11 +110,12 @@ export const transitionBatch = async (
 
     const outputs = [];
     for (const candidateTrackId of candidateTrackIds) {
-        const resolved = await resolvePayload(outgoingTrackId, candidateTrackId, energyArc);
-        const payload = await withMaterializedAudio(resolved);
-
         const outputName = `transition-${outgoingTrackId}-to-${candidateTrackId}-${energyArc}.mp4`;
-        const jobId = await submitRender('TransitionCandidate', payload, outputName);
+        const jobId = await submitRender(
+            'TransitionCandidate',
+            { outgoingTrackId, candidateTrackId, energyArc },
+            outputName,
+        );
         const path = await waitForRender(jobId);
 
         outputs.push({ candidateTrackId, jobId, path });
@@ -192,11 +139,12 @@ export const backroomFilm = async (
         return { status: 'scheduled' as const, message: 'Analyses enqueued — the render starts automatically when they complete', waitingOn: callbackUrl };
     }
 
-    const resolved = await resolvePayload(outgoingTrackId, candidateTrackId, energyArc);
-    const payload = await withMaterializedAudio(resolved);
-
     const outputName = `backroom-${outgoingTrackId}-to-${candidateTrackId}-${energyArc}.mp4`;
-    const jobId = await submitRender('Backroom', payload, outputName);
+    const jobId = await submitRender(
+        'Backroom',
+        { outgoingTrackId, candidateTrackId, energyArc },
+        outputName,
+    );
     const path = await waitForRender(jobId);
 
     return { outgoingTrackId, candidateTrackId, energyArc, jobId, path };

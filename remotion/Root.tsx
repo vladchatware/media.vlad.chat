@@ -8,13 +8,8 @@ import { staticUrl } from './assets'
 import { YearInReview } from './YearInReview/Main'
 import { Main as MusicMain } from './ProductUpdates/Main'
 import { ShopMain } from './YearInReview/ShopMain'
-import { Backroom, backroomDurationInFrames, type BackroomProps } from './Backroom/Main'
-import {
-  TransitionCandidate,
-  transitionDurationInFrames,
-  type TransitionCandidateProps,
-} from './Backroom/TransitionCandidate'
-import { SAMPLE_PAYLOAD } from './Backroom/sample'
+import { Backroom, backroomDurationInFrames } from './Backroom/Main'
+import { TransitionCandidate, transitionDurationInFrames } from './Backroom/TransitionCandidate'
 import { BackroomSchema, TransitionCandidateSchema } from './Backroom/schema'
 
 import { Story, StoryMetadata } from './Story'
@@ -118,29 +113,29 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="Backroom"
         component={Backroom}
-        durationInFrames={backroomDurationInFrames({ payload: SAMPLE_PAYLOAD }, 30)}
+        durationInFrames={30 * 60}
         fps={30}
         width={1080}
         height={1920}
         schema={BackroomSchema}
-        defaultProps={{ payload: SAMPLE_PAYLOAD } satisfies BackroomProps}
-        calculateMetadata={({ props }) => ({
-          durationInFrames: backroomDurationInFrames(props, 30),
+        defaultProps={{ outgoingTrackId: '1925340764', candidateTrackId: '232803647' }}
+        calculateMetadata={async ({ props }) => ({
+          durationInFrames: await backroomDurationInFrames(props, 30),
         })}
       />
       <Composition
         id="TransitionCandidate"
         component={TransitionCandidate}
-        durationInFrames={transitionDurationInFrames(
-          { payload: SAMPLE_PAYLOAD },
-          30,
-        )}
+        durationInFrames={30 * 60}
         fps={30}
         width={1080}
         height={1920}
         schema={TransitionCandidateSchema}
-        defaultProps={{ payload: SAMPLE_PAYLOAD } satisfies TransitionCandidateProps}
-        calculateMetadata={({ props }) => ({
+        defaultProps={{
+          outgoingTrackId: '1925340764',
+          candidateTrackId: '232803647',
+        }}
+        calculateMetadata={async ({ props }) => ({
           durationInFrames: transitionDurationInFrames(props, 30),
         })}
       />

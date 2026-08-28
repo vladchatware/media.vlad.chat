@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AbsoluteFill,
   Audio,
+  cancelRender,
+  continueRender,
+  delayRender,
   Easing,
   Sequence,
   interpolate,
@@ -13,7 +16,7 @@ import {
 import { Chrome, Paper, PhoneCanvas, WaveformDeck } from './components';
 import { COLORS, MONO, SERIF, clamp, formatClock, monoLabel, resolveAudioSrc } from './theme';
 import { transitionClock, outClock } from './timeline';
-import type { TransitionPayload } from './payload';
+import { resolveTransitionPayload, type EnergyArc, type TransitionPayload } from './payload';
 
 // One composition for the whole transition:
 //   approach (decks build, playheads run to their cue points)
@@ -25,7 +28,11 @@ import type { TransitionPayload } from './payload';
 // the film owns the audio so it stays continuous across scenes.
 
 export type TransitionCandidateProps = {
-  payload: TransitionPayload;
+  /** Render-ready payload. Omit to resolve from the track IDs at render time. */
+  payload?: TransitionPayload;
+  outgoingTrackId: string;
+  candidateTrackId: string;
+  energyArc?: EnergyArc;
   leadInSec?: number;
   postSec?: number;
   /** Visuals only, no own PhoneCanvas/chrome/audio — for embedding in the film. */
