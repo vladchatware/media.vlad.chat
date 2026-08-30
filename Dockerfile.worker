@@ -28,12 +28,13 @@ RUN bun install --frozen-lockfile
 RUN bunx remotion browser ensure
 
 COPY remotion ./remotion
+COPY lib ./lib
 COPY public ./public
 COPY renderer.ts ./renderer.ts
 COPY render-worker.ts ./render-worker.ts
 COPY tsconfig.json ./tsconfig.json
 
-RUN mkdir -p /app/out
+RUN mkdir -p /app/out /app/data/render-jobs
 
 ENV PORT=3001
 EXPOSE 3001

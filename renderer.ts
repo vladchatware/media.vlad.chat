@@ -1,151 +1,283 @@
-import { mkdirSync } from 'fs'
-import { basename, join } from 'path'
+import { put } from '@vercel/blob'
+import { PollingQueueClient, type MessageMetadata } from '@vercel/queue'
+import { mkdir, readFile, rename, unlink, writeFile } from 'node:fs/promises'
+import { basename, join } from 'node:path'
+import {
+  parseRenderQueueMessage,
+  type RenderQueueMessage,
+} from './lib/renderQueueMessage'
+import { VercelQueueTokenProvider } from './lib/server/vercelQueueAuth'
 
-const unauthorized = () =>
-  new Response(JSON.stringify({ success: false, error: 'Unauthorized' }), {
-    status: 401,
-    headers: { 'Content-Type': 'application/json' }
-  })
+type JobStatus = 'pending' | 'running' | 'done' | 'error'
 
-const secret = process.env.RENDERER_SECRET
-
-mkdirSync('out', { recursive: true })
-
-interface Job {
+type Job = {
   id: string
-  status: 'pending' | 'running' | 'done' | 'error'
-  result?: { success: boolean; path?: string; error?: string }
+  status: JobStatus
+  path?: string
+  url?: string
+  pathname?: string
+  error?: string
+  deliveryCount?: number
+  updatedAt: string
 }
 
-const jobs = new Map<string, Job>()
-let jobCounter = 0
+type WorkerResult = {
+  success: boolean
+  path?: string
+  error?: string
+}
 
-const createJob = (): Job => {
-  const id = `${Date.now()}-${++jobCounter}`
-  const job: Job = { id, status: 'pending' }
-  jobs.set(id, job)
-  return job
+const secret = process.env.RENDERER_SECRET
+const jobsDirectory = process.env.RENDER_JOB_DIRECTORY || join('data', 'render-jobs')
+const concurrency = Math.max(1, Number.parseInt(process.env.RENDER_WORKER_CONCURRENCY || '1', 10))
+const maxDeliveryCount = Math.max(1, Number.parseInt(process.env.RENDER_MAX_DELIVERY_COUNT || '5', 10))
+const queueRegion = process.env.VERCEL_QUEUE_REGION || 'iad1'
+const queueTopic = process.env.VERCEL_RENDER_QUEUE_TOPIC || 'media-render'
+const queueConsumerGroup = process.env.VERCEL_RENDER_QUEUE_CONSUMER_GROUP || 'media-renderer'
+const pollIntervalMs = Math.max(250, Number.parseInt(process.env.VERCEL_QUEUE_POLL_INTERVAL_MS || '2000', 10))
+const tokenProvider = new VercelQueueTokenProvider()
+let activeJobs = 0
+let stopping = false
+let queueConsumerStarted = false
+let lastQueuePollAt = 0
+let lastQueueError: string | undefined
+const processingJobs = new Set<string>()
+
+class DuplicateRenderDelivery extends Error {
+  constructor() {
+    super('Render job is already processing')
+    this.name = 'DuplicateRenderDelivery'
+  }
+}
+
+await mkdir('out', { recursive: true })
+await mkdir(jobsDirectory, { recursive: true })
+
+const unauthorized = () => Response.json({ success: false, error: 'Unauthorized' }, { status: 401 })
+
+function jobFile(jobId: string): string {
+  if (!/^[a-f0-9]{64}$/.test(jobId)) throw new Error('Invalid job ID')
+  return join(jobsDirectory, `${jobId}.json`)
+}
+
+async function readJob(jobId: string): Promise<Job | null> {
+  try {
+    return JSON.parse(await readFile(jobFile(jobId), 'utf8')) as Job
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null
+    throw error
+  }
+}
+
+async function writeJob(job: Job): Promise<void> {
+  const destination = jobFile(job.id)
+  const temporary = `${destination}.${process.pid}.${crypto.randomUUID()}.tmp`
+  await writeFile(temporary, JSON.stringify(job))
+  await rename(temporary, destination)
+}
+
+function runWorker(message: RenderQueueMessage): Promise<WorkerResult> {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL('./render-worker.ts', import.meta.url).href)
+    worker.onmessage = (event) => {
+      worker.terminate()
+      resolve(event.data as WorkerResult)
+    }
+    worker.onerror = (error) => {
+      worker.terminate()
+      reject(error)
+    }
+    worker.postMessage({
+      jobId: message.jobId,
+      id: message.compositionId,
+      inputProps: message.inputProps,
+      outputName: message.outputName,
+      type: message.type,
+    })
+  })
+}
+
+function contentType(path: string): string {
+  if (path.endsWith('.mp4')) return 'video/mp4'
+  if (path.endsWith('.png')) return 'image/png'
+  if (path.endsWith('.tar.gz')) return 'application/gzip'
+  return 'application/octet-stream'
+}
+
+async function processMessage(value: unknown, metadata: MessageMetadata): Promise<void> {
+  const message = parseRenderQueueMessage(value)
+  if (!message) {
+    console.error('render.queue.invalid_message', { messageId: metadata.messageId })
+    return
+  }
+
+  const existing = await readJob(message.jobId)
+  if (existing?.status === 'done') return
+  if (processingJobs.has(message.jobId)) throw new DuplicateRenderDelivery()
+  processingJobs.add(message.jobId)
+
+  let outputPath = existing?.path
+  try {
+    await writeJob({
+      id: message.jobId,
+      status: 'running',
+      path: outputPath,
+      deliveryCount: metadata.deliveryCount,
+      updatedAt: new Date().toISOString(),
+    })
+    console.info('render.job.started', {
+      jobId: message.jobId,
+      compositionId: message.compositionId,
+      deliveryCount: metadata.deliveryCount,
+    })
+    const reusableOutput = outputPath ? Bun.file(outputPath) : null
+    if (!reusableOutput || !await reusableOutput.exists() || reusableOutput.size === 0) {
+      const result = await runWorker(message)
+      if (!result.success || !result.path) throw new Error(result.error || 'Render worker returned no output')
+      outputPath = result.path
+    }
+
+    const blob = await put(`renders/${message.jobId}-${basename(outputPath)}`, Bun.file(outputPath), {
+      access: 'public',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      contentType: contentType(outputPath),
+      multipart: true,
+    })
+    await writeJob({
+      id: message.jobId,
+      status: 'done',
+      path: blob.pathname,
+      url: blob.url,
+      pathname: blob.pathname,
+      deliveryCount: metadata.deliveryCount,
+      updatedAt: new Date().toISOString(),
+    })
+    await unlink(outputPath).catch(() => undefined)
+    console.info('render.job.completed', { jobId: message.jobId, url: blob.url })
+  } catch (error) {
+    const current = await readJob(message.jobId)
+    if (current?.status === 'done') return
+    const messageText = error instanceof Error ? error.message : String(error)
+    const exhausted = metadata.deliveryCount >= maxDeliveryCount
+    await writeJob({
+      id: message.jobId,
+      status: exhausted ? 'error' : 'pending',
+      path: outputPath,
+      error: messageText,
+      deliveryCount: metadata.deliveryCount,
+      updatedAt: new Date().toISOString(),
+    })
+    console.error('render.job.failed', {
+      jobId: message.jobId,
+      deliveryCount: metadata.deliveryCount,
+      exhausted,
+      error: messageText,
+    })
+    if (!exhausted) throw error
+  } finally {
+    processingJobs.delete(message.jobId)
+  }
+}
+
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+async function runQueueSlot(): Promise<void> {
+  while (!stopping) {
+    let idle = false
+    activeJobs += 1
+    try {
+      const client = new PollingQueueClient({
+        region: queueRegion,
+        deploymentId: null,
+        token: await tokenProvider.getToken(),
+      })
+      const result = await client.receive(queueTopic, queueConsumerGroup, processMessage, {
+        visibilityTimeoutSeconds: 3600,
+        retry: (_error, metadata) => ({
+          afterSeconds: _error instanceof DuplicateRenderDelivery
+            ? 30
+            : Math.min(300, 15 * 2 ** Math.max(0, metadata.deliveryCount - 1)),
+        }),
+      })
+      // strict:false prevents discriminant narrowing for this SDK union.
+      const received = result as { ok: boolean; reason?: string }
+      lastQueuePollAt = Date.now()
+      lastQueueError = undefined
+      idle = !received.ok && received.reason === 'empty'
+    } catch (error) {
+      lastQueueError = error instanceof Error ? error.message : String(error)
+      console.error('render.queue.receive_failed', {
+        error: lastQueueError,
+      })
+      idle = true
+    } finally {
+      activeJobs -= 1
+    }
+    if (idle) await wait(pollIntervalMs)
+  }
 }
 
 const server = Bun.serve({
   port: Number.parseInt(process.env.PORT || '3001', 10),
   async fetch(req) {
     const url = new URL(req.url)
-
     if (req.method === 'GET' && url.pathname === '/health') {
-      return new Response(JSON.stringify({ ok: true }), {
-        headers: { 'Content-Type': 'application/json' }
-      })
-    }
-
-    if (req.method === 'GET' && url.pathname === '/api/file') {
-      if (secret && req.headers.get('authorization') !== `Bearer ${secret}`) {
-        return unauthorized()
-      }
-
-      const name = url.searchParams.get('path') || url.searchParams.get('name')
-      if (!name) {
-        return new Response(JSON.stringify({ success: false, error: 'Missing file path' }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        })
-      }
-
-      const file = Bun.file(join('out', basename(name)))
-      if (!(await file.exists())) {
-        return new Response(JSON.stringify({ success: false, error: 'File not found' }), {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' }
-        })
-      }
-
-      return new Response(file)
-    }
-
-    if (req.method === 'POST' && url.pathname === '/api/render') {
-      if (secret && req.headers.get('authorization') !== `Bearer ${secret}`) {
-        return unauthorized()
-      }
-
-      try {
-        const body = await req.json().catch(() => ({}))
-        const { id, inputProps, outputName, type = 'video' } = body
-
-        if (!id) {
-          return new Response(JSON.stringify({ success: false, error: 'Missing composition ID' }), {
-            status: 400,
-            headers: { 'Content-Type': 'application/json' }
-          })
-        }
-
-        const job = createJob()
-        job.status = 'running'
-
-        console.log(`Main: Delegating render for ${id} to worker (job ${job.id})...`)
-
-        const worker = new Worker(new URL('./render-worker.ts', import.meta.url).href)
-
-        worker.onmessage = (event) => {
-          job.result = event.data
-          job.status = event.data.success ? 'done' : 'error'
-          console.log(`Main: Job ${job.id} finished (${job.status})`)
-          worker.terminate()
-        }
-
-        worker.onerror = (err) => {
-          job.result = { success: false, error: String(err) }
-          job.status = 'error'
-          console.log(`Main: Job ${job.id} errored`)
-          worker.terminate()
-        }
-
-        worker.postMessage({ id, inputProps, outputName, type })
-
-        // Return immediately with the job id; the workflow polls for the result.
-        return new Response(JSON.stringify({ success: true, jobId: job.id }), {
-          status: 202,
-          headers: { 'Content-Type': 'application/json' }
-        })
-
-      } catch (err) {
-        console.error('Main Error:', err)
-        return new Response(JSON.stringify({ success: false, error: String(err) }), {
-          status: 500,
-          headers: { 'Content-Type': 'application/json' }
-        })
-      }
+      const queueHealthy = queueConsumerStarted
+        && (processingJobs.size > 0 || Date.now() - lastQueuePollAt < 30_000)
+      return Response.json({
+        ok: !stopping && queueHealthy,
+        activeJobs,
+        capacity: concurrency,
+        queueConsumer: queueConsumerStarted,
+        queueHealthy,
+        lastQueueError,
+      }, { status: !stopping && queueHealthy ? 200 : 503 })
     }
 
     const renderJobMatch = url.pathname.match(/^\/api\/render\/([^/]+)$/)
     if (req.method === 'GET' && renderJobMatch) {
-      if (secret && req.headers.get('authorization') !== `Bearer ${secret}`) {
-        return unauthorized()
-      }
-
-      const job = jobs.get(renderJobMatch[1])
-      if (!job) {
-        return new Response(JSON.stringify({ success: false, error: 'Job not found' }), {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' }
+      if (secret && req.headers.get('authorization') !== `Bearer ${secret}`) return unauthorized()
+      try {
+        const job = await readJob(renderJobMatch[1])
+        return Response.json(job ?? {
+          id: renderJobMatch[1],
+          status: 'pending',
+          updatedAt: new Date().toISOString(),
         })
+      } catch (error) {
+        return Response.json({ error: error instanceof Error ? error.message : String(error) }, { status: 400 })
       }
-
-      return new Response(
-        JSON.stringify({
-          success: job.status === 'done' || job.status === 'error',
-          jobId: job.id,
-          status: job.status,
-          ...(job.result ?? {}),
-        }),
-        { headers: { 'Content-Type': 'application/json' } }
-      )
     }
 
     return new Response('Not Found', { status: 404 })
-  }
+  },
 })
 
-console.log(`Listening on http://localhost:${server.port} ...`)
+if (process.env.VERCEL_QUEUE_TOKEN || process.env.VERCEL_API_TOKEN) {
+  for (let slot = 0; slot < concurrency; slot += 1) void runQueueSlot()
+  queueConsumerStarted = true
+  console.info('render.queue.consumer_started', {
+    region: queueRegion,
+    topic: queueTopic,
+    consumerGroup: queueConsumerGroup,
+    concurrency,
+  })
+} else {
+  console.warn('render.queue.consumer_disabled', { reason: 'Queue credentials are not configured' })
+}
 
-process.on('SIGTERM', () => server.stop(true))
-process.on('SIGINT', () => server.stop(true))
+console.info(`Renderer listening on http://localhost:${server.port}`)
+
+async function shutdown(signal: string): Promise<void> {
+  if (stopping) return
+  stopping = true
+  console.info('render.worker.stopping', { signal, activeJobs })
+  while (activeJobs > 0) await wait(100)
+  server.stop(true)
+}
+
+process.on('SIGTERM', () => void shutdown('SIGTERM'))
+process.on('SIGINT', () => void shutdown('SIGINT'))

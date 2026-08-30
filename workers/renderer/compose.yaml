@@ -10,6 +10,15 @@ services:
       NODE_ENV: production
       PORT: "3001"
       RENDERER_SECRET: ${RENDERER_SECRET:?Set RENDERER_SECRET}
+      BLOB_READ_WRITE_TOKEN: ${BLOB_READ_WRITE_TOKEN:?Set BLOB_READ_WRITE_TOKEN}
+      VERCEL_API_TOKEN: ${VERCEL_API_TOKEN:?Set VERCEL_API_TOKEN}
+      VERCEL_PROJECT_ID: ${VERCEL_PROJECT_ID:?Set VERCEL_PROJECT_ID}
+      VERCEL_ORG_ID: ${VERCEL_ORG_ID:-}
+      VERCEL_QUEUE_REGION: ${VERCEL_QUEUE_REGION:-iad1}
+      VERCEL_RENDER_QUEUE_TOPIC: ${VERCEL_RENDER_QUEUE_TOPIC:-media-render}
+      VERCEL_RENDER_QUEUE_CONSUMER_GROUP: ${VERCEL_RENDER_QUEUE_CONSUMER_GROUP:-media-renderer}
+      RENDER_WORKER_CONCURRENCY: ${RENDER_WORKER_CONCURRENCY:-1}
+      RENDER_MAX_DELIVERY_COUNT: ${RENDER_MAX_DELIVERY_COUNT:-5}
       ANALYSIS_SERVICE_SECRET: ${ANALYSIS_SERVICE_SECRET:-}
       CONVEX_SITE_URL: ${CONVEX_SITE_URL:-}
       SOUNDCLOUD_USER_ID: ${SOUNDCLOUD_USER_ID:-}
@@ -24,6 +33,9 @@ services:
       retries: 12
       start_period: 30s
     stop_grace_period: 30s
+    volumes:
+      - renderer-data:/app/data
+      - renderer-output:/app/out
     networks: [renderer-net]
 
   cloudflared:
@@ -42,3 +54,7 @@ services:
 networks:
   renderer-net:
     driver: bridge
+
+volumes:
+  renderer-data:
+  renderer-output:

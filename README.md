@@ -202,19 +202,11 @@ To use with Claude Desktop, add to your `claude_desktop_config.json`:
 
 **Renderer API**
 
-The Bun renderer listens on port `3001` and accepts POST requests to render Remotion compositions.
+The Bun renderer listens on port `3001`, consumes render jobs from Vercel Queue, and exposes health and authenticated job-status endpoints.
 
-**Endpoint:** `POST http://localhost:3001/api/render`
+**Endpoint:** `GET http://localhost:3001/api/render/{jobId}`
 
-**Request Body:**
-```json
-{
-  "id": "Story",
-  "inputProps": {
-    "story": {...}
-  }
-}
-```
+Render submission is internal to `workflows/render.ts`; callers start the parent workflow rather than posting directly to the renderer.
 
 **Available Compositions:**
 - `Story` - Full story with dialogue and slides
@@ -222,7 +214,7 @@ The Bun renderer listens on port `3001` and accepts POST requests to render Remo
 - `Tweet` - Tweet video composition
 - `Thread` - Thread video composition
 
-The renderer spawns a `render-worker.ts` worker which bundles `remotion/index.ts` and calls `@remotion/renderer` to produce output files (saved to `out/` directory).
+The renderer starts bounded `render-worker.ts` workers which bundle `remotion/index.ts`, render into the durable `out/` volume, and upload completed files directly to Vercel Blob.
 
 **Rendering Flow (High Level)**
 
@@ -235,10 +227,10 @@ The renderer spawns a `render-worker.ts` worker which bundles `remotion/index.ts
    - Captions (using Whisper for transcription)
    - Video (using Sora for AI video generation)
 4. **Assets Saved** - Generated assets are saved to `public/` directory
-5. **Render Request** - `workflows/render.ts` POSTs to renderer at `http://localhost:3001/api/render`
-6. **Remotion Bundling** - Renderer uses `@remotion/bundler` to bundle `remotion/index.ts`
-7. **Video Rendering** - `@remotion/renderer` renders the composition to MP4 in `out/` directory
-8. **Upload to Vercel Blob** - `workflows/render.ts` fetches the file from the renderer and uploads it to Vercel Blob (public access), returning a shareable URL
+5. **Render Dispatch** - `workflows/render.ts` publishes an idempotent job to Vercel Queue
+6. **Remotion Bundling** - The bounded renderer consumer uses `@remotion/bundler` to bundle `remotion/index.ts`
+7. **Video Rendering** - `@remotion/renderer` renders the composition into the durable `out/` volume
+8. **Upload to Vercel Blob** - The renderer uploads the output directly, persists the result, and acknowledges the queue message
 9. **Result Delivery** - The workflow returns the blob URL; the user polls `/api/status?runId=...` to retrieve it
 
 **Key Files / Structure**
@@ -290,6 +282,10 @@ AI_GATEWAY_API_KEY=...         # For AI Gateway integration (if using @ai-sdk/ga
 BLOB_READ_WRITE_TOKEN=...      # Vercel Blob token (local dev / non-Vercel hosts only; OIDC auto-auths on Vercel)
 RENDERER_URL=...               # Renderer URL (defaults to http://localhost:3001)
 RENDERER_SECRET=...            # Shared secret for renderer auth
+VERCEL_QUEUE_REGION=iad1       # Must match the renderer worker
+VERCEL_RENDER_QUEUE_TOPIC=media-render
+VERCEL_API_TOKEN=...           # Scoped token used to mint off-platform queue auth
+VERCEL_PROJECT_ID=prj_...      # Vercel project shared by publisher and consumer
 ```
 
 **Required Features by API Key:**
@@ -320,6 +316,7 @@ RENDERER_SECRET=...            # Shared secret for renderer auth
 - Check both servers are running (Next.js on 3000, Renderer on 3001)
 - Workflows are asynchronous - use the returned `runId` to track status
 - Check console logs in both terminal windows for errors
+- Confirm publisher and renderer use the same queue region, topic, project, and token environment scope
 
 ### Development Tips
 

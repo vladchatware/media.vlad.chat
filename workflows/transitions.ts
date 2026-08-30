@@ -1,11 +1,6 @@
-import { sleep } from 'workflow';
 import { head, put } from '@vercel/blob';
-import { basename } from 'path';
 
-import {
-    rendererUrl,
-    authHeaders,
-} from './render';
+import { video as renderVideo } from './render';
 import {
     type EnergyArc,
     type TransitionPayload,
@@ -97,80 +92,6 @@ const withMaterializedAudio = (
     incoming: { ...payload.incoming, audioFile: incomingAudioFile },
 });
 
-const submitRender = async (
-    id: string,
-    inputProps: Record<string, unknown>,
-    outputName: string,
-) => {
-    'use step';
-
-    const response = await fetch(`${rendererUrl}/api/render`, {
-        method: 'POST',
-        headers: authHeaders(),
-        body: JSON.stringify({ id, inputProps, outputName, type: 'video' }),
-    });
-    const submitted = await response.json() as { success: boolean; jobId?: string; error?: string };
-
-    if (!response.ok || !submitted.success || !submitted.jobId) {
-        throw new Error(submitted.error ?? `Render submission failed for ${outputName}`);
-    }
-
-    return submitted.jobId;
-};
-
-const getRenderStatus = async (jobId: string) => {
-    'use step';
-
-    const response = await fetch(`${rendererUrl}/api/render/${jobId}`, {
-        headers: authHeaders(),
-    });
-    const result = await response.json() as { status?: string; path?: string; error?: string };
-
-    if (!response.ok) {
-        throw new Error(result.error ?? `Render status failed for job ${jobId}`);
-    }
-
-    return result;
-};
-
-const waitForRender = async (jobId: string) => {
-    for (let attempt = 0; attempt < 120; attempt++) {
-        await sleep(5000);
-        const result = await getRenderStatus(jobId);
-
-        if (result.status === 'done') {
-            if (!result.path) {
-                throw new Error(`Render completed without output path: ${jobId}`);
-            }
-            return result.path;
-        }
-        if (result.status === 'error') {
-            throw new Error(result.error || `Render failed: ${jobId}`);
-        }
-    }
-    throw new Error(`Render timed out: ${jobId}`);
-};
-
-const uploadRender = async (path: string) => {
-    'use step';
-
-    const response = await fetch(`${rendererUrl}/api/file?path=${encodeURIComponent(path)}`, {
-        headers: authHeaders(),
-    });
-    if (!response.ok || !response.body) {
-        throw new Error(`Failed to fetch rendered file (${response.status}): ${path}`);
-    }
-
-    const blob = await put(`renders/backroom/${basename(path)}`, response.body, {
-        access: 'public',
-        addRandomSuffix: true,
-    });
-    return {
-        blobUrl: blob.url,
-        url: `${MEDIA_ORIGIN}/public/${blob.pathname}`,
-    };
-};
-
 // --- Workflows --------------------------------------------------------------
 // One composition for the whole transition: approach → blend → post-roll,
 // audio-matched to each pair's best transition window.
@@ -197,15 +118,19 @@ export const transitionBatch = async (
         const incomingAudioFile = await materializeAudio(candidateTrackId);
         const payload = withMaterializedAudio(resolved, outgoingAudioFile, incomingAudioFile);
         const outputName = `transition-${outgoingTrackId}-to-${candidateTrackId}-${energyArc}.mp4`;
-        const jobId = await submitRender(
+        const render = await renderVideo(
             'TransitionCandidate',
             { outgoingTrackId, candidateTrackId, energyArc, payload },
             outputName,
         );
-        const path = await waitForRender(jobId);
-        const uploaded = await uploadRender(path);
 
-        outputs.push({ candidateTrackId, jobId, path, ...uploaded });
+        outputs.push({
+            candidateTrackId,
+            jobId: render.jobId,
+            path: render.path,
+            blobUrl: render.url,
+            url: render.pathname ? `${MEDIA_ORIGIN}/public/${render.pathname}` : render.url,
+        });
     }
 
     return outputs;
@@ -231,15 +156,21 @@ export const backroomFilm = async (
     const incomingAudioFile = await materializeAudio(candidateTrackId);
     const payload = withMaterializedAudio(resolved, outgoingAudioFile, incomingAudioFile);
     const outputName = `backroom-${outgoingTrackId}-to-${candidateTrackId}-${energyArc}.mp4`;
-    const jobId = await submitRender(
+    const render = await renderVideo(
         'Backroom',
         { outgoingTrackId, candidateTrackId, energyArc, payload },
         outputName,
     );
-    const path = await waitForRender(jobId);
-    const uploaded = await uploadRender(path);
 
-    return { outgoingTrackId, candidateTrackId, energyArc, jobId, path, ...uploaded };
+    return {
+        outgoingTrackId,
+        candidateTrackId,
+        energyArc,
+        jobId: render.jobId,
+        path: render.path,
+        blobUrl: render.url,
+        url: render.pathname ? `${MEDIA_ORIGIN}/public/${render.pathname}` : render.url,
+    };
 };
 
 // Candidate discovery + the full film from a single track ID.

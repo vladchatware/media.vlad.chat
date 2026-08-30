@@ -22,6 +22,7 @@ The workflow system is built on [Vercel Workflow DevKit](https://useworkflow.dev
 - **Real-time streaming** - Progress updates streamed to clients as workflows execute
 - **MCP integration** - AI agents can start and manage workflows via Model Context Protocol
 - **Cancelation** - Running workflows can be stopped at checkpoints
+- **Render backpressure** - CPU-heavy Remotion jobs are dispatched through Vercel Queue
 
 ---
 
@@ -60,6 +61,11 @@ The workflow system is built on [Vercel Workflow DevKit](https://useworkflow.dev
 │  POST /api/workflow/[runId]/cancel  → Cancel workflow           │
 └─────────────────────────────────────────────────────────────────┘
 ```
+
+Remotion rendering is the infrastructure boundary: workflows publish durable
+render messages, while the external renderer consumes them with bounded
+concurrency, uploads outputs directly to Vercel Blob, and persists job status
+on its Docker volume. Other generation and coordination steps remain workflows.
 
 ---
 

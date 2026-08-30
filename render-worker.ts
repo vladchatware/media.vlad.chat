@@ -1,8 +1,8 @@
 // render-worker.ts
 import { bundle } from '@remotion/bundler'
 import { renderMedia, selectComposition, renderStill, renderFrames, OnStartData } from '@remotion/renderer'
-import { mkdir } from 'node:fs/promises'
-import { join } from 'path'
+import { mkdir, rm } from 'node:fs/promises'
+import { basename, join } from 'path'
 import {
   fetchFullAudioBytes,
   resolveTransitionPayload,
@@ -12,6 +12,7 @@ import {
 
 // Define the shape of the message received from the main thread
 interface RenderRequest {
+  jobId: string
   id: string
   inputProps: Record<string, any>
   outputName?: string
@@ -77,7 +78,7 @@ const prepareInputProps = async (
 // Listen for messages from the main thread
 // @ts-ignore
 self.onmessage = async (event: MessageEvent) => {
-  const { id, inputProps, outputName, type } = event.data as RenderRequest
+  const { jobId, id, inputProps, outputName, type } = event.data as RenderRequest
 
   try {
     console.log(`Worker: Starting render for ${id} (${type})...`)
@@ -107,7 +108,7 @@ self.onmessage = async (event: MessageEvent) => {
     let outputLocation = ''
 
     if (type === 'still') {
-      outputLocation = `out/${id}-${Date.now()}.png`
+      outputLocation = `out/${jobId}.png`
       await renderStill({
         composition,
         serveUrl: bundled,
@@ -115,8 +116,7 @@ self.onmessage = async (event: MessageEvent) => {
         inputProps: preparedInputProps,
       })
     } else if (type === 'sequence') {
-      const stamp = Date.now()
-      const dirName = `out/${id}-${stamp}`
+      const dirName = `out/${jobId}`
       outputLocation = dirName
 
       await renderFrames({
@@ -134,14 +134,15 @@ self.onmessage = async (event: MessageEvent) => {
       })
 
       const archive = `${dirName}.tar.gz`
-      const archiveResult = Bun.spawnSync(['tar', '-czf', archive, '-C', 'out', `${id}-${stamp}`])
+      const archiveResult = Bun.spawnSync(['tar', '-czf', archive, '-C', 'out', jobId])
       if (archiveResult.exitCode !== 0) {
         throw new Error(`Failed to archive frames: ${archiveResult.stderr.toString()}`)
       }
+      await rm(dirName, { recursive: true, force: true })
 
       outputLocation = archive
     } else {
-      outputLocation = `out/${outputName ?? `${id}-${Date.now()}.mp4`}`
+      outputLocation = `out/${jobId}-${outputName ? basename(outputName) : `${id}.mp4`}`
       await renderMedia({
         composition,
         serveUrl: bundled,
