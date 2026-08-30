@@ -1,7 +1,8 @@
 // render-worker.ts
 import { bundle } from '@remotion/bundler'
 import { renderMedia, selectComposition, renderStill, renderFrames, OnStartData } from '@remotion/renderer'
-import { mkdir, rm } from 'node:fs/promises'
+import { head, put } from '@vercel/blob'
+import { rm } from 'node:fs/promises'
 import { basename, join } from 'path'
 import {
   fetchFullAudioBytes,
@@ -34,16 +35,32 @@ const assertTrackId = (value: unknown, field: string): string => {
 }
 
 const materializeTrackAudio = async (trackId: string): Promise<string> => {
-  const relativePath = `backroom-audio/${trackId}-full.mp3`
-  const absolutePath = join(process.cwd(), 'remotion', 'public', relativePath)
-  const existing = Bun.file(absolutePath)
-  if (await existing.exists() && existing.size > 1024) return relativePath
+  const pathname = `backroom-audio/${trackId}-full.mp3`
+  try {
+    const existing = await head(pathname)
+    return existing.downloadUrl ?? existing.url
+  } catch {
+    // Missing from Blob; resolve and upload the full track below.
+  }
 
   console.log(`Worker: Materializing full HLS audio for ${trackId}...`)
   const bytes = await fetchFullAudioBytes(trackId)
-  await mkdir(join(process.cwd(), 'remotion', 'public', 'backroom-audio'), { recursive: true })
-  await Bun.write(absolutePath, bytes)
-  return relativePath
+  try {
+    const blob = await put(pathname, bytes, {
+      access: 'public',
+      addRandomSuffix: false,
+      contentType: 'audio/mpeg',
+    })
+    return blob.downloadUrl ?? blob.url
+  } catch (error) {
+    // Another render may have populated the deterministic pathname first.
+    try {
+      const existing = await head(pathname)
+      return existing.downloadUrl ?? existing.url
+    } catch {
+      throw error
+    }
+  }
 }
 
 const prepareInputProps = async (
