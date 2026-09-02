@@ -18,6 +18,7 @@ import { Thread } from './Thread'
 import { Tweet } from './Tweet'
 import { Carousel } from './Carousel'
 import { Outro } from './Outro'
+import { StreamCountdown, streamCountdownSchema } from './StreamCountdown'
 
 import { storyData } from './data'
 import { carouselSchema, outroSchema, storyProp, threadSchema, tweetSchema } from './types'
@@ -101,6 +102,26 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1080}
         height={1920}
+      />
+      <Composition
+        id="StreamCountdown"
+        component={StreamCountdown}
+        durationInFrames={450}
+        fps={30}
+        width={1080}
+        height={1920}
+        schema={streamCountdownSchema}
+        defaultProps={{
+          daysToGo: 3,
+          eyebrow: 'music.vlad.chat presents',
+          eventLabel: 'Last Frutiger Aero Stream',
+          dateLabel: 'Saturday / Sep 05',
+          timeLabel: '21:00',
+          timezone: 'Bangkok / GMT+7',
+          url: 'music.vlad.chat',
+          accent: '#74e43c',
+          audioSrc: 'track-1758427929.mp3',
+        }}
       />
       <Composition
         id="shop-vlad-chat"
