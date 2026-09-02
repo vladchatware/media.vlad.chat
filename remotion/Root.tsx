@@ -232,6 +232,7 @@ export const RemotionRoot: React.FC = () => {
             dialog: storyData.dialog.map((line, i) => ({
               ...line,
               sound: `speech-${i}.mp3`,
+              captionsSrc: `captions-${i}.json`,
             })),
           },
           sound: '1939477514.mp4',
@@ -255,6 +256,7 @@ export const RemotionRoot: React.FC = () => {
             dialog: storyData.dialog.map((line, i) => ({
               ...line,
               sound: `speech-${i}.mp3`,
+              captionsSrc: `captions-${i}.json`,
             })),
           },
           sound: '1939477514.mp4',

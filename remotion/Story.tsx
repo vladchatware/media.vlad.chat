@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Audio, AbsoluteFill, Img, Sequence, continueRender, delayRender } from "remotion";
+import { Audio, AbsoluteFill, Img, Sequence, cancelRender, continueRender, delayRender } from "remotion";
 import { CameraMotionBlur } from '@remotion/motion-blur';
 import { Caption } from '@remotion/captions';
+import { openAiWhisperApiToCaptions } from '@remotion/openai-whisper';
 import { Captions, styles } from './Captions';
 import { staticUrl } from './assets';
 
@@ -23,38 +24,39 @@ export type StoryMetadata = {
   }[]
 }
 
-// Whisper verbose_json words are in seconds; Captions expects milliseconds.
-const whisperToCaptions = (data: any): Caption[] =>
-  (data?.words ?? []).map((w: any) => ({
-    text: w.word,
-    start: Math.round(w.start * 1000),
-    end: Math.round(w.end * 1000),
-  }))
-
 const DialogCaptions: React.FC<{
   captionsSrc?: string;
   captions?: Caption[];
   captionPosition: string;
   combineTokensWithinMilliseconds: number;
 }> = ({ captionsSrc, captions, ...rest }) => {
-  const [resolved, setResolved] = useState<Caption[] | null>(captions ?? null)
+  const [resolved, setResolved] = useState<Caption[] | null>(
+    captions?.length ? captions : captionsSrc ? null : [],
+  )
 
   useEffect(() => {
-    if (!captionsSrc || captions) return
+    if (!captionsSrc || captions?.length) return
     let alive = true
     const handle = delayRender(`Fetching captions from ${captionsSrc}`)
-    fetch(captionsSrc)
-      .then((res) => res.json())
+    fetch(staticUrl(captionsSrc))
+      .then((res) => {
+        if (!res.ok) throw new Error(`Failed to fetch captions: ${res.status} ${res.statusText}`)
+        return res.json()
+      })
       .then((data) => {
         if (!alive) return
-        setResolved(whisperToCaptions(data))
+        const converted = openAiWhisperApiToCaptions({ transcription: data })
+        setResolved(converted.captions)
         continueRender(handle)
       })
-      .catch(() => {
-        if (alive) continueRender(handle)
+      .catch((error) => {
+        if (alive) cancelRender(error)
       })
-    return () => { alive = false }
-  }, [captionsSrc])
+    return () => {
+      alive = false
+      continueRender(handle)
+    }
+  }, [captionsSrc, captions])
 
   if (!resolved) return null
   return <Captions captions={resolved} {...rest} />
@@ -63,9 +65,8 @@ const DialogCaptions: React.FC<{
 export const Story = ({ story, sound = '1939477514.mp4' }: { story: StoryMetadata; sound?: string }) => {
   const sections = story.dialog.map((line, i) => {
     const sound = line.sound ?? `speech-${i}.mp3`
-    const captions = line.captions ?? []
     const durationInFrames = line.durationInFrames ?? Math.max(1, Math.floor((line.seconds ?? 8) * 30))
-    return { ...line, sound, captions, durationInFrames }
+    return { ...line, sound, durationInFrames }
   })
 
   let cursor = 0
