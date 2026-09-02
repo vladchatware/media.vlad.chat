@@ -1,6 +1,5 @@
 import { sleep } from 'workflow'
 import { BlobNotFoundError, head } from '@vercel/blob'
-import { basename } from 'path'
 import { createRenderJobId, enqueueRender } from '../lib/server/renderQueue'
 import type { RenderType } from '../lib/renderQueueMessage'
 
@@ -23,7 +22,7 @@ type RenderOutput = {
 const expectedBlobPathname = (jobId: string, id: string, type: RenderType, outputName?: string): string => {
     if (type === 'still') return `renders/${jobId}-${jobId}.png`
     if (type === 'sequence') return `renders/${jobId}-${jobId}.tar.gz`
-    const name = outputName ? basename(outputName) : `${id}.mp4`
+    const name = outputName ? outputName.split('/').pop() || `${id}.mp4` : `${id}.mp4`
     return `renders/${jobId}-${jobId}-${name}`
 }
 
