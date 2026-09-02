@@ -77,22 +77,19 @@ A content-generation engine that composes short-form social media content (image
 | `npm run start` | Start Next.js production server |
 | `npm run serve:render` | Start Bun-based renderer on port 3001 (requires Bun) |
 | `npm run studio` | Launch Remotion Studio for composition previews |
-| `npm run render:infra:up` | Build + start renderer & Cloudflare tunnel (Docker) |
-| `npm run render:infra:logs` | Tail renderer & tunnel logs |
-| `npm run render:infra:down` | Stop the renderer stack |
-| `npm run render:infra:validate` | Validate the renderer compose config |
 
 **Self-Hosted Renderer**
 
-The Remotion renderer (`renderer.ts` / `render-worker.ts`) can run as a Docker service behind a Cloudflare quick tunnel, mirroring the `music.vlad.chat` analysis-worker setup.
+The Remotion renderer (`renderer.ts` / `render-worker.ts`) runs as a worker (bare Bun via `npm run serve:render`, or the `Dockerfile.worker` image) that receives jobs via the Vercel Queue and uploads finished output to Vercel Blob — no inbound access (tunnel/port-forward) is required.
 
-1. Copy `workers/renderer/.env.example` to `workers/renderer/.env` and set `RENDERER_SECRET` (a shared secret; the app sends it as `Authorization: Bearer <secret>`). For Backroom renders, also set `ANALYSIS_SERVICE_SECRET` and `CONVEX_SITE_URL` so the renderer can resolve and materialize SoundCloud's full-length HLS audio reliably.
-2. Start both containers (renderer + cloudflared):
+1. Provide the worker env (`RENDERER_SECRET`, `BLOB_READ_WRITE_TOKEN`, `VERCEL_API_TOKEN`, `VERCEL_PROJECT_ID`, optionally `VERCEL_ORG_ID` / `VERCEL_QUEUE_REGION` / `VERCEL_RENDER_QUEUE_TOPIC` / `VERCEL_RENDER_QUEUE_CONSUMER_GROUP`). For Backroom renders, also set `ANALYSIS_SERVICE_SECRET` and `CONVEX_SITE_URL` so the renderer can resolve and materialize SoundCloud's full-length HLS audio reliably.
+2. Run it:
    ```bash
-   npm run render:infra:up
+   docker build -f Dockerfile.worker -t media-renderer .
+   docker run -d --name media-renderer --env-file renderer.env -v media-renderer-data:/app/data -v media-renderer-out:/app/out -p 3001:3001 media-renderer
    ```
-   Follow with `npm run render:infra:logs`; stop with `npm run render:infra:down`. The tunnel URL is printed in the cloudflared logs (a fresh `https://*.trycloudflare.com` on each start).
-3. Point the app at the renderer. `workflows/render.ts` reads `RENDERER_URL` (defaults to `http://localhost:3001`) and `RENDERER_SECRET`. For a Vercel-hosted app, run `scripts/setup-renderer-tunnel.ps1` (optionally with `-VercelToken`) to push the tunnel URL as `RENDERER_URL`.
+   or outside Docker: `npm run serve:render`.
+3. The app learns render results by polling the deterministic Blob output path (`workflows/render.ts`); nothing needs to point at the renderer host.
 
 The renderer container includes FFmpeg, a headless Chrome shell for Remotion, and the `public/` assets. Rendering is tuned for this machine (concurrency 2, 120s frame timeout); adjust `render-worker.ts` if needed. Rendered output is written to `out/` inside the container.
 
@@ -280,8 +277,7 @@ OPENAI_API_KEY=sk-...          # OpenAI API key for all AI generation features
 # Optional
 AI_GATEWAY_API_KEY=...         # For AI Gateway integration (if using @ai-sdk/gateway)
 BLOB_READ_WRITE_TOKEN=...      # Vercel Blob token (local dev / non-Vercel hosts only; OIDC auto-auths on Vercel)
-RENDERER_URL=...               # Renderer URL (defaults to http://localhost:3001)
-RENDERER_SECRET=...            # Shared secret for renderer auth
+RENDERER_SECRET=...            # Shared secret guarding the renderer's local status API
 VERCEL_QUEUE_REGION=iad1       # Must match the renderer worker
 VERCEL_RENDER_QUEUE_TOPIC=media-render
 VERCEL_API_TOKEN=...           # Scoped token used to mint off-platform queue auth

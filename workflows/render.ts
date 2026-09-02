@@ -1,49 +1,42 @@
 import { sleep } from 'workflow'
+import { BlobNotFoundError, head } from '@vercel/blob'
+import { basename } from 'path'
 import { createRenderJobId, enqueueRender } from '../lib/server/renderQueue'
 import type { RenderType } from '../lib/renderQueueMessage'
 
-export const rendererUrl = process.env.RENDERER_URL || 'http://localhost:3001'
-const rendererSecret = process.env.RENDERER_SECRET
-
-export const authHeaders = (): Record<string, string> => {
-    const headers: Record<string, string> = {
-        'Content-Type': 'application/json'
-    }
-
-    if (rendererSecret) {
-        headers.Authorization = `Bearer ${rendererSecret}`
-    }
-
-    return headers
+type RenderOutput = {
+    success: true
+    url: string
+    pathname: string
+    path: string
+    jobId: string
 }
 
-type RenderStatus = {
-    status?: 'pending' | 'running' | 'done' | 'error'
-    path?: string
-    url?: string
-    pathname?: string
-    error?: string
+// The renderer uploads finished output to a deterministic Blob pathname:
+//   renderer.ts: `renders/${jobId}-${basename(outputLocation)}`
+//   render-worker.ts outputLocation:
+//     still    -> out/${jobId}.png
+//     sequence -> out/${jobId}.tar.gz
+//     video    -> out/${jobId}-${outputName || `${id}.mp4`}
+// so the workflow can await completion by polling Blob directly, with no
+// route back into the renderer host.
+const expectedBlobPathname = (jobId: string, id: string, type: RenderType, outputName?: string): string => {
+    if (type === 'still') return `renders/${jobId}-${jobId}.png`
+    if (type === 'sequence') return `renders/${jobId}-${jobId}.tar.gz`
+    const name = outputName ? basename(outputName) : `${id}.mp4`
+    return `renders/${jobId}-${jobId}-${name}`
 }
 
-const getRenderStatus = async (jobId: string) => {
+const findRenderOutput = async (pathname: string) => {
     "use step"
 
-    let response: Response
     try {
-        response = await fetch(`${rendererUrl}/api/render/${jobId}`, {
-            headers: authHeaders()
-        })
-    } catch {
-        return { status: 'pending' as const }
+        const blob = await head(pathname)
+        return { url: blob.downloadUrl ?? blob.url, pathname: blob.pathname ?? pathname }
+    } catch (error) {
+        if (error instanceof BlobNotFoundError) return null
+        throw error
     }
-    if (!response.ok) {
-        if (response.status >= 500) return { status: 'pending' as const }
-        const result = await response.json().catch(() => ({})) as RenderStatus
-        throw new Error(result.error || `Render status failed: ${response.status}`)
-    }
-    const result = await response.json() as RenderStatus
-
-    return result
 }
 
 const render = async (
@@ -51,29 +44,23 @@ const render = async (
     inputProps: Record<string, any>,
     type: RenderType,
     outputName?: string,
-) => {
+): Promise<RenderOutput> => {
     const jobId = await createRenderJobId()
     await enqueueRender(jobId, id, inputProps, type, outputName)
+    const pathname = expectedBlobPathname(jobId, id, type, outputName)
 
     // Queue wait time is included, so allow enough headroom for backpressure.
     for (let attempt = 0; attempt < 360; attempt++) {
         await sleep(5000)
 
-        const result = await getRenderStatus(jobId)
+        const output = await findRenderOutput(pathname)
 
-        if (result.status === 'done') {
-            if (!result.url) {
-                throw new Error(`Render completed without output: ${jobId}`)
-            }
-            const path = result.pathname ?? result.path
-            return { success: true, url: result.url, pathname: result.pathname, path, jobId }
-        }
-        if (result.status === 'error') {
-            throw new Error(result.error || 'Render failed')
+        if (output) {
+            return { success: true, url: output.url, pathname: output.pathname, path: output.pathname, jobId }
         }
     }
 
-    throw new Error(`Render timed out: ${jobId}`)
+    throw new Error(`Render timed out: ${jobId} (no output at ${pathname})`)
 }
 
 // composition, content
