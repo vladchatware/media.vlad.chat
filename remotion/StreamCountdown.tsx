@@ -1,7 +1,6 @@
 import React from 'react'
 import { z } from 'zod/v3'
-import { Audio } from '@remotion/media'
-import { AbsoluteFill, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion'
+import { AbsoluteFill, Audio, interpolate, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion'
 
 export const streamCountdownSchema = z.object({
   daysToGo: z.number().int().min(1).max(99),

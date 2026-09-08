@@ -297,18 +297,13 @@ export const resolveTransitionPayload = async ({
 };
 
 // Ensure both tracks have a stored analysis before resolving. Enqueues via
-// the track endpoint (same path the desk's AnalysisEnqueue button uses) and
-// polls the public analysis API. Call from a workflow with sleeps in between.
+// music.vlad.chat's service API (workflows/transitions.ts) and polls the
+// public analysis API. Call from a workflow with sleeps in between.
 export const missingAnalyses = async (trackIds: string[]): Promise<string[]> => {
   const results = await Promise.all(
     trackIds.map(async (id) => ((await fetchStoredAnalysis(id).catch(() => null)) ? null : id)),
   );
   return results.filter((id): id is string => Boolean(id));
-};
-
-export const enqueueAnalysis = async (trackId: string): Promise<void> => {
-  const response = await fetch(`${MUSIC_ORIGIN}/api/tracks/${trackId}?force=true`);
-  if (!response.ok) throw new Error(`Analysis enqueue failed (${response.status}) for ${trackId}`);
 };
 
 // ---------------------------------------------------------------------------
