@@ -67,6 +67,21 @@ render messages, while the external renderer consumes them with bounded
 concurrency, uploads outputs directly to Vercel Blob, and persists job status
 on its Docker volume. Other generation and coordination steps remain workflows.
 
+### Service boundary: track analysis (music.vlad.chat)
+
+Track analyses (BPM, energy, transition windows) belong to music.vlad.chat.
+Media never touches music's Convex database or queue directly:
+
+- **Enqueue**: `scheduleAnalyses` (`workflows/transitions.ts`) POSTs missing
+  track IDs to `POST https://music.vlad.chat/api/analysis/enqueue` with the
+  shared `ANALYSIS_SERVICE_SECRET`. Music performs its own Convex bookkeeping
+  and publishes the `track-analysis` queue messages with correctly-scoped
+  credentials — queue visibility is partitioned by the publisher token's
+  project claim, so a publisher must live in the consumer's project scope.
+- **Readiness**: there is no completion webhook. Workflows poll music's public
+  analysis endpoint (`missingAnalyses`) on a bounded loop (30s interval,
+  60 min ceiling) and proceed to the render when every track is analyzed.
+
 ---
 
 ## Workflows
